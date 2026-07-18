@@ -1,0 +1,6 @@
+{
+  "name": "AI Business Factory",
+  "description": "Uma plataforma avançada de fábrica de negócios movida a IA que gerencia sistemas de múltiplos agentes autônomos para pesquisar mercados, criar produtos digitais e automatizar processos de negócios.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
