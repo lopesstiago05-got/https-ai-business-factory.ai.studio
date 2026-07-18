@@ -4171,5 +4171,974 @@
       "channelType": "meta_ads",
       "budget": 150
     }
+  },
+  {
+    "id": "aud_u6hnfadxc",
+    "timestamp": "2026-07-18T16:20:30.248Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "product-lab",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_mp0m29cwu",
+      "productName": "Fórmula de Sucesso para Fintech e Automações de Cobrança",
+      "format": "TEMPLATE"
+    }
+  },
+  {
+    "id": "aud_50npc7x4t",
+    "timestamp": "2026-07-18T16:20:30.344Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "market-analyst",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_mp0m29cwu",
+      "validationScore": 82,
+      "category": "ALTA_OPORTUNIDADE"
+    }
+  },
+  {
+    "id": "aud_6k1lejtpb",
+    "timestamp": "2026-07-18T16:20:30.415Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "product-lab",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_mp0m29cwu",
+      "moduleCount": 2
+    }
+  },
+  {
+    "id": "aud_yrddcz9ut",
+    "timestamp": "2026-07-18T16:20:30.486Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_mp0m29cwu",
+      "writerFinished": true,
+      "designerFinished": true,
+      "marketingFinished": true
+    }
+  },
+  {
+    "id": "aud_05kj186yu",
+    "timestamp": "2026-07-18T16:20:30.760Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "finance-center",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_mp0m29cwu",
+      "price": 47,
+      "overallScore": 88
+    }
+  },
+  {
+    "id": "aud_xiiczw169",
+    "timestamp": "2026-07-18T16:20:30.955Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "postId": "post_3x7ytlnmo",
+      "channelType": "instagram",
+      "caption": "📸 FEED: Você sabia que a maioria das empresas per"
+    }
+  },
+  {
+    "id": "aud_add0mhsjc",
+    "timestamp": "2026-07-18T16:20:31.038Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "postId": "post_ubs39ybrq",
+      "channelType": "tiktok",
+      "caption": "🚨 GANCHO DE 3 SEGUNDOS: Pare de fazer tudo manual"
+    }
+  },
+  {
+    "id": "aud_oz0qyiq9p",
+    "timestamp": "2026-07-18T16:20:31.128Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "marketing-center",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "campaignId": "meta_camp_tth9p4te4",
+      "name": "Lançamento Fórmula de Sucesso para Fintech e Automações de Cobrança - Conversão Tráfego Frio",
+      "channelType": "meta_ads",
+      "budget": 150
+    }
+  },
+  {
+    "id": "aud_hx6c4pt60",
+    "timestamp": "2026-07-18T16:20:31.157Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "publisher-center",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_mp0m29cwu",
+      "event": "PRODUCT_READY_FOR_LAUNCH",
+      "campaignCreated": true,
+      "whatsappBroadcasting": true,
+      "marketplaceListed": true,
+      "provider": "kiwify",
+      "checkoutUrl": "https://checkout.kiwify.com/prod-proj_mp0m29cwu"
+    }
+  },
+  {
+    "id": "aud_cc8m4jdv2",
+    "timestamp": "2026-07-18T16:25:45.439Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "product-lab",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_k56u4en0b",
+      "productName": "Fórmula de Sucesso para Fintech e Automações de Cobrança",
+      "format": "MENTORIA"
+    }
+  },
+  {
+    "id": "aud_v0jcoev25",
+    "timestamp": "2026-07-18T16:25:45.611Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "market-analyst",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_k56u4en0b",
+      "validationScore": 82,
+      "category": "ALTA_OPORTUNIDADE"
+    }
+  },
+  {
+    "id": "aud_ptj8z3bar",
+    "timestamp": "2026-07-18T16:25:45.714Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "product-lab",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_k56u4en0b",
+      "moduleCount": 3
+    }
+  },
+  {
+    "id": "aud_9gfo1zkyx",
+    "timestamp": "2026-07-18T16:25:45.839Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_k56u4en0b",
+      "writerFinished": true,
+      "designerFinished": true,
+      "marketingFinished": true
+    }
+  },
+  {
+    "id": "aud_7mwytkjqs",
+    "timestamp": "2026-07-18T16:25:46.265Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "finance-center",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_k56u4en0b",
+      "price": 997,
+      "overallScore": 79
+    }
+  },
+  {
+    "id": "aud_vnlagjv67",
+    "timestamp": "2026-07-18T16:25:46.575Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "postId": "post_dt2gy8njs",
+      "channelType": "instagram",
+      "caption": "📸 FEED: Você sabia que a maioria das empresas per"
+    }
+  },
+  {
+    "id": "aud_fu6s0ogd6",
+    "timestamp": "2026-07-18T16:25:46.749Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "postId": "post_bp9hx69lu",
+      "channelType": "tiktok",
+      "caption": "🚨 GANCHO DE 3 SEGUNDOS: Pare de fazer tudo manual"
+    }
+  },
+  {
+    "id": "aud_fm4xgo8qc",
+    "timestamp": "2026-07-18T16:25:46.831Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "marketing-center",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "campaignId": "meta_camp_rks6ekmj7",
+      "name": "Lançamento Fórmula de Sucesso para Fintech e Automações de Cobrança - Conversão Tráfego Frio",
+      "channelType": "meta_ads",
+      "budget": 150
+    }
+  },
+  {
+    "id": "aud_10iwd8557",
+    "timestamp": "2026-07-18T16:25:46.864Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "publisher-center",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_k56u4en0b",
+      "event": "PRODUCT_READY_FOR_LAUNCH",
+      "campaignCreated": true,
+      "whatsappBroadcasting": true,
+      "marketplaceListed": true,
+      "provider": "kiwify",
+      "checkoutUrl": "https://checkout.kiwify.com/prod-proj_k56u4en0b"
+    }
+  },
+  {
+    "id": "aud_grdbqp9wt",
+    "timestamp": "2026-07-18T16:25:51.226Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "sales-channels",
+    "action": "INTEGRATION_CONNECTED",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "channelId": "ch_ig",
+      "channelType": "instagram",
+      "username": "@meu_canal_teste"
+    }
+  },
+  {
+    "id": "aud_h8yr3f36h",
+    "timestamp": "2026-07-18T16:25:51.229Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "sales-channels",
+    "action": "INTEGRATION_DISCONNECTED",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "channelId": "ch_ig"
+    }
+  },
+  {
+    "id": "aud_79rsk358d",
+    "timestamp": "2026-07-18T16:25:51.317Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "postId": "post_mc8iag40s",
+      "channelType": "instagram",
+      "caption": "📸 FEED: Você sabia que a maioria das empresas per"
+    }
+  },
+  {
+    "id": "aud_e747mmfp6",
+    "timestamp": "2026-07-18T16:25:51.507Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "marketing-center",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "campaignId": "meta_camp_rrdmq9rzr",
+      "name": "Campanha de Tráfego Teste",
+      "channelType": "meta_ads",
+      "budget": 250
+    }
+  },
+  {
+    "id": "aud_3g49cez3l",
+    "timestamp": "2026-07-18T16:25:51.738Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "postId": "post_x0vdcwb3h",
+      "channelType": "instagram",
+      "caption": "📸 FEED: Você sabia que a maioria das empresas per"
+    }
+  },
+  {
+    "id": "aud_118d8dgnh",
+    "timestamp": "2026-07-18T16:25:51.875Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "postId": "post_b3bc0vc4e",
+      "channelType": "tiktok",
+      "caption": "🚨 GANCHO DE 3 SEGUNDOS: Pare de fazer tudo manual"
+    }
+  },
+  {
+    "id": "aud_f1oigx86p",
+    "timestamp": "2026-07-18T16:25:51.944Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "marketing-center",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "campaignId": "meta_camp_1murz1hpa",
+      "name": "Lançamento Curso Prático de Vendas Automatizadas - Conversão Tráfego Frio",
+      "channelType": "meta_ads",
+      "budget": 150
+    }
+  },
+  {
+    "id": "aud_y5t5e512u",
+    "timestamp": "2026-07-18T16:31:28.837Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "product-lab",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_2uo34b9p8",
+      "productName": "Fórmula de Sucesso para Fintech e Automações de Cobrança",
+      "format": "EBOOK"
+    }
+  },
+  {
+    "id": "aud_uqejibqh9",
+    "timestamp": "2026-07-18T16:31:28.975Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "market-analyst",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_2uo34b9p8",
+      "validationScore": 82,
+      "category": "ALTA_OPORTUNIDADE"
+    }
+  },
+  {
+    "id": "aud_afx5kk1as",
+    "timestamp": "2026-07-18T16:31:29.054Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "product-lab",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_2uo34b9p8",
+      "moduleCount": 3
+    }
+  },
+  {
+    "id": "aud_kcb015pnb",
+    "timestamp": "2026-07-18T16:31:29.240Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_2uo34b9p8",
+      "writerFinished": true,
+      "designerFinished": true,
+      "marketingFinished": true
+    }
+  },
+  {
+    "id": "aud_jwoeh07nc",
+    "timestamp": "2026-07-18T16:31:29.650Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "finance-center",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_2uo34b9p8",
+      "price": 97,
+      "overallScore": 90
+    }
+  },
+  {
+    "id": "aud_l63csr33o",
+    "timestamp": "2026-07-18T16:31:29.915Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "postId": "post_ewvlx28h5",
+      "channelType": "instagram",
+      "caption": "📸 FEED: Você sabia que a maioria das empresas per"
+    }
+  },
+  {
+    "id": "aud_9rjo6jjgt",
+    "timestamp": "2026-07-18T16:31:30.039Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "postId": "post_ff6bsr9pp",
+      "channelType": "tiktok",
+      "caption": "🚨 GANCHO DE 3 SEGUNDOS: Pare de fazer tudo manual"
+    }
+  },
+  {
+    "id": "aud_8m6paofuz",
+    "timestamp": "2026-07-18T16:31:30.173Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "marketing-center",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "campaignId": "meta_camp_8zt06xuvh",
+      "name": "Lançamento Fórmula de Sucesso para Fintech e Automações de Cobrança - Conversão Tráfego Frio",
+      "channelType": "meta_ads",
+      "budget": 150
+    }
+  },
+  {
+    "id": "aud_ays26qz6g",
+    "timestamp": "2026-07-18T16:31:30.218Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "publisher-center",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_2uo34b9p8",
+      "event": "PRODUCT_READY_FOR_LAUNCH",
+      "campaignCreated": true,
+      "whatsappBroadcasting": true,
+      "marketplaceListed": true,
+      "provider": "kiwify",
+      "checkoutUrl": "https://checkout.kiwify.com/prod-proj_2uo34b9p8"
+    }
+  },
+  {
+    "id": "aud_4jydjkgir",
+    "timestamp": "2026-07-18T16:32:36.314Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "product-lab",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_fcq3y46dr",
+      "productName": "Fórmula de Sucesso para Fintech e Automações de Cobrança",
+      "format": "EBOOK"
+    }
+  },
+  {
+    "id": "aud_6m1z1qkg0",
+    "timestamp": "2026-07-18T16:32:36.399Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "market-analyst",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_fcq3y46dr",
+      "validationScore": 82,
+      "category": "ALTA_OPORTUNIDADE"
+    }
+  },
+  {
+    "id": "aud_hfuoftm6g",
+    "timestamp": "2026-07-18T16:32:36.481Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "product-lab",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_fcq3y46dr",
+      "moduleCount": 3
+    }
+  },
+  {
+    "id": "aud_fjk5km34y",
+    "timestamp": "2026-07-18T16:32:36.559Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_fcq3y46dr",
+      "writerFinished": true,
+      "designerFinished": true,
+      "marketingFinished": true
+    }
+  },
+  {
+    "id": "aud_w02myurx3",
+    "timestamp": "2026-07-18T16:32:36.865Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "finance-center",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_fcq3y46dr",
+      "price": 97,
+      "overallScore": 90
+    }
+  },
+  {
+    "id": "aud_cdkgp4rjc",
+    "timestamp": "2026-07-18T16:32:37.094Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "postId": "post_pj5jsasd0",
+      "channelType": "instagram",
+      "caption": "📸 FEED: Você sabia que a maioria das empresas per"
+    }
+  },
+  {
+    "id": "aud_2popg4pki",
+    "timestamp": "2026-07-18T16:32:37.175Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "postId": "post_vxagpddc6",
+      "channelType": "tiktok",
+      "caption": "🚨 GANCHO DE 3 SEGUNDOS: Pare de fazer tudo manual"
+    }
+  },
+  {
+    "id": "aud_p7bndvoyw",
+    "timestamp": "2026-07-18T16:32:37.237Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "marketing-center",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "campaignId": "meta_camp_9gsq8fjqa",
+      "name": "Lançamento Fórmula de Sucesso para Fintech e Automações de Cobrança - Conversão Tráfego Frio",
+      "channelType": "meta_ads",
+      "budget": 150
+    }
+  },
+  {
+    "id": "aud_kg3ti2nst",
+    "timestamp": "2026-07-18T16:32:37.267Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "publisher-center",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_fcq3y46dr",
+      "event": "PRODUCT_READY_FOR_LAUNCH",
+      "campaignCreated": true,
+      "whatsappBroadcasting": true,
+      "marketplaceListed": true,
+      "provider": "kiwify",
+      "checkoutUrl": "https://checkout.kiwify.com/prod-proj_fcq3y46dr"
+    }
+  },
+  {
+    "id": "aud_johegbx2w",
+    "timestamp": "2026-07-18T16:34:11.332Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "product-lab",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_f6cd7evkw",
+      "productName": "Fórmula de Sucesso para Fintech e Automações de Cobrança",
+      "format": "TEMPLATE"
+    }
+  },
+  {
+    "id": "aud_mm6r5hzyo",
+    "timestamp": "2026-07-18T16:34:11.416Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "market-analyst",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_f6cd7evkw",
+      "validationScore": 82,
+      "category": "ALTA_OPORTUNIDADE"
+    }
+  },
+  {
+    "id": "aud_8z6k3puzk",
+    "timestamp": "2026-07-18T16:34:11.998Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "product-lab",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_f6cd7evkw",
+      "moduleCount": 2
+    }
+  },
+  {
+    "id": "aud_oci3mbyn0",
+    "timestamp": "2026-07-18T16:34:12.163Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_f6cd7evkw",
+      "writerFinished": true,
+      "designerFinished": true,
+      "marketingFinished": true
+    }
+  },
+  {
+    "id": "aud_g498g4bxf",
+    "timestamp": "2026-07-18T16:34:12.456Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "finance-center",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_f6cd7evkw",
+      "price": 47,
+      "overallScore": 88
+    }
+  },
+  {
+    "id": "aud_d3wfrnbei",
+    "timestamp": "2026-07-18T16:34:12.661Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "postId": "post_osofmmh2e",
+      "channelType": "instagram",
+      "caption": "📸 FEED: Você sabia que a maioria das empresas per"
+    }
+  },
+  {
+    "id": "aud_rxzfpjz8w",
+    "timestamp": "2026-07-18T16:34:12.731Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "postId": "post_wydlwxz4g",
+      "channelType": "tiktok",
+      "caption": "🚨 GANCHO DE 3 SEGUNDOS: Pare de fazer tudo manual"
+    }
+  },
+  {
+    "id": "aud_7jivinmin",
+    "timestamp": "2026-07-18T16:34:12.806Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "marketing-center",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "campaignId": "meta_camp_xll2o1zoe",
+      "name": "Lançamento Fórmula de Sucesso para Fintech e Automações de Cobrança - Conversão Tráfego Frio",
+      "channelType": "meta_ads",
+      "budget": 150
+    }
+  },
+  {
+    "id": "aud_t2r24q787",
+    "timestamp": "2026-07-18T16:34:12.838Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "publisher-center",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "projectId": "proj_f6cd7evkw",
+      "event": "PRODUCT_READY_FOR_LAUNCH",
+      "campaignCreated": true,
+      "whatsappBroadcasting": true,
+      "marketplaceListed": true,
+      "provider": "kiwify",
+      "checkoutUrl": "https://checkout.kiwify.com/prod-proj_f6cd7evkw"
+    }
+  },
+  {
+    "id": "aud_rcrpzzel1",
+    "timestamp": "2026-07-18T16:34:16.284Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "sales-channels",
+    "action": "INTEGRATION_CONNECTED",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "channelId": "ch_ig",
+      "channelType": "instagram",
+      "username": "@meu_canal_teste"
+    }
+  },
+  {
+    "id": "aud_yl0e03tb1",
+    "timestamp": "2026-07-18T16:34:16.288Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "sales-channels",
+    "action": "INTEGRATION_DISCONNECTED",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "channelId": "ch_ig"
+    }
+  },
+  {
+    "id": "aud_dacstds59",
+    "timestamp": "2026-07-18T16:34:17.551Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "postId": "post_x1ufggc29",
+      "channelType": "instagram",
+      "caption": "📸 FEED: Você sabia que a maioria das empresas per"
+    }
+  },
+  {
+    "id": "aud_cfjb4uyfm",
+    "timestamp": "2026-07-18T16:34:17.628Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "marketing-center",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "campaignId": "meta_camp_sryq8dhiz",
+      "name": "Campanha de Tráfego Teste",
+      "channelType": "meta_ads",
+      "budget": 250
+    }
+  },
+  {
+    "id": "aud_rnzrgqhui",
+    "timestamp": "2026-07-18T16:34:17.858Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "postId": "post_9eqp5jad9",
+      "channelType": "instagram",
+      "caption": "📸 FEED: Você sabia que a maioria das empresas per"
+    }
+  },
+  {
+    "id": "aud_4rgqvpwyw",
+    "timestamp": "2026-07-18T16:34:17.921Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "writer-studio",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "postId": "post_enmyw58v9",
+      "channelType": "tiktok",
+      "caption": "🚨 GANCHO DE 3 SEGUNDOS: Pare de fazer tudo manual"
+    }
+  },
+  {
+    "id": "aud_mv2i8vrtq",
+    "timestamp": "2026-07-18T16:34:17.987Z",
+    "tenantId": "tenant_default",
+    "userId": "usr_default",
+    "userEmail": "creator@enterprise.com",
+    "agentId": "marketing-center",
+    "action": "AGENT_EXECUTION",
+    "result": "SUCCESS",
+    "ipAddress": "127.0.0.1",
+    "metadata": {
+      "campaignId": "meta_camp_7h5pucczf",
+      "name": "Lançamento Curso Prático de Vendas Automatizadas - Conversão Tráfego Frio",
+      "channelType": "meta_ads",
+      "budget": 150
+    }
   }
 ]

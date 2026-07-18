@@ -89,8 +89,9 @@ export class MercadoPagoConnector {
 
     let finalToken = accessToken.trim();
     if (!finalToken.startsWith('APP_USR-')) {
-      logInfo(`[MercadoPagoConnector] Credencial recebida sem o prefixo 'APP_USR-'. Adicionando prefixo automaticamente.`);
-      finalToken = `APP_USR-${finalToken}`;
+      logWarn(`[MercadoPagoConnector] Credencial inválida recebida sem o prefixo 'APP_USR-'. Registrando falha de conexão.`);
+      await this.saveConnectionState('error', null);
+      throw new Error(`Access Token inválido. Deve começar com o prefixo 'APP_USR-'.`);
     }
 
     // Altera para authenticating

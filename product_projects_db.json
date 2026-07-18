@@ -3616,5 +3616,741 @@
       "overallScore": 79,
       "recommendation": "CRIAR"
     }
+  },
+  {
+    "id": "proj_mp0m29cwu",
+    "createdAt": "2026-07-18T16:20:30.244Z",
+    "tenantId": "tenant_default",
+    "input": {
+      "niche": "Fintech e Automações de Cobrança",
+      "audience": "Pequenos consultórios de saúde e clínicas",
+      "goal": "Reduzir inadimplência de pacientes usando IA",
+      "experience": "Atuo no financeiro de clínicas médicas há 5 anos"
+    },
+    "idea": {
+      "id": "idea_6cnf0ridy",
+      "name": "Fórmula de Sucesso para Fintech e Automações de Cobrança",
+      "audience": "Pequenos consultórios de saúde e clínicas",
+      "painPoint": "Perda de tempo crônica e processos lentos e manuais na área de Fintech e Automações de Cobrança.",
+      "promise": "Domine de forma definitiva técnicas eficientes e economize até 10 horas de trabalho semanal.",
+      "format": "TEMPLATE",
+      "commercialPotential": 88,
+      "category": "Fintech e Automações de Cobrança",
+      "persona": "Profissional de Fintech e Automações de Cobrança que busca escalar seus resultados.",
+      "solution": "Método passo a passo testado no mercado para implementar soluções eficientes rapidamente."
+    },
+    "currentStep": "LANCAMENTO",
+    "status": "PUBLISHED",
+    "name": "Fórmula de Sucesso para Fintech e Automações de Cobrança",
+    "criador": "Product Creator Agent",
+    "tenant": "tenant_default",
+    "arquivos": [
+      "blueprint_template.json",
+      "copy_vsl.txt",
+      "campanha_anuncios.txt",
+      "conteudo_didatico.txt",
+      "prompt_capa.txt"
+    ],
+    "histórico": [
+      "Projeto criado",
+      "Agente ProductIdeaGenerator decolou e sugeriu proposta comercial inovadora",
+      "Iniciada pesquisa aprofundada de mercado com os agentes de pesquisa",
+      "Pesquisa concluída. Score de oportunidade: 82/100 (ALTA_OPORTUNIDADE)",
+      "Blueprint pedagógico gerado contendo 2 seções didáticas estruturadas",
+      "Arquivos de copy, roteiros, criativos e guias de design de capa produzidos com sucesso",
+      "Oferta comercial criada (Preço Sugerido: R$ 47). Viabilidade IA calculada: 88/100 (CRIAR)",
+      "Produto publicado com sucesso em KIWIFY. Checkout ativo: https://checkout.kiwify.com/prod-proj_mp0m29cwu",
+      "Sales Channel Hub: Conteúdo distribuído e campanhas de anúncios Meta Ads ativadas automaticamente."
+    ],
+    "validation": {
+      "score": 82,
+      "category": "ALTA_OPORTUNIDADE",
+      "demandAnalysis": "Análise de mercado indica alta procura orgânica por ferramentas e guias que simplifiquem as rotinas do público-alvo.",
+      "competitionAnalysis": "Mercado com competidores generalistas; excelente oportunidade de entrada com produto focado e nichado.",
+      "trends": [
+        "Simplificação de processos",
+        "Infoprodutos focados em resultados rápidos",
+        "Tutoriais de fácil absorção"
+      ],
+      "keywords": [
+        "como resolver problemas em Fórmula de Sucesso para Fintech e Automações de Cobrança",
+        "guia rápido template",
+        "melhorar performance"
+      ]
+    },
+    "blueprint": {
+      "structureType": "TEMPLATE",
+      "items": [
+        {
+          "title": "Estrutura do Arquivo: painel_central_metodologia.xlsx",
+          "subItems": [
+            "Aba de instruções rápidas de preenchimento",
+            "Painel de controle visual e indicadores dinâmicos",
+            "Banco de dados estruturado pronto para uso"
+          ],
+          "objective": "Oferecer uma interface de entrada intuitiva e pronta para ser populada pelo usuário.",
+          "exercises": [
+            "Insira os dados da sua última semana e observe os gráficos se atualizarem automaticamente."
+          ]
+        },
+        {
+          "title": "Estrutura do Guia: instrucoes_de_uso_rapido.pdf",
+          "subItems": [
+            "Passo a passo de importação e exportação",
+            "Respostas para as 5 dúvidas mais frequentes",
+            "Casos práticos de uso real"
+          ],
+          "objective": "Eliminar qualquer fricção técnica de uso ou configuração inicial pelo comprador.",
+          "exercises": [
+            "Siga o checklist de 3 passos para validar se a integração funcionou corretamente."
+          ]
+        }
+      ]
+    },
+    "content": {
+      "texts": [
+        {
+          "title": "Introdução Didática: Como Dominar Fórmula de Sucesso para Fintech e Automações de Cobrança",
+          "body": "Seja muito bem-vindo. Este material de treinamento foi estruturado especificamente para sanar as principais dores do mercado que identificamos na nossa pesquisa preliminar. Com foco 100% em aplicação e resultados diretos, você aprenderá exatamente como configurar cada engrenagem para materializar a transformação prometida: Domine de forma definitiva técnicas eficientes e economize até 10 horas de trabalho semanal.. Vamos iniciar a sua jornada agora."
+        }
+      ],
+      "scripts": [
+        "[VÍDEO DE VENDAS VSL] \"Você já se sentiu travado nos seus processos diários? Se você respondeu sim, preste atenção. Hoje vou revelar como o Fórmula de Sucesso para Fintech e Automações de Cobrança pode livrar você desse gargalo de uma vez por todas...\"",
+        "[VÍDEO DE INTEGRAÇÃO / BOAS-VINDAS] \"Parabéns por dar este passo importante! Meu nome é seu Mentor de IA e estou muito feliz por ter você aqui. No primeiro módulo, nós vamos alinhar as ferramentas essenciais...\""
+      ],
+      "imagePrompt": "Clean modern layout showcasing an interactive laptop displaying glowing neon chart graphics, workspace background, elegant dark teal and gold color scheme, isometric vector design, professional finish",
+      "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80",
+      "marketingAds": [
+        {
+          "channel": "Instagram / Meta Ads",
+          "copy": "🚀 ATENÇÃO PROFISSIONAIS! Chega de atrito ou métodos complicados. Descubra como o Fórmula de Sucesso para Fintech e Automações de Cobrança ensina você a atingir seus objetivos de forma descomplicada. Clique em saiba mais!"
+        },
+        {
+          "channel": "Google Search Ads",
+          "copy": "Fórmula de Sucesso Fórmula de Sucesso para Fintech e Automações de Cobrança | Economize Tempo e Multiplique Resultados | Garantia de 7 Dias | Saiba Mais."
+        }
+      ]
+    },
+    "offer": {
+      "name": "Pacote VIP de Lançamento",
+      "headline": "Destrave Seus Resultados Agora: Adquira o Fórmula de Sucesso para Fintech e Automações de Cobrança com 40% Off e Garanta Bônus Exclusivos de Alta Performance",
+      "benefits": [
+        "Acesso imediato e vitalício para assistir ou ler de qualquer dispositivo.",
+        "Metodologia passo a passo ultra prática, livre de teorias cansativas.",
+        "Canal de suporte e feedbacks diretos para acelerar sua jornada."
+      ],
+      "bonus": [
+        "Super Kit de Ferramentas e Prompts de Alta Conversão (Valor: R$ 147 - Grátis)",
+        "Acesso à comunidade fechada com outros especialistas da área (Valor Inestimável)"
+      ],
+      "guaranteeDays": 7,
+      "suggestedPrice": 47,
+      "salesStrategy": "Tráfego pago direto para página de vendas de alta performance com vídeo de vendas curto e depoimentos integrados ao checkout de um clique."
+    },
+    "score": {
+      "demand": 82,
+      "competition": 87.7,
+      "margin": 90,
+      "easeOfCreation": 88,
+      "scalability": 95,
+      "overallScore": 88,
+      "recommendation": "CRIAR"
+    }
+  },
+  {
+    "id": "proj_k56u4en0b",
+    "createdAt": "2026-07-18T16:25:45.433Z",
+    "tenantId": "tenant_default",
+    "input": {
+      "niche": "Fintech e Automações de Cobrança",
+      "audience": "Pequenos consultórios de saúde e clínicas",
+      "goal": "Reduzir inadimplência de pacientes usando IA",
+      "experience": "Atuo no financeiro de clínicas médicas há 5 anos"
+    },
+    "idea": {
+      "id": "idea_048s4uwst",
+      "name": "Fórmula de Sucesso para Fintech e Automações de Cobrança",
+      "audience": "Pequenos consultórios de saúde e clínicas",
+      "painPoint": "Perda de tempo crônica e processos lentos e manuais na área de Fintech e Automações de Cobrança.",
+      "promise": "Domine de forma definitiva técnicas eficientes e economize até 10 horas de trabalho semanal.",
+      "format": "MENTORIA",
+      "commercialPotential": 88,
+      "category": "Fintech e Automações de Cobrança",
+      "persona": "Profissional de Fintech e Automações de Cobrança que busca escalar seus resultados.",
+      "solution": "Método passo a passo testado no mercado para implementar soluções eficientes rapidamente."
+    },
+    "currentStep": "LANCAMENTO",
+    "status": "PUBLISHED",
+    "name": "Fórmula de Sucesso para Fintech e Automações de Cobrança",
+    "criador": "Product Creator Agent",
+    "tenant": "tenant_default",
+    "arquivos": [
+      "blueprint_mentoria.json",
+      "copy_vsl.txt",
+      "campanha_anuncios.txt",
+      "conteudo_didatico.txt",
+      "prompt_capa.txt"
+    ],
+    "histórico": [
+      "Projeto criado",
+      "Agente ProductIdeaGenerator decolou e sugeriu proposta comercial inovadora",
+      "Iniciada pesquisa aprofundada de mercado com os agentes de pesquisa",
+      "Pesquisa concluída. Score de oportunidade: 82/100 (ALTA_OPORTUNIDADE)",
+      "Blueprint pedagógico gerado contendo 3 seções didáticas estruturadas",
+      "Arquivos de copy, roteiros, criativos e guias de design de capa produzidos com sucesso",
+      "Oferta comercial criada (Preço Sugerido: R$ 997). Viabilidade IA calculada: 79/100 (CRIAR)",
+      "Produto publicado com sucesso em KIWIFY. Checkout ativo: https://checkout.kiwify.com/prod-proj_k56u4en0b",
+      "Sales Channel Hub: Conteúdo distribuído e campanhas de anúncios Meta Ads ativadas automaticamente."
+    ],
+    "validation": {
+      "score": 82,
+      "category": "ALTA_OPORTUNIDADE",
+      "demandAnalysis": "Análise de mercado indica alta procura orgânica por ferramentas e guias que simplifiquem as rotinas do público-alvo.",
+      "competitionAnalysis": "Mercado com competidores generalistas; excelente oportunidade de entrada com produto focado e nichado.",
+      "trends": [
+        "Simplificação de processos",
+        "Infoprodutos focados em resultados rápidos",
+        "Tutoriais de fácil absorção"
+      ],
+      "keywords": [
+        "como resolver problemas em Fórmula de Sucesso para Fintech e Automações de Cobrança",
+        "guia rápido mentoria",
+        "melhorar performance"
+      ]
+    },
+    "blueprint": {
+      "structureType": "MENTORIA",
+      "items": [
+        {
+          "title": "Encontro 1: Alinhamento de Expectativas e Planejamento",
+          "subItems": [
+            "Análise de perfil individualizada",
+            "Definição de marcos de sucesso a curto prazo",
+            "Montagem do cronograma customizado"
+          ],
+          "objective": "Mapear a situação atual do mentorado e traçar a rota exata de desenvolvimento.",
+          "exercises": [
+            "Preencher o questionário de diagnóstico aprofundado antes do encontro."
+          ]
+        },
+        {
+          "title": "Encontro 2: Acompanhamento de Implementação e Ajustes",
+          "subItems": [
+            "Revisão dos primeiros marcos atingidos",
+            "Resolução de pontos de atrito técnico",
+            "Aceleração de entrega de valor"
+          ],
+          "objective": "Garantir execução correta da estratégia e resolver bloqueios individuais de imediato.",
+          "exercises": [
+            "Implementar o feedback recebido na sessão e documentar os resultados."
+          ]
+        },
+        {
+          "title": "Encontro 3: Consolidação e Escala Comercial",
+          "subItems": [
+            "Modelo de empacotamento premium",
+            "Estratégia de precificação ousada",
+            "Abertura para novos mercados ou canais"
+          ],
+          "objective": "Capacitar o mentorado para continuar colhendo resultados de forma autônoma após a conclusão.",
+          "exercises": [
+            "Apresentar a nova proposta comercial refinada e fechar o primeiro cliente premium."
+          ]
+        }
+      ]
+    },
+    "content": {
+      "texts": [
+        {
+          "title": "Introdução Didática: Como Dominar Fórmula de Sucesso para Fintech e Automações de Cobrança",
+          "body": "Seja muito bem-vindo. Este material de treinamento foi estruturado especificamente para sanar as principais dores do mercado que identificamos na nossa pesquisa preliminar. Com foco 100% em aplicação e resultados diretos, você aprenderá exatamente como configurar cada engrenagem para materializar a transformação prometida: Domine de forma definitiva técnicas eficientes e economize até 10 horas de trabalho semanal.. Vamos iniciar a sua jornada agora."
+        }
+      ],
+      "scripts": [
+        "[VÍDEO DE VENDAS VSL] \"Você já se sentiu travado nos seus processos diários? Se você respondeu sim, preste atenção. Hoje vou revelar como o Fórmula de Sucesso para Fintech e Automações de Cobrança pode livrar você desse gargalo de uma vez por todas...\"",
+        "[VÍDEO DE INTEGRAÇÃO / BOAS-VINDAS] \"Parabéns por dar este passo importante! Meu nome é seu Mentor de IA e estou muito feliz por ter você aqui. No primeiro módulo, nós vamos alinhar as ferramentas essenciais...\""
+      ],
+      "imagePrompt": "Clean modern layout showcasing an interactive laptop displaying glowing neon chart graphics, workspace background, elegant dark teal and gold color scheme, isometric vector design, professional finish",
+      "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80",
+      "marketingAds": [
+        {
+          "channel": "Instagram / Meta Ads",
+          "copy": "🚀 ATENÇÃO PROFISSIONAIS! Chega de atrito ou métodos complicados. Descubra como o Fórmula de Sucesso para Fintech e Automações de Cobrança ensina você a atingir seus objetivos de forma descomplicada. Clique em saiba mais!"
+        },
+        {
+          "channel": "Google Search Ads",
+          "copy": "Fórmula de Sucesso Fórmula de Sucesso para Fintech e Automações de Cobrança | Economize Tempo e Multiplique Resultados | Garantia de 7 Dias | Saiba Mais."
+        }
+      ]
+    },
+    "offer": {
+      "name": "Pacote VIP de Lançamento",
+      "headline": "Destrave Seus Resultados Agora: Adquira o Fórmula de Sucesso para Fintech e Automações de Cobrança com 40% Off e Garanta Bônus Exclusivos de Alta Performance",
+      "benefits": [
+        "Acesso imediato e vitalício para assistir ou ler de qualquer dispositivo.",
+        "Metodologia passo a passo ultra prática, livre de teorias cansativas.",
+        "Canal de suporte e feedbacks diretos para acelerar sua jornada."
+      ],
+      "bonus": [
+        "Super Kit de Ferramentas e Prompts de Alta Conversão (Valor: R$ 147 - Grátis)",
+        "Acesso à comunidade fechada com outros especialistas da área (Valor Inestimável)"
+      ],
+      "guaranteeDays": 7,
+      "suggestedPrice": 997,
+      "salesStrategy": "Tráfego pago direto para página de vendas de alta performance com vídeo de vendas curto e depoimentos integrados ao checkout de um clique."
+    },
+    "score": {
+      "demand": 82,
+      "competition": 87.7,
+      "margin": 90,
+      "easeOfCreation": 75,
+      "scalability": 65,
+      "overallScore": 79,
+      "recommendation": "CRIAR"
+    }
+  },
+  {
+    "id": "proj_2uo34b9p8",
+    "createdAt": "2026-07-18T16:31:28.833Z",
+    "tenantId": "tenant_default",
+    "input": {
+      "niche": "Fintech e Automações de Cobrança",
+      "audience": "Pequenos consultórios de saúde e clínicas",
+      "goal": "Reduzir inadimplência de pacientes usando IA",
+      "experience": "Atuo no financeiro de clínicas médicas há 5 anos"
+    },
+    "idea": {
+      "id": "idea_de622wq7o",
+      "name": "Fórmula de Sucesso para Fintech e Automações de Cobrança",
+      "audience": "Pequenos consultórios de saúde e clínicas",
+      "painPoint": "Perda de tempo crônica e processos lentos e manuais na área de Fintech e Automações de Cobrança.",
+      "promise": "Domine de forma definitiva técnicas eficientes e economize até 10 horas de trabalho semanal.",
+      "format": "EBOOK",
+      "commercialPotential": 88,
+      "category": "Fintech e Automações de Cobrança",
+      "persona": "Profissional de Fintech e Automações de Cobrança que busca escalar seus resultados.",
+      "solution": "Método passo a passo testado no mercado para implementar soluções eficientes rapidamente."
+    },
+    "currentStep": "LANCAMENTO",
+    "status": "PUBLISHED",
+    "name": "Fórmula de Sucesso para Fintech e Automações de Cobrança",
+    "criador": "Product Creator Agent",
+    "tenant": "tenant_default",
+    "arquivos": [
+      "blueprint_ebook.json",
+      "copy_vsl.txt",
+      "campanha_anuncios.txt",
+      "conteudo_didatico.txt",
+      "prompt_capa.txt"
+    ],
+    "histórico": [
+      "Projeto criado",
+      "Agente ProductIdeaGenerator decolou e sugeriu proposta comercial inovadora",
+      "Iniciada pesquisa aprofundada de mercado com os agentes de pesquisa",
+      "Pesquisa concluída. Score de oportunidade: 82/100 (ALTA_OPORTUNIDADE)",
+      "Blueprint pedagógico gerado contendo 3 seções didáticas estruturadas",
+      "Arquivos de copy, roteiros, criativos e guias de design de capa produzidos com sucesso",
+      "Oferta comercial criada (Preço Sugerido: R$ 97). Viabilidade IA calculada: 90/100 (CRIAR)",
+      "Produto publicado com sucesso em KIWIFY. Checkout ativo: https://checkout.kiwify.com/prod-proj_2uo34b9p8",
+      "Sales Channel Hub: Conteúdo distribuído e campanhas de anúncios Meta Ads ativadas automaticamente."
+    ],
+    "validation": {
+      "score": 82,
+      "category": "ALTA_OPORTUNIDADE",
+      "demandAnalysis": "Análise de mercado indica alta procura orgânica por ferramentas e guias que simplifiquem as rotinas do público-alvo.",
+      "competitionAnalysis": "Mercado com competidores generalistas; excelente oportunidade de entrada com produto focado e nichado.",
+      "trends": [
+        "Simplificação de processos",
+        "Infoprodutos focados em resultados rápidos",
+        "Tutoriais de fácil absorção"
+      ],
+      "keywords": [
+        "como resolver problemas em Fórmula de Sucesso para Fintech e Automações de Cobrança",
+        "guia rápido ebook",
+        "melhorar performance"
+      ]
+    },
+    "blueprint": {
+      "structureType": "EBOOK",
+      "items": [
+        {
+          "title": "Capítulo 1: O Desafio Oculto de Mercado",
+          "subItems": [
+            "Análise profunda do cenário atual",
+            "Por que as soluções tradicionais falham para você",
+            "O método inovador desmistificado"
+          ],
+          "objective": "Gerar consciência profunda sobre o problema real e preparar mentalmente o leitor para a solução.",
+          "exercises": [
+            "Reflita sobre quanto dinheiro ou tempo você está perdendo hoje ao ignorar este problema."
+          ]
+        },
+        {
+          "title": "Capítulo 2: A Construção do Seu Novo Pilar de Resultados",
+          "subItems": [
+            "Os 3 passos essenciais de preparação",
+            "Executando o plano de ação simples",
+            "Ajustando as engrenagens para máxima eficiência"
+          ],
+          "objective": "Fornecer o passo a passo exato e de fácil leitura para aplicar o conhecimento do ebook.",
+          "exercises": [
+            "Execute o Passo 1 do capítulo hoje mesmo para sentir a primeira mudança prática."
+          ]
+        },
+        {
+          "title": "Capítulo 3: Consolidação e Plano de Sucesso Contínuo",
+          "subItems": [
+            "Como blindar seus resultados contra instabilidades",
+            "Estratégias de escala e automação inteligente",
+            "A jornada adiante do leitor de sucesso"
+          ],
+          "objective": "Fidelizar o leitor mostrando como continuar evoluindo de forma sustentável e autônoma.",
+          "exercises": [
+            "Crie seu plano pessoal de hábitos de 5 minutos diários baseados na metodologia."
+          ]
+        }
+      ]
+    },
+    "content": {
+      "texts": [
+        {
+          "title": "Introdução Didática: Como Dominar Fórmula de Sucesso para Fintech e Automações de Cobrança",
+          "body": "Seja muito bem-vindo. Este material de treinamento foi estruturado especificamente para sanar as principais dores do mercado que identificamos na nossa pesquisa preliminar. Com foco 100% em aplicação e resultados diretos, você aprenderá exatamente como configurar cada engrenagem para materializar a transformação prometida: Domine de forma definitiva técnicas eficientes e economize até 10 horas de trabalho semanal.. Vamos iniciar a sua jornada agora."
+        }
+      ],
+      "scripts": [
+        "[VÍDEO DE VENDAS VSL] \"Você já se sentiu travado nos seus processos diários? Se você respondeu sim, preste atenção. Hoje vou revelar como o Fórmula de Sucesso para Fintech e Automações de Cobrança pode livrar você desse gargalo de uma vez por todas...\"",
+        "[VÍDEO DE INTEGRAÇÃO / BOAS-VINDAS] \"Parabéns por dar este passo importante! Meu nome é seu Mentor de IA e estou muito feliz por ter você aqui. No primeiro módulo, nós vamos alinhar as ferramentas essenciais...\""
+      ],
+      "imagePrompt": "Clean modern layout showcasing an interactive laptop displaying glowing neon chart graphics, workspace background, elegant dark teal and gold color scheme, isometric vector design, professional finish",
+      "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80",
+      "marketingAds": [
+        {
+          "channel": "Instagram / Meta Ads",
+          "copy": "🚀 ATENÇÃO PROFISSIONAIS! Chega de atrito ou métodos complicados. Descubra como o Fórmula de Sucesso para Fintech e Automações de Cobrança ensina você a atingir seus objetivos de forma descomplicada. Clique em saiba mais!"
+        },
+        {
+          "channel": "Google Search Ads",
+          "copy": "Fórmula de Sucesso Fórmula de Sucesso para Fintech e Automações de Cobrança | Economize Tempo e Multiplique Resultados | Garantia de 7 Dias | Saiba Mais."
+        }
+      ]
+    },
+    "offer": {
+      "name": "Pacote VIP de Lançamento",
+      "headline": "Destrave Seus Resultados Agora: Adquira o Fórmula de Sucesso para Fintech e Automações de Cobrança com 40% Off e Garanta Bônus Exclusivos de Alta Performance",
+      "benefits": [
+        "Acesso imediato e vitalício para assistir ou ler de qualquer dispositivo.",
+        "Metodologia passo a passo ultra prática, livre de teorias cansativas.",
+        "Canal de suporte e feedbacks diretos para acelerar sua jornada."
+      ],
+      "bonus": [
+        "Super Kit de Ferramentas e Prompts de Alta Conversão (Valor: R$ 147 - Grátis)",
+        "Acesso à comunidade fechada com outros especialistas da área (Valor Inestimável)"
+      ],
+      "guaranteeDays": 7,
+      "suggestedPrice": 97,
+      "salesStrategy": "Tráfego pago direto para página de vendas de alta performance com vídeo de vendas curto e depoimentos integrados ao checkout de um clique."
+    },
+    "score": {
+      "demand": 82,
+      "competition": 87.7,
+      "margin": 98,
+      "easeOfCreation": 92,
+      "scalability": 95,
+      "overallScore": 90,
+      "recommendation": "CRIAR"
+    }
+  },
+  {
+    "id": "proj_fcq3y46dr",
+    "createdAt": "2026-07-18T16:32:36.309Z",
+    "tenantId": "tenant_default",
+    "input": {
+      "niche": "Fintech e Automações de Cobrança",
+      "audience": "Pequenos consultórios de saúde e clínicas",
+      "goal": "Reduzir inadimplência de pacientes usando IA",
+      "experience": "Atuo no financeiro de clínicas médicas há 5 anos"
+    },
+    "idea": {
+      "id": "idea_4zczda6rd",
+      "name": "Fórmula de Sucesso para Fintech e Automações de Cobrança",
+      "audience": "Pequenos consultórios de saúde e clínicas",
+      "painPoint": "Perda de tempo crônica e processos lentos e manuais na área de Fintech e Automações de Cobrança.",
+      "promise": "Domine de forma definitiva técnicas eficientes e economize até 10 horas de trabalho semanal.",
+      "format": "EBOOK",
+      "commercialPotential": 88,
+      "category": "Fintech e Automações de Cobrança",
+      "persona": "Profissional de Fintech e Automações de Cobrança que busca escalar seus resultados.",
+      "solution": "Método passo a passo testado no mercado para implementar soluções eficientes rapidamente."
+    },
+    "currentStep": "LANCAMENTO",
+    "status": "PUBLISHED",
+    "name": "Fórmula de Sucesso para Fintech e Automações de Cobrança",
+    "criador": "Product Creator Agent",
+    "tenant": "tenant_default",
+    "arquivos": [
+      "blueprint_ebook.json",
+      "copy_vsl.txt",
+      "campanha_anuncios.txt",
+      "conteudo_didatico.txt",
+      "prompt_capa.txt"
+    ],
+    "histórico": [
+      "Projeto criado",
+      "Agente ProductIdeaGenerator decolou e sugeriu proposta comercial inovadora",
+      "Iniciada pesquisa aprofundada de mercado com os agentes de pesquisa",
+      "Pesquisa concluída. Score de oportunidade: 82/100 (ALTA_OPORTUNIDADE)",
+      "Blueprint pedagógico gerado contendo 3 seções didáticas estruturadas",
+      "Arquivos de copy, roteiros, criativos e guias de design de capa produzidos com sucesso",
+      "Oferta comercial criada (Preço Sugerido: R$ 97). Viabilidade IA calculada: 90/100 (CRIAR)",
+      "Produto publicado com sucesso em KIWIFY. Checkout ativo: https://checkout.kiwify.com/prod-proj_fcq3y46dr",
+      "Sales Channel Hub: Conteúdo distribuído e campanhas de anúncios Meta Ads ativadas automaticamente."
+    ],
+    "validation": {
+      "score": 82,
+      "category": "ALTA_OPORTUNIDADE",
+      "demandAnalysis": "Análise de mercado indica alta procura orgânica por ferramentas e guias que simplifiquem as rotinas do público-alvo.",
+      "competitionAnalysis": "Mercado com competidores generalistas; excelente oportunidade de entrada com produto focado e nichado.",
+      "trends": [
+        "Simplificação de processos",
+        "Infoprodutos focados em resultados rápidos",
+        "Tutoriais de fácil absorção"
+      ],
+      "keywords": [
+        "como resolver problemas em Fórmula de Sucesso para Fintech e Automações de Cobrança",
+        "guia rápido ebook",
+        "melhorar performance"
+      ]
+    },
+    "blueprint": {
+      "structureType": "EBOOK",
+      "items": [
+        {
+          "title": "Capítulo 1: O Desafio Oculto de Mercado",
+          "subItems": [
+            "Análise profunda do cenário atual",
+            "Por que as soluções tradicionais falham para você",
+            "O método inovador desmistificado"
+          ],
+          "objective": "Gerar consciência profunda sobre o problema real e preparar mentalmente o leitor para a solução.",
+          "exercises": [
+            "Reflita sobre quanto dinheiro ou tempo você está perdendo hoje ao ignorar este problema."
+          ]
+        },
+        {
+          "title": "Capítulo 2: A Construção do Seu Novo Pilar de Resultados",
+          "subItems": [
+            "Os 3 passos essenciais de preparação",
+            "Executando o plano de ação simples",
+            "Ajustando as engrenagens para máxima eficiência"
+          ],
+          "objective": "Fornecer o passo a passo exato e de fácil leitura para aplicar o conhecimento do ebook.",
+          "exercises": [
+            "Execute o Passo 1 do capítulo hoje mesmo para sentir a primeira mudança prática."
+          ]
+        },
+        {
+          "title": "Capítulo 3: Consolidação e Plano de Sucesso Contínuo",
+          "subItems": [
+            "Como blindar seus resultados contra instabilidades",
+            "Estratégias de escala e automação inteligente",
+            "A jornada adiante do leitor de sucesso"
+          ],
+          "objective": "Fidelizar o leitor mostrando como continuar evoluindo de forma sustentável e autônoma.",
+          "exercises": [
+            "Crie seu plano pessoal de hábitos de 5 minutos diários baseados na metodologia."
+          ]
+        }
+      ]
+    },
+    "content": {
+      "texts": [
+        {
+          "title": "Introdução Didática: Como Dominar Fórmula de Sucesso para Fintech e Automações de Cobrança",
+          "body": "Seja muito bem-vindo. Este material de treinamento foi estruturado especificamente para sanar as principais dores do mercado que identificamos na nossa pesquisa preliminar. Com foco 100% em aplicação e resultados diretos, você aprenderá exatamente como configurar cada engrenagem para materializar a transformação prometida: Domine de forma definitiva técnicas eficientes e economize até 10 horas de trabalho semanal.. Vamos iniciar a sua jornada agora."
+        }
+      ],
+      "scripts": [
+        "[VÍDEO DE VENDAS VSL] \"Você já se sentiu travado nos seus processos diários? Se você respondeu sim, preste atenção. Hoje vou revelar como o Fórmula de Sucesso para Fintech e Automações de Cobrança pode livrar você desse gargalo de uma vez por todas...\"",
+        "[VÍDEO DE INTEGRAÇÃO / BOAS-VINDAS] \"Parabéns por dar este passo importante! Meu nome é seu Mentor de IA e estou muito feliz por ter você aqui. No primeiro módulo, nós vamos alinhar as ferramentas essenciais...\""
+      ],
+      "imagePrompt": "Clean modern layout showcasing an interactive laptop displaying glowing neon chart graphics, workspace background, elegant dark teal and gold color scheme, isometric vector design, professional finish",
+      "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80",
+      "marketingAds": [
+        {
+          "channel": "Instagram / Meta Ads",
+          "copy": "🚀 ATENÇÃO PROFISSIONAIS! Chega de atrito ou métodos complicados. Descubra como o Fórmula de Sucesso para Fintech e Automações de Cobrança ensina você a atingir seus objetivos de forma descomplicada. Clique em saiba mais!"
+        },
+        {
+          "channel": "Google Search Ads",
+          "copy": "Fórmula de Sucesso Fórmula de Sucesso para Fintech e Automações de Cobrança | Economize Tempo e Multiplique Resultados | Garantia de 7 Dias | Saiba Mais."
+        }
+      ]
+    },
+    "offer": {
+      "name": "Pacote VIP de Lançamento",
+      "headline": "Destrave Seus Resultados Agora: Adquira o Fórmula de Sucesso para Fintech e Automações de Cobrança com 40% Off e Garanta Bônus Exclusivos de Alta Performance",
+      "benefits": [
+        "Acesso imediato e vitalício para assistir ou ler de qualquer dispositivo.",
+        "Metodologia passo a passo ultra prática, livre de teorias cansativas.",
+        "Canal de suporte e feedbacks diretos para acelerar sua jornada."
+      ],
+      "bonus": [
+        "Super Kit de Ferramentas e Prompts de Alta Conversão (Valor: R$ 147 - Grátis)",
+        "Acesso à comunidade fechada com outros especialistas da área (Valor Inestimável)"
+      ],
+      "guaranteeDays": 7,
+      "suggestedPrice": 97,
+      "salesStrategy": "Tráfego pago direto para página de vendas de alta performance com vídeo de vendas curto e depoimentos integrados ao checkout de um clique."
+    },
+    "score": {
+      "demand": 82,
+      "competition": 87.7,
+      "margin": 98,
+      "easeOfCreation": 92,
+      "scalability": 95,
+      "overallScore": 90,
+      "recommendation": "CRIAR"
+    }
+  },
+  {
+    "id": "proj_f6cd7evkw",
+    "createdAt": "2026-07-18T16:34:11.328Z",
+    "tenantId": "tenant_default",
+    "input": {
+      "niche": "Fintech e Automações de Cobrança",
+      "audience": "Pequenos consultórios de saúde e clínicas",
+      "goal": "Reduzir inadimplência de pacientes usando IA",
+      "experience": "Atuo no financeiro de clínicas médicas há 5 anos"
+    },
+    "idea": {
+      "id": "idea_ubjbvmdje",
+      "name": "Fórmula de Sucesso para Fintech e Automações de Cobrança",
+      "audience": "Pequenos consultórios de saúde e clínicas",
+      "painPoint": "Perda de tempo crônica e processos lentos e manuais na área de Fintech e Automações de Cobrança.",
+      "promise": "Domine de forma definitiva técnicas eficientes e economize até 10 horas de trabalho semanal.",
+      "format": "TEMPLATE",
+      "commercialPotential": 88,
+      "category": "Fintech e Automações de Cobrança",
+      "persona": "Profissional de Fintech e Automações de Cobrança que busca escalar seus resultados.",
+      "solution": "Método passo a passo testado no mercado para implementar soluções eficientes rapidamente."
+    },
+    "currentStep": "LANCAMENTO",
+    "status": "PUBLISHED",
+    "name": "Fórmula de Sucesso para Fintech e Automações de Cobrança",
+    "criador": "Product Creator Agent",
+    "tenant": "tenant_default",
+    "arquivos": [
+      "blueprint_template.json",
+      "copy_vsl.txt",
+      "campanha_anuncios.txt",
+      "conteudo_didatico.txt",
+      "prompt_capa.txt"
+    ],
+    "histórico": [
+      "Projeto criado",
+      "Agente ProductIdeaGenerator decolou e sugeriu proposta comercial inovadora",
+      "Iniciada pesquisa aprofundada de mercado com os agentes de pesquisa",
+      "Pesquisa concluída. Score de oportunidade: 82/100 (ALTA_OPORTUNIDADE)",
+      "Blueprint pedagógico gerado contendo 2 seções didáticas estruturadas",
+      "Arquivos de copy, roteiros, criativos e guias de design de capa produzidos com sucesso",
+      "Oferta comercial criada (Preço Sugerido: R$ 47). Viabilidade IA calculada: 88/100 (CRIAR)",
+      "Produto publicado com sucesso em KIWIFY. Checkout ativo: https://checkout.kiwify.com/prod-proj_f6cd7evkw",
+      "Sales Channel Hub: Conteúdo distribuído e campanhas de anúncios Meta Ads ativadas automaticamente."
+    ],
+    "validation": {
+      "score": 82,
+      "category": "ALTA_OPORTUNIDADE",
+      "demandAnalysis": "Análise de mercado indica alta procura orgânica por ferramentas e guias que simplifiquem as rotinas do público-alvo.",
+      "competitionAnalysis": "Mercado com competidores generalistas; excelente oportunidade de entrada com produto focado e nichado.",
+      "trends": [
+        "Simplificação de processos",
+        "Infoprodutos focados em resultados rápidos",
+        "Tutoriais de fácil absorção"
+      ],
+      "keywords": [
+        "como resolver problemas em Fórmula de Sucesso para Fintech e Automações de Cobrança",
+        "guia rápido template",
+        "melhorar performance"
+      ]
+    },
+    "blueprint": {
+      "structureType": "TEMPLATE",
+      "items": [
+        {
+          "title": "Estrutura do Arquivo: painel_central_metodologia.xlsx",
+          "subItems": [
+            "Aba de instruções rápidas de preenchimento",
+            "Painel de controle visual e indicadores dinâmicos",
+            "Banco de dados estruturado pronto para uso"
+          ],
+          "objective": "Oferecer uma interface de entrada intuitiva e pronta para ser populada pelo usuário.",
+          "exercises": [
+            "Insira os dados da sua última semana e observe os gráficos se atualizarem automaticamente."
+          ]
+        },
+        {
+          "title": "Estrutura do Guia: instrucoes_de_uso_rapido.pdf",
+          "subItems": [
+            "Passo a passo de importação e exportação",
+            "Respostas para as 5 dúvidas mais frequentes",
+            "Casos práticos de uso real"
+          ],
+          "objective": "Eliminar qualquer fricção técnica de uso ou configuração inicial pelo comprador.",
+          "exercises": [
+            "Siga o checklist de 3 passos para validar se a integração funcionou corretamente."
+          ]
+        }
+      ]
+    },
+    "content": {
+      "texts": [
+        {
+          "title": "Introdução Didática: Como Dominar Fórmula de Sucesso para Fintech e Automações de Cobrança",
+          "body": "Seja muito bem-vindo. Este material de treinamento foi estruturado especificamente para sanar as principais dores do mercado que identificamos na nossa pesquisa preliminar. Com foco 100% em aplicação e resultados diretos, você aprenderá exatamente como configurar cada engrenagem para materializar a transformação prometida: Domine de forma definitiva técnicas eficientes e economize até 10 horas de trabalho semanal.. Vamos iniciar a sua jornada agora."
+        }
+      ],
+      "scripts": [
+        "[VÍDEO DE VENDAS VSL] \"Você já se sentiu travado nos seus processos diários? Se você respondeu sim, preste atenção. Hoje vou revelar como o Fórmula de Sucesso para Fintech e Automações de Cobrança pode livrar você desse gargalo de uma vez por todas...\"",
+        "[VÍDEO DE INTEGRAÇÃO / BOAS-VINDAS] \"Parabéns por dar este passo importante! Meu nome é seu Mentor de IA e estou muito feliz por ter você aqui. No primeiro módulo, nós vamos alinhar as ferramentas essenciais...\""
+      ],
+      "imagePrompt": "Clean modern layout showcasing an interactive laptop displaying glowing neon chart graphics, workspace background, elegant dark teal and gold color scheme, isometric vector design, professional finish",
+      "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80",
+      "marketingAds": [
+        {
+          "channel": "Instagram / Meta Ads",
+          "copy": "🚀 ATENÇÃO PROFISSIONAIS! Chega de atrito ou métodos complicados. Descubra como o Fórmula de Sucesso para Fintech e Automações de Cobrança ensina você a atingir seus objetivos de forma descomplicada. Clique em saiba mais!"
+        },
+        {
+          "channel": "Google Search Ads",
+          "copy": "Fórmula de Sucesso Fórmula de Sucesso para Fintech e Automações de Cobrança | Economize Tempo e Multiplique Resultados | Garantia de 7 Dias | Saiba Mais."
+        }
+      ]
+    },
+    "offer": {
+      "name": "Pacote VIP de Lançamento",
+      "headline": "Destrave Seus Resultados Agora: Adquira o Fórmula de Sucesso para Fintech e Automações de Cobrança com 40% Off e Garanta Bônus Exclusivos de Alta Performance",
+      "benefits": [
+        "Acesso imediato e vitalício para assistir ou ler de qualquer dispositivo.",
+        "Metodologia passo a passo ultra prática, livre de teorias cansativas.",
+        "Canal de suporte e feedbacks diretos para acelerar sua jornada."
+      ],
+      "bonus": [
+        "Super Kit de Ferramentas e Prompts de Alta Conversão (Valor: R$ 147 - Grátis)",
+        "Acesso à comunidade fechada com outros especialistas da área (Valor Inestimável)"
+      ],
+      "guaranteeDays": 7,
+      "suggestedPrice": 47,
+      "salesStrategy": "Tráfego pago direto para página de vendas de alta performance com vídeo de vendas curto e depoimentos integrados ao checkout de um clique."
+    },
+    "score": {
+      "demand": 82,
+      "competition": 87.7,
+      "margin": 90,
+      "easeOfCreation": 88,
+      "scalability": 95,
+      "overallScore": 88,
+      "recommendation": "CRIAR"
+    }
   }
 ]

@@ -25,78 +25,78 @@
     "id": "market-analyst",
     "name": "Market Analyst",
     "status": "ONLINE",
-    "totalExecutions": 203,
-    "successRate": 96.1,
-    "avgResponseTimeMs": 1312,
-    "geminiCreditsUsed": 816,
+    "totalExecutions": 208,
+    "successRate": 96.2,
+    "avgResponseTimeMs": 503,
+    "geminiCreditsUsed": 876,
     "errorCount": 8,
-    "lastExecutionAt": "2026-07-18T16:19:15.799Z"
+    "lastExecutionAt": "2026-07-18T16:34:11.418Z"
   },
   {
     "id": "product-lab",
     "name": "Product Creator",
     "status": "ONLINE",
-    "totalExecutions": 158,
+    "totalExecutions": 168,
     "successRate": 99.4,
-    "avgResponseTimeMs": 1345,
-    "geminiCreditsUsed": 750,
+    "avgResponseTimeMs": 689,
+    "geminiCreditsUsed": 840,
     "errorCount": 1,
-    "lastExecutionAt": "2026-07-18T16:19:15.884Z"
+    "lastExecutionAt": "2026-07-18T16:34:11.999Z"
   },
   {
     "id": "writer-studio",
     "name": "Writer Agent",
     "status": "ONLINE",
-    "totalExecutions": 427,
-    "successRate": 97.2,
-    "avgResponseTimeMs": 160,
-    "geminiCreditsUsed": 1537,
+    "totalExecutions": 448,
+    "successRate": 97.3,
+    "avgResponseTimeMs": 245,
+    "geminiCreditsUsed": 1740,
     "errorCount": 12,
-    "lastExecutionAt": "2026-07-18T16:19:20.554Z"
+    "lastExecutionAt": "2026-07-18T16:34:17.923Z"
   },
   {
     "id": "design-studio",
     "name": "Designer Agent",
     "status": "ONLINE",
-    "totalExecutions": 221,
-    "successRate": 95.5,
-    "avgResponseTimeMs": 1023,
-    "geminiCreditsUsed": 1450,
+    "totalExecutions": 226,
+    "successRate": 95.6,
+    "avgResponseTimeMs": 423,
+    "geminiCreditsUsed": 1550,
     "errorCount": 10,
-    "lastExecutionAt": "2026-07-18T16:19:16.059Z"
+    "lastExecutionAt": "2026-07-18T16:34:12.165Z"
   },
   {
     "id": "marketing-center",
     "name": "Marketing Agent",
     "status": "DEGRADED",
-    "totalExecutions": 333,
-    "successRate": 91.3,
-    "avgResponseTimeMs": 254,
-    "geminiCreditsUsed": 1405,
+    "totalExecutions": 347,
+    "successRate": 91.6,
+    "avgResponseTimeMs": 101,
+    "geminiCreditsUsed": 1545,
     "errorCount": 29,
-    "lastExecutionAt": "2026-07-18T16:19:20.627Z"
+    "lastExecutionAt": "2026-07-18T16:34:17.989Z"
   },
   {
     "id": "publisher-center",
     "name": "Publisher Agent",
     "status": "ONLINE",
-    "totalExecutions": 178,
-    "successRate": 98.3,
-    "avgResponseTimeMs": 17992,
-    "geminiCreditsUsed": 477,
+    "totalExecutions": 183,
+    "successRate": 98.4,
+    "avgResponseTimeMs": 6199,
+    "geminiCreditsUsed": 547,
     "errorCount": 3,
-    "lastExecutionAt": "2026-07-18T16:19:16.952Z"
+    "lastExecutionAt": "2026-07-18T16:34:12.840Z"
   },
   {
     "id": "finance-center",
     "name": "Finance Agent",
     "status": "ONLINE",
-    "totalExecutions": 115,
+    "totalExecutions": 120,
     "successRate": 100,
-    "avgResponseTimeMs": 2066,
-    "geminiCreditsUsed": 368,
+    "avgResponseTimeMs": 902,
+    "geminiCreditsUsed": 408,
     "errorCount": 0,
-    "lastExecutionAt": "2026-07-18T16:19:16.420Z"
+    "lastExecutionAt": "2026-07-18T16:34:12.458Z"
   },
   {
     "id": "supervisor",

@@ -4531,6 +4531,15 @@ export class Repository {
   }
 
   static async savePaymentConnection(conn: PaymentConnection): Promise<PaymentConnection> {
+    if (!fallbackState.paymentConnections) fallbackState.paymentConnections = [];
+    const idx = fallbackState.paymentConnections.findIndex((x: any) => x.id === conn.id);
+    if (idx >= 0) {
+      fallbackState.paymentConnections[idx] = conn;
+    } else {
+      fallbackState.paymentConnections.push(conn);
+    }
+    await this.saveState({ paymentConnections: fallbackState.paymentConnections });
+
     if (this.isPGAvailable()) {
       try {
         const db = getDB();
@@ -4551,19 +4560,10 @@ export class Repository {
             createdAt: conn.createdAt instanceof Date ? conn.createdAt : new Date(conn.createdAt)
           });
         }
-        return conn;
       } catch (err) {
         console.error('Erro ao salvar payment connection no Postgres:', err);
       }
     }
-    if (!fallbackState.paymentConnections) fallbackState.paymentConnections = [];
-    const idx = fallbackState.paymentConnections.findIndex((x: any) => x.id === conn.id);
-    if (idx >= 0) {
-      fallbackState.paymentConnections[idx] = conn;
-    } else {
-      fallbackState.paymentConnections.push(conn);
-    }
-    await this.saveState({ paymentConnections: fallbackState.paymentConnections });
     return conn;
   }
 
@@ -4585,6 +4585,15 @@ export class Repository {
   }
 
   static async savePaymentTransaction(tx: PaymentTransaction): Promise<PaymentTransaction> {
+    if (!fallbackState.paymentTransactions) fallbackState.paymentTransactions = [];
+    const idx = fallbackState.paymentTransactions.findIndex((x: any) => x.id === tx.id);
+    if (idx >= 0) {
+      fallbackState.paymentTransactions[idx] = tx;
+    } else {
+      fallbackState.paymentTransactions.push(tx);
+    }
+    await this.saveState({ paymentTransactions: fallbackState.paymentTransactions });
+
     if (this.isPGAvailable()) {
       try {
         const db = getDB();
@@ -4609,19 +4618,10 @@ export class Repository {
             createdAt: tx.createdAt instanceof Date ? tx.createdAt : new Date(tx.createdAt)
           });
         }
-        return tx;
       } catch (err) {
         console.error('Erro ao salvar payment transaction no Postgres:', err);
       }
     }
-    if (!fallbackState.paymentTransactions) fallbackState.paymentTransactions = [];
-    const idx = fallbackState.paymentTransactions.findIndex((x: any) => x.id === tx.id);
-    if (idx >= 0) {
-      fallbackState.paymentTransactions[idx] = tx;
-    } else {
-      fallbackState.paymentTransactions.push(tx);
-    }
-    await this.saveState({ paymentTransactions: fallbackState.paymentTransactions });
     return tx;
   }
 
@@ -4643,7 +4643,18 @@ export class Repository {
   }
 
   static async clearPaymentTestData(): Promise<void> {
-    if (this.isPGAvailable()) {
+    if (fallbackState.paymentConnections) {
+      fallbackState.paymentConnections = fallbackState.paymentConnections.filter((c: any) => c.provider !== 'mercado_pago');
+    }
+    if (fallbackState.paymentTransactions) {
+      fallbackState.paymentTransactions = fallbackState.paymentTransactions.filter((t: any) => t.provider !== 'mercado_pago');
+    }
+    await this.saveState({
+      paymentConnections: fallbackState.paymentConnections || [],
+      paymentTransactions: fallbackState.paymentTransactions || []
+    });
+
+    if (process.env.SQL_HOST) {
       try {
         const db = getDB();
         await db.delete(paymentConnections).where(eq(paymentConnections.provider, 'mercado_pago'));
@@ -4656,6 +4667,15 @@ export class Repository {
 
   // Métodos do Hotmart Connector (Etapa 17B)
   static async savePlatformConnection(conn: PlatformConnection): Promise<PlatformConnection> {
+    if (!fallbackState.platformConnections) fallbackState.platformConnections = [];
+    const idx = fallbackState.platformConnections.findIndex((x: any) => x.id === conn.id);
+    if (idx >= 0) {
+      fallbackState.platformConnections[idx] = conn;
+    } else {
+      fallbackState.platformConnections.push(conn);
+    }
+    await this.saveState({ platformConnections: fallbackState.platformConnections });
+
     if (this.isPGAvailable()) {
       try {
         const db = getDB();
@@ -4676,19 +4696,10 @@ export class Repository {
             createdAt: conn.createdAt instanceof Date ? conn.createdAt : new Date(conn.createdAt)
           });
         }
-        return conn;
       } catch (err) {
         console.error('Erro ao salvar platform connection no Postgres:', err);
       }
     }
-    if (!fallbackState.platformConnections) fallbackState.platformConnections = [];
-    const idx = fallbackState.platformConnections.findIndex((x: any) => x.id === conn.id);
-    if (idx >= 0) {
-      fallbackState.platformConnections[idx] = conn;
-    } else {
-      fallbackState.platformConnections.push(conn);
-    }
-    await this.saveState({ platformConnections: fallbackState.platformConnections });
     return conn;
   }
 
@@ -4710,6 +4721,15 @@ export class Repository {
   }
 
   static async saveDigitalSale(sale: DigitalSale): Promise<DigitalSale> {
+    if (!fallbackState.digitalSales) fallbackState.digitalSales = [];
+    const idx = fallbackState.digitalSales.findIndex((x: any) => x.id === sale.id);
+    if (idx >= 0) {
+      fallbackState.digitalSales[idx] = sale;
+    } else {
+      fallbackState.digitalSales.push(sale);
+    }
+    await this.saveState({ digitalSales: fallbackState.digitalSales });
+
     if (this.isPGAvailable()) {
       try {
         const db = getDB();
@@ -4735,19 +4755,10 @@ export class Repository {
             createdAt: sale.createdAt instanceof Date ? sale.createdAt : new Date(sale.createdAt)
           });
         }
-        return sale;
       } catch (err) {
         console.error('Erro ao salvar digital sale no Postgres:', err);
       }
     }
-    if (!fallbackState.digitalSales) fallbackState.digitalSales = [];
-    const idx = fallbackState.digitalSales.findIndex((x: any) => x.id === sale.id);
-    if (idx >= 0) {
-      fallbackState.digitalSales[idx] = sale;
-    } else {
-      fallbackState.digitalSales.push(sale);
-    }
-    await this.saveState({ digitalSales: fallbackState.digitalSales });
     return sale;
   }
 
@@ -4769,7 +4780,18 @@ export class Repository {
   }
 
   static async clearHotmartTestData(): Promise<void> {
-    if (this.isPGAvailable()) {
+    if (fallbackState.platformConnections) {
+      fallbackState.platformConnections = fallbackState.platformConnections.filter((c: any) => c.provider !== 'hotmart');
+    }
+    if (fallbackState.digitalSales) {
+      fallbackState.digitalSales = fallbackState.digitalSales.filter((s: any) => s.provider !== 'hotmart');
+    }
+    await this.saveState({
+      platformConnections: fallbackState.platformConnections || [],
+      digitalSales: fallbackState.digitalSales || []
+    });
+
+    if (process.env.SQL_HOST) {
       try {
         const db = getDB();
         await db.delete(platformConnections).where(eq(platformConnections.provider, 'hotmart'));
