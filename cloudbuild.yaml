@@ -1,5 +1,5 @@
 steps:
-  # 1. Build da imagem Docker
+  # 1. Construir a imagem Docker
     - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/ai-factory/ai-business-factory:$SHORT_SHA', '.']
 
@@ -7,7 +7,7 @@ steps:
     - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/ai-factory/ai-business-factory:$SHORT_SHA']
 
-  # 3. Deploy no Cloud Run
+  # 3. Fazer deploy no Cloud Run
     - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
@@ -18,8 +18,6 @@ steps:
             - '--region=us-central1'
             - '--platform=managed'
             - '--allow-unauthenticated'
-            - '--memory=1Gi'
-            - '--port=8080'
 
 images:
     - 'us-central1-docker.pkg.dev/$PROJECT_ID/ai-factory/ai-business-factory:$SHORT_SHA'
