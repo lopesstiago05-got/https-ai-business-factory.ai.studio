@@ -1,13 +1,13 @@
 steps:
-  # 1. Construir a imagem Docker
+  # 1. Build da imagem
     - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/ai-factory/ai-business-factory:$SHORT_SHA', '.']
 
-  # 2. Enviar imagem pro Artifact Registry
+  # 2. Push da imagem
     - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/ai-factory/ai-business-factory:$SHORT_SHA']
 
-  # 3. Fazer deploy no Cloud Run
+  # 3. Deploy no Cloud Run
     - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
