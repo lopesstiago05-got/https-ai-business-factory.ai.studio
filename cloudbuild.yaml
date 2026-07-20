@@ -16,3 +16,5 @@ steps:
 
 images:
 - 'us-central1-docker.pkg.dev/gen-lang-client-0501556349/ai-factory/ai-business-factory:latest'
+options:
+  logging: CLOUD_LOGGING_ONLY
