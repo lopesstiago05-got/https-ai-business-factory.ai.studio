@@ -1,5 +1,6 @@
 import { GoogleGenAI } from '@google/genai';
 import { logWarn } from '../logs/logger.ts';
+import { ModelManager } from '../kernel/ModelManager.ts';
 
 export interface InternationalMarketingAssets {
   localizedHeadline: string;
@@ -32,13 +33,13 @@ export class InternationalMarketing {
         httpOptions: { headers: { 'User-Agent': 'aistudio-build' } }
       });
 
-      const response = await ai.models.generateContent({
+      const response = await ModelManager.generateContent('international_marketing', ai, {
         model: 'gemini-3.5-flash',
         contents: `Você é um Copywriter e Diretor de Lançamentos de Alta Conversão focado no mercado de "${countryName}".
         Sua missão é adaptar o infoproduto "${productName}" que possui a proposta original: "${originalPitch}".
         Crie as copys completas no idioma correspondente a "${languageName}". Use gírias locais aceitáveis, fatores de confiança específicos desse país e ajuste o tom.
         
-        Retorne EXCLUSIVAMENTE um objeto JSON estrito com o seguinte formato:
+        Retorne EXCLUSIVAMENTE un objeto JSON estrito com o seguinte formato:
         {
           "localizedHeadline": "Uma Headline impactante no idioma local",
           "salesPitch": "Argumento de vendas principal ultra persuasivo em um parágrafo longo",

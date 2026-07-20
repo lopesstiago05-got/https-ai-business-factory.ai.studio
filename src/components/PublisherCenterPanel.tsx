@@ -262,15 +262,15 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
         );
       case 'checking':
         return (
-          <span className="px-2.5 py-1 text-xs font-semibold rounded-full bg-blue-500/10 text-blue-500 border border-blue-500/20 flex items-center gap-1.5 w-fit">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+          <span className="px-2.5 py-1 text-xs font-semibold rounded-full bg-amber-500/10 text-amber-500 border border-amber-500/20 flex items-center gap-1.5 w-fit">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
             Em Auditoria
           </span>
         );
       case 'ready':
         return (
-          <span className="px-2.5 py-1 text-xs font-semibold rounded-full bg-indigo-500/10 text-indigo-500 border border-indigo-500/20 flex items-center gap-1.5 w-fit">
-            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+          <span className="px-2.5 py-1 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1.5 w-fit">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 font-mono"></span>
             Pronto para Lançar
           </span>
         );
@@ -305,9 +305,9 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
   };
 
   return (
-    <div id="publisher-center-panel" className="bg-slate-50 dark:bg-slate-950 min-h-screen text-slate-800 dark:text-slate-100 p-4 md:p-6">
+    <div id="publisher-center-panel" className="bg-[#030307] min-h-screen text-slate-100 p-4 md:p-6">
       {/* Header do Módulo */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-5 mb-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#161c33] pb-5 mb-6">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <Globe className="text-emerald-500 animate-pulse" size={24} />
@@ -323,7 +323,7 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
         <button 
           onClick={fetchData} 
           disabled={isLoading}
-          className="px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2 text-xs font-bold transition-all shadow-sm disabled:opacity-50 cursor-pointer"
+          className="px-4 py-2 bg-[#06060c] border border-[#161c33] rounded-lg hover:bg-[#111425] text-emerald-400 flex items-center gap-2 text-xs font-bold transition-all shadow-sm disabled:opacity-50 cursor-pointer font-mono"
         >
           <RefreshCw size={14} className={isLoading ? 'animate-spin' : ''} />
           Atualizar Dados
@@ -354,13 +354,13 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
       )}
 
       {/* Sub Abas de Navegação */}
-      <div className="flex border-b border-slate-200 dark:border-slate-800 mb-6 gap-2">
+      <div className="flex border-b border-[#161c33] mb-6 gap-2">
         <button
           onClick={() => setActiveSubTab('ready-products')}
           className={`px-4 py-2 border-b-2 font-bold text-xs flex items-center gap-2 transition-all cursor-pointer ${
             activeSubTab === 'ready-products'
-              ? 'border-emerald-500 text-emerald-500 dark:text-white'
-              : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
+              ? 'border-emerald-500 text-emerald-400'
+              : 'border-transparent text-slate-500 hover:text-slate-300'
           }`}
         >
           <Briefcase size={14} /> Produtos Criados ({products.length})
@@ -369,8 +369,8 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
           onClick={() => setActiveSubTab('publications')}
           className={`px-4 py-2 border-b-2 font-bold text-xs flex items-center gap-2 transition-all cursor-pointer ${
             activeSubTab === 'publications'
-              ? 'border-emerald-500 text-emerald-500 dark:text-white'
-              : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
+              ? 'border-emerald-500 text-emerald-400'
+              : 'border-transparent text-slate-500 hover:text-slate-300'
           }`}
         >
           <Globe size={14} /> Publicações Prontas ({publications.length})
@@ -382,7 +382,7 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
         {/* Lado Esquerdo - Listagem dependendo da aba */}
         <div className="lg:col-span-1 space-y-4">
           {isLoading && products.length === 0 ? (
-            <div className="border border-dashed border-slate-200 dark:border-slate-800 rounded-xl p-8 text-center text-slate-500 text-xs font-mono">
+            <div className="border border-dashed border-[#161c33] rounded-xl p-8 text-center text-slate-500 text-xs font-mono">
               Carregando dados da fábrica de infoprodutos...
             </div>
           ) : activeSubTab === 'ready-products' ? (
@@ -392,7 +392,7 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
               </h2>
 
               {products.length === 0 ? (
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 text-center text-slate-400 text-xs font-mono">
+                <div className="bg-[#06060c] border border-[#161c33] rounded-xl p-6 text-center text-slate-400 text-xs font-mono">
                   Nenhum produto digital foi estruturado pelos agentes de criação ainda.
                 </div>
               ) : (
@@ -409,10 +409,10 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                           setActiveSubTab('publications');
                         }
                       }}
-                      className={`p-4 rounded-xl border transition-all duration-200 cursor-pointer text-left bg-white dark:bg-slate-900 ${
+                      className={`p-4 rounded-xl border transition-all duration-200 cursor-pointer text-left bg-[#06060c] ${
                         selectedPublication && selectedPublication.productId === prod.id
-                          ? 'border-emerald-500 ring-1 ring-emerald-500/20'
-                          : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
+                          ? 'border-emerald-500 ring-1 ring-emerald-500/20 shadow-[0_0_12px_rgba(16,185,129,0.15)]'
+                          : 'border-[#161c33] hover:border-emerald-500/50'
                       }`}
                     >
                       <div className="flex items-start justify-between gap-2 mb-2">
@@ -437,8 +437,8 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                         {prod.description}
                       </p>
 
-                      <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/60">
-                        <span className="text-xs font-bold text-slate-700 dark:text-slate-300 font-mono">
+                      <div className="flex items-center justify-between mt-4 pt-3 border-t border-[#161c33]">
+                        <span className="text-xs font-bold text-slate-300 font-mono">
                           Preço base: R$ {prod.price}
                         </span>
 
@@ -451,7 +451,7 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                                 setActiveSubTab('publications');
                               }
                             }}
-                            className="text-xs font-bold text-emerald-500 hover:underline flex items-center gap-1 cursor-pointer"
+                            className="text-xs font-bold text-emerald-400 hover:underline flex items-center gap-1 cursor-pointer font-mono"
                           >
                             Ver Lançamento <ChevronRight size={14} />
                           </button>
@@ -462,7 +462,7 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                               handlePreparePublication(prod.id);
                             }}
                             disabled={preparingForProductId === prod.id}
-                            className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-bold text-[10px] uppercase tracking-wider rounded-lg flex items-center gap-1 cursor-pointer"
+                            className="px-3 py-1.5 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-black font-extrabold text-[10px] uppercase tracking-wider rounded-lg flex items-center gap-1 cursor-pointer font-mono"
                           >
                             {preparingForProductId === prod.id ? (
                               <>
@@ -490,7 +490,7 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
               </h2>
 
               {publications.length === 0 ? (
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 text-center text-slate-400 text-xs font-mono">
+                <div className="bg-[#06060c] border border-[#161c33] rounded-xl p-6 text-center text-slate-400 text-xs font-mono">
                   Nenhum produto foi preparado para lançamento. Clique na aba de Produtos Criados para iniciar um.
                 </div>
               ) : (
@@ -501,10 +501,10 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                       setSelectedPublication(pub);
                       setIsEditing(false);
                     }}
-                    className={`p-4 rounded-xl border transition-all duration-200 cursor-pointer text-left bg-white dark:bg-slate-900 ${
+                    className={`p-4 rounded-xl border transition-all duration-200 cursor-pointer text-left bg-[#06060c] ${
                       selectedPublication && selectedPublication.id === pub.id
-                        ? 'border-emerald-500 ring-1 ring-emerald-500/20'
-                        : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
+                        ? 'border-emerald-500 ring-1 ring-emerald-500/20 shadow-[0_0_12px_rgba(16,185,129,0.15)]'
+                        : 'border-[#161c33] hover:border-emerald-500/50'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-2 mb-2">
@@ -512,22 +512,22 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                         <span className="text-[10px] font-mono text-slate-400">
                           Versão {pub.version}
                         </span>
-                        <h3 className="text-sm font-bold text-slate-900 dark:text-white line-clamp-1">
+                        <h3 className="text-sm font-bold text-white line-clamp-1">
                           {pub.productName}
                         </h3>
                       </div>
                       <div className="shrink-0">{getStatusBadge(pub.status)}</div>
                     </div>
 
-                    <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mb-3">
+                    <p className="text-xs text-slate-400 line-clamp-2 mb-3">
                       {pub.description}
                     </p>
 
-                    <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-100 dark:border-slate-800/60 text-xs">
-                      <span className="font-bold text-emerald-500 font-mono">
+                    <div className="flex items-center justify-between mt-3 pt-3 border-t border-[#161c33] text-xs">
+                      <span className="font-bold text-emerald-400 font-mono">
                         Checkout: R$ {pub.price}
                       </span>
-                      <span className="text-slate-400 text-[10px] font-mono">
+                      <span className="text-slate-500 text-[10px] font-mono">
                         ID: {pub.id}
                       </span>
                     </div>
@@ -546,10 +546,10 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                 key="no-selected"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-12 text-center flex flex-col items-center justify-center h-full min-h-[400px]"
+                className="bg-[#06060c] border border-[#161c33] rounded-2xl p-12 text-center flex flex-col items-center justify-center h-full min-h-[400px]"
               >
-                <Globe size={48} className="text-slate-300 dark:text-slate-700 mb-4 stroke-1" />
-                <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1">
+                <Globe size={48} className="text-slate-700 mb-4 stroke-1" />
+                <h3 className="text-base font-bold text-white mb-1">
                   Nenhuma Publicação Selecionada
                 </h3>
                 <p className="text-xs text-slate-500 max-w-sm">
@@ -562,21 +562,21 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm flex flex-col"
+                className="bg-[#06060c] border border-[#161c33] rounded-2xl overflow-hidden shadow-sm flex flex-col"
               >
                 {/* Header dos Detalhes */}
-                <div className="p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60">
+                <div className="p-6 border-b border-[#161c33] bg-[#090914]">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-[10px] font-mono bg-emerald-500/10 text-emerald-500 font-bold px-2.5 py-0.5 rounded-full border border-emerald-500/10">
+                        <span className="text-[10px] font-mono bg-emerald-500/10 text-emerald-400 font-bold px-2.5 py-0.5 rounded-full border border-emerald-500/10">
                           ID: {selectedPublication.id}
                         </span>
-                        <span className="text-[10px] font-mono bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-full font-bold">
+                        <span className="text-[10px] font-mono bg-[#111425] text-emerald-400 px-2 py-0.5 rounded-full font-bold">
                           Versão {selectedPublication.version}
                         </span>
                       </div>
-                      <h2 className="text-lg font-black tracking-tight text-slate-900 dark:text-white mt-1.5 font-sans">
+                      <h2 className="text-lg font-black tracking-tight text-white mt-1.5 font-sans">
                         {selectedPublication.productName}
                       </h2>
                     </div>
@@ -587,7 +587,7 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                       {!isEditing && selectedPublication.status !== 'published' && (
                         <button
                           onClick={() => handleStartEditing(selectedPublication)}
-                          className="p-2 border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-900 hover:bg-slate-50 text-slate-600 dark:text-slate-300 cursor-pointer"
+                          className="p-2 border border-[#161c33] rounded-lg bg-[#06060c] hover:bg-[#111425] text-emerald-400 cursor-pointer font-mono"
                           title="Editar Lançamento"
                         >
                           <Edit3 size={14} />
@@ -602,7 +602,7 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                   {isEditing ? (
                     // Formulário de Edição
                     <div className="space-y-4 text-left">
-                      <div className="border border-indigo-500/20 bg-indigo-500/5 rounded-xl p-3 mb-4 text-[11px] font-mono text-indigo-400">
+                      <div className="border border-emerald-500/20 bg-emerald-500/5 rounded-xl p-3 mb-4 text-[11px] font-mono text-emerald-400">
                         Nota: Salvar as alterações incrementará o número de versão para refletir as mudanças do empacotador.
                       </div>
 
@@ -614,7 +614,7 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                           rows={4}
                           value={editDescription}
                           onChange={(e) => setEditDescription(e.target.value)}
-                          className="w-full bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg p-2.5 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20"
+                          className="w-full bg-[#030307] border border-[#161c33] rounded-lg p-2.5 text-xs text-slate-200 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20"
                         />
                       </div>
 
@@ -628,7 +628,7 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                             step="0.01"
                             value={editPrice}
                             onChange={(e) => setEditPrice(Number(e.target.value))}
-                            className="w-full bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg p-2.5 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-emerald-500"
+                            className="w-full bg-[#030307] border border-[#161c33] rounded-lg p-2.5 text-xs text-slate-200 focus:outline-none focus:border-emerald-500"
                           />
                         </div>
                         <div>
@@ -639,7 +639,7 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                             type="text"
                             value={editSalesPageUrl}
                             onChange={(e) => setEditSalesPageUrl(e.target.value)}
-                            className="w-full bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg p-2.5 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-emerald-500"
+                            className="w-full bg-[#030307] border border-[#161c33] rounded-lg p-2.5 text-xs text-slate-200 focus:outline-none focus:border-emerald-500"
                           />
                         </div>
                       </div>
@@ -652,7 +652,7 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                           rows={3}
                           value={editTermsAndConditions}
                           onChange={(e) => setEditTermsAndConditions(e.target.value)}
-                          className="w-full bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg p-2.5 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20"
+                          className="w-full bg-[#030307] border border-[#161c33] rounded-lg p-2.5 text-xs text-slate-200 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20"
                         />
                       </div>
 
@@ -666,12 +666,12 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                             placeholder="Adicionar arquivo (Ex: Ebook_Marketing_v1.pdf)"
                             value={newFileField}
                             onChange={(e) => setNewFileField(e.target.value)}
-                            className="flex-1 bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg p-2 text-xs text-slate-800 dark:text-slate-200 focus:outline-none"
+                            className="flex-1 bg-[#030307] border border-[#161c33] rounded-lg p-2 text-xs text-slate-200 focus:outline-none"
                           />
                           <button
                             type="button"
                             onClick={handleAddFile}
-                            className="px-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold cursor-pointer"
+                            className="px-3 bg-emerald-500 hover:bg-emerald-400 text-black rounded-lg text-xs font-bold cursor-pointer font-mono"
                           >
                             Adicionar
                           </button>
@@ -680,14 +680,14 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                           {editFiles.map((file) => (
                             <span 
                               key={file}
-                              className="px-2.5 py-1 text-xs bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 rounded-lg flex items-center gap-1.5"
+                              className="px-2.5 py-1 text-xs bg-[#111425] text-slate-300 border border-[#161c33] rounded-lg flex items-center gap-1.5 font-mono"
                             >
                               <FileText size={12} className="text-slate-400" />
                               {file}
                               <button
                                 type="button"
                                 onClick={() => handleRemoveFile(file)}
-                                className="text-rose-500 hover:text-rose-700 font-bold ml-1 text-xs"
+                                className="text-rose-500 hover:text-rose-400 font-bold ml-1 text-xs"
                               >
                                 &times;
                               </button>
@@ -696,16 +696,16 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2 pt-4 border-t border-slate-200 dark:border-slate-800">
+                      <div className="flex items-center gap-2 pt-4 border-t border-[#161c33]">
                         <button
                           onClick={() => handleSaveEdition(selectedPublication.id)}
-                          className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                          className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-black rounded-lg text-xs font-bold flex items-center gap-1.5 cursor-pointer font-mono"
                         >
                           <Save size={14} /> Salvar Edição
                         </button>
                         <button
                           onClick={() => setIsEditing(false)}
-                          className="px-4 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 rounded-lg text-xs text-slate-500 font-bold cursor-pointer"
+                          className="px-4 py-2 bg-[#111425] hover:bg-[#1b203a] rounded-lg text-xs text-slate-400 font-bold cursor-pointer font-mono"
                         >
                           Cancelar
                         </button>
@@ -720,7 +720,7 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                           <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5 font-mono">
                             Descrição de Checkout (Comercial)
                           </h3>
-                          <div className="p-4 bg-slate-50 dark:bg-slate-950/60 rounded-xl border border-slate-100 dark:border-slate-900 text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                          <div className="p-4 bg-[#030307] rounded-xl border border-[#161c33] text-xs leading-relaxed text-slate-300">
                             {selectedPublication.description}
                           </div>
                         </div>
@@ -734,10 +734,10 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                               src={selectedPublication.images[0]} 
                               alt="Mockup do produto" 
                               referrerPolicy="no-referrer"
-                              className="w-full h-28 object-cover rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-900"
+                              className="w-full h-28 object-cover rounded-xl border border-[#161c33] bg-[#030307]"
                             />
                           ) : (
-                            <div className="w-full h-28 bg-slate-100 dark:bg-slate-800 rounded-xl flex items-center justify-center border border-dashed border-slate-200 dark:border-slate-800 text-slate-400 text-xs font-mono">
+                            <div className="w-full h-28 bg-[#030307] rounded-xl flex items-center justify-center border border-dashed border-[#161c33] text-slate-500 text-xs font-mono">
                               Sem imagens
                             </div>
                           )}
@@ -746,16 +746,16 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
 
                       {/* Informações Comerciais */}
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div className="p-4 bg-slate-50 dark:bg-slate-950/40 rounded-xl border border-slate-100 dark:border-slate-900/60">
+                        <div className="p-4 bg-[#030307] rounded-xl border border-[#161c33]">
                           <span className="text-[10px] uppercase font-bold text-slate-400 font-mono block mb-1">
                             Preço Final Sugerido
                           </span>
-                          <span className="text-lg font-black text-emerald-500 font-mono">
+                          <span className="text-lg font-black text-emerald-400 font-mono">
                             R$ {selectedPublication.price.toFixed(2)}
                           </span>
                         </div>
 
-                        <div className="p-4 bg-slate-50 dark:bg-slate-950/40 rounded-xl border border-slate-100 dark:border-slate-900/60">
+                        <div className="p-4 bg-[#030307] rounded-xl border border-[#161c33]">
                           <span className="text-[10px] uppercase font-bold text-slate-400 font-mono block mb-1">
                             URL de Venda
                           </span>
@@ -763,28 +763,28 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                             href={selectedPublication.salesPageUrl} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="text-xs font-bold text-emerald-500 hover:underline flex items-center gap-1 mt-1 font-mono break-all line-clamp-1"
+                            className="text-xs font-bold text-emerald-400 hover:underline flex items-center gap-1 mt-1 font-mono break-all line-clamp-1"
                           >
                             Ir para checkout <ExternalLink size={10} />
                           </a>
                         </div>
 
-                        <div className="p-4 bg-slate-50 dark:bg-slate-950/40 rounded-xl border border-slate-100 dark:border-slate-900/60">
+                        <div className="p-4 bg-[#030307] rounded-xl border border-[#161c33]">
                           <span className="text-[10px] uppercase font-bold text-slate-400 font-mono block mb-1">
                             Categoria
                           </span>
-                          <span className="text-sm font-extrabold text-slate-700 dark:text-slate-300 uppercase tracking-wider font-mono">
+                          <span className="text-sm font-extrabold text-slate-300 uppercase tracking-wider font-mono">
                             {selectedPublication.category}
                           </span>
                         </div>
                       </div>
 
                       {/* Checklist Técnico de Publicação */}
-                      <div className="p-5 bg-slate-50 dark:bg-slate-950/50 rounded-xl border border-slate-200/60 dark:border-slate-900">
-                        <div className="flex items-center justify-between mb-4 border-b border-slate-200/60 dark:border-slate-900 pb-3">
-                          <div className="flex items-center gap-1.5">
-                            <ListChecks size={16} className="text-emerald-500" />
-                            <h3 className="text-xs font-black uppercase tracking-wider text-slate-700 dark:text-slate-300 font-mono">
+                      <div className="p-5 bg-[#030307] rounded-xl border border-[#161c33]">
+                        <div className="flex items-center justify-between mb-4 border-b border-[#161c33] pb-3">
+                          <div className="flex items-center gap-1.5 font-mono">
+                            <ListChecks size={16} className="text-emerald-400" />
+                            <h3 className="text-xs font-black uppercase tracking-wider text-slate-300">
                               Checklist de Verificação de Qualidade
                             </h3>
                           </div>
@@ -793,7 +793,7 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                             <button
                               onClick={() => handleRunChecklist(selectedPublication.id)}
                               disabled={isAuditing}
-                              className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-extrabold text-[10px] uppercase tracking-wider rounded-lg flex items-center gap-1 cursor-pointer"
+                              className="px-2.5 py-1 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-black font-extrabold text-[10px] uppercase tracking-wider rounded-lg flex items-center gap-1 cursor-pointer font-mono"
                             >
                               {isAuditing ? (
                                 <>
@@ -811,54 +811,54 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                          <div className="flex items-center gap-2.5 p-2 rounded-lg bg-white dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800/40">
+                          <div className="flex items-center gap-2.5 p-2 rounded-lg bg-[#06060c] border border-[#161c33]">
                             {selectedPublication.checklist?.filesVerified ? (
                               <CheckCircle size={16} className="text-emerald-500 shrink-0" />
                             ) : (
                               <AlertCircle size={16} className="text-amber-500 shrink-0 animate-pulse" />
                             )}
-                            <span className="text-slate-600 dark:text-slate-300 font-mono">
+                            <span className="text-slate-300 font-mono">
                               Arquivos finais catalogados e verificados
                             </span>
                           </div>
 
-                          <div className="flex items-center gap-2.5 p-2 rounded-lg bg-white dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800/40">
+                          <div className="flex items-center gap-2.5 p-2 rounded-lg bg-[#06060c] border border-[#161c33]">
                             {selectedPublication.checklist?.commercialOk ? (
                               <CheckCircle size={16} className="text-emerald-500 shrink-0" />
                             ) : (
                               <AlertCircle size={16} className="text-amber-500 shrink-0 animate-pulse" />
                             )}
-                            <span className="text-slate-600 dark:text-slate-300 font-mono">
+                            <span className="text-slate-300 font-mono">
                               Conferência de precificação e dados comerciais
                             </span>
                           </div>
 
-                          <div className="flex items-center gap-2.5 p-2 rounded-lg bg-white dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800/40">
+                          <div className="flex items-center gap-2.5 p-2 rounded-lg bg-[#06060c] border border-[#161c33]">
                             {selectedPublication.checklist?.termsAccepted ? (
                               <CheckCircle size={16} className="text-emerald-500 shrink-0" />
                             ) : (
                               <AlertCircle size={16} className="text-amber-500 shrink-0 animate-pulse" />
                             )}
-                            <span className="text-slate-600 dark:text-slate-300 font-mono">
+                            <span className="text-slate-300 font-mono">
                               Política de CDC (garantia de 7 dias) aceita
                             </span>
                           </div>
 
-                          <div className="flex items-center gap-2.5 p-2 rounded-lg bg-white dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800/40">
+                          <div className="flex items-center gap-2.5 p-2 rounded-lg bg-[#06060c] border border-[#161c33]">
                             {selectedPublication.checklist?.metadataComplete ? (
                               <CheckCircle size={16} className="text-emerald-500 shrink-0" />
                             ) : (
                               <AlertCircle size={16} className="text-amber-500 shrink-0 animate-pulse" />
                             )}
-                            <span className="text-slate-600 dark:text-slate-300 font-mono">
+                            <span className="text-slate-300 font-mono">
                               Metadados e tags de categorias preenchidos
                             </span>
                           </div>
                         </div>
 
                         {selectedPublication.checklist?.itemsChecked && selectedPublication.checklist.itemsChecked.length > 0 && (
-                          <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-900 text-[10px] font-mono text-slate-400">
-                            <span className="font-bold text-slate-500">Etapas auditadas pela IA:</span>{' '}
+                          <div className="mt-4 pt-3 border-t border-[#161c33] text-[10px] font-mono text-slate-500">
+                            <span className="font-bold text-slate-400">Etapas auditadas pela IA:</span>{' '}
                             {selectedPublication.checklist.itemsChecked.join(' | ')}
                           </div>
                         )}
@@ -872,8 +872,8 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
                           <div className={`p-3 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${
                             selectedPublication.platforms?.hotmart 
-                              ? 'border-emerald-500 bg-emerald-500/5 text-slate-800 dark:text-white' 
-                              : 'border-slate-200 dark:border-slate-800 opacity-45'
+                              ? 'border-emerald-500 bg-emerald-500/5 text-white' 
+                              : 'border-[#161c33] opacity-45'
                           }`}>
                             <BookOpen size={20} className="text-amber-500 mb-1" />
                             <span className="text-[10px] font-bold font-mono">Hotmart</span>
@@ -881,8 +881,8 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
 
                           <div className={`p-3 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${
                             selectedPublication.platforms?.kiwify 
-                              ? 'border-emerald-500 bg-emerald-500/5 text-slate-800 dark:text-white' 
-                              : 'border-slate-200 dark:border-slate-800 opacity-45'
+                              ? 'border-emerald-500 bg-emerald-500/5 text-white' 
+                              : 'border-[#161c33] opacity-45'
                           }`}>
                             <Sparkles size={20} className="text-indigo-500 mb-1" />
                             <span className="text-[10px] font-bold font-mono">Kiwify</span>
@@ -890,8 +890,8 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
 
                           <div className={`p-3 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${
                             selectedPublication.platforms?.monetizze 
-                              ? 'border-emerald-500 bg-emerald-500/5 text-slate-800 dark:text-white' 
-                              : 'border-slate-200 dark:border-slate-800 opacity-45'
+                              ? 'border-emerald-500 bg-emerald-500/5 text-white' 
+                              : 'border-[#161c33] opacity-45'
                           }`}>
                             <DollarSign size={20} className="text-teal-500 mb-1" />
                             <span className="text-[10px] font-bold font-mono">Monetizze</span>
@@ -899,8 +899,8 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
 
                           <div className={`p-3 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${
                             selectedPublication.platforms?.customStore 
-                              ? 'border-emerald-500 bg-emerald-500/5 text-slate-800 dark:text-white' 
-                              : 'border-slate-200 dark:border-slate-800 opacity-45'
+                              ? 'border-emerald-500 bg-emerald-500/5 text-white' 
+                              : 'border-[#161c33] opacity-45'
                           }`}>
                             <Server size={20} className="text-slate-400 mb-1" />
                             <span className="text-[10px] font-bold font-mono">Loja Digital</span>
@@ -908,8 +908,8 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
 
                           <div className={`p-3 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${
                             selectedPublication.platforms?.externalApi 
-                              ? 'border-emerald-500 bg-emerald-500/5 text-slate-800 dark:text-white' 
-                              : 'border-slate-200 dark:border-slate-800 opacity-45'
+                              ? 'border-emerald-500 bg-emerald-500/5 text-white' 
+                              : 'border-[#161c33] opacity-45'
                           }`}>
                             <Database size={20} className="text-sky-500 mb-1" />
                             <span className="text-[10px] font-bold font-mono">API Externa</span>
@@ -923,19 +923,19 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                           <h3 className="text-xs font-black uppercase tracking-wider text-slate-400 mb-2 font-mono">
                             Arquivos de Entrega Catalogados
                           </h3>
-                          <div className="space-y-2 bg-slate-50 dark:bg-slate-950/30 p-4 rounded-xl border border-slate-100 dark:border-slate-900">
+                          <div className="space-y-2 bg-[#030307] p-4 rounded-xl border border-[#161c33]">
                             {selectedPublication.files && selectedPublication.files.length > 0 ? (
                               selectedPublication.files.map((file) => (
                                 <div 
                                   key={file}
-                                  className="flex items-center gap-2 p-2 rounded bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-xs font-mono"
+                                  className="flex items-center gap-2 p-2 rounded bg-[#06060c] border border-[#161c33] text-xs font-mono"
                                 >
                                   <FileText size={14} className="text-slate-400" />
-                                  <span className="text-slate-700 dark:text-slate-300 truncate">{file}</span>
+                                  <span className="text-slate-300 truncate">{file}</span>
                                 </div>
                               ))
                             ) : (
-                              <div className="text-center text-slate-400 text-xs font-mono py-2">
+                              <div className="text-center text-slate-500 text-xs font-mono py-2">
                                 Nenhum arquivo de entrega definido.
                               </div>
                             )}
@@ -946,7 +946,7 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                           <h3 className="text-xs font-black uppercase tracking-wider text-slate-400 mb-2 font-mono">
                             Termos de Reembolso e Política de CDC
                           </h3>
-                          <div className="p-4 bg-slate-50 dark:bg-slate-950/30 rounded-xl border border-slate-100 dark:border-slate-900/60 text-[11px] leading-relaxed font-mono text-slate-500 dark:text-slate-400 max-h-32 overflow-y-auto">
+                          <div className="p-4 bg-[#030307] rounded-xl border border-[#161c33] text-[11px] leading-relaxed font-mono text-slate-400 max-h-32 overflow-y-auto">
                             {selectedPublication.termsAndConditions}
                           </div>
                         </div>
@@ -957,22 +957,22 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
                         <h3 className="text-xs font-black uppercase tracking-wider text-slate-400 mb-2 font-mono flex items-center gap-1">
                           <History size={14} /> Histórico de Versionamento e Lançamento
                         </h3>
-                        <div className="bg-slate-50 dark:bg-slate-950/30 rounded-xl border border-slate-100 dark:border-slate-900 p-4 space-y-3 font-mono text-[11px] max-h-40 overflow-y-auto">
+                        <div className="bg-[#030307] rounded-xl border border-[#161c33] p-4 space-y-3 font-mono text-[11px] max-h-40 overflow-y-auto">
                           {selectedPublication.history && selectedPublication.history.length > 0 ? (
                             selectedPublication.history.map((log, i) => (
-                              <div key={i} className="flex items-start gap-2 text-left border-b border-slate-100 dark:border-slate-900/60 pb-2 last:border-0 last:pb-0">
-                                <span className="text-[10px] text-slate-400 shrink-0">
+                              <div key={i} className="flex items-start gap-2 text-left border-b border-[#161c33] pb-2 last:border-0 last:pb-0">
+                                <span className="text-[10px] text-slate-500 shrink-0">
                                   [{new Date(log.timestamp).toLocaleTimeString()}]
                                 </span>
                                 <div>
-                                  <span className="font-extrabold text-emerald-500 uppercase">{log.action}</span>
-                                  <span className="text-slate-400"> (por {log.actor}):</span>{' '}
-                                  <span className="text-slate-600 dark:text-slate-300">{log.details}</span>
+                                  <span className="font-extrabold text-emerald-400 uppercase">{log.action}</span>
+                                  <span className="text-slate-500"> (por {log.actor}):</span>{' '}
+                                  <span className="text-slate-300">{log.details}</span>
                                 </div>
                               </div>
                             ))
                           ) : (
-                            <div className="text-center text-slate-400 py-2">
+                            <div className="text-center text-slate-500 py-2">
                               Nenhum histórico registrado ainda.
                             </div>
                           )}
@@ -981,11 +981,11 @@ export const PublisherCenterPanel: React.FC<PublisherCenterPanelProps> = ({ jwtT
 
                       {/* Botão de Ação Principal - Publicação Final */}
                       {selectedPublication.status !== 'published' && (
-                        <div className="pt-4 border-t border-slate-100 dark:border-slate-800/80 flex justify-end">
+                        <div className="pt-4 border-t border-[#161c33] flex justify-end">
                           <button
                             onClick={() => handleApprovePublication(selectedPublication.id)}
                             disabled={isApproving}
-                            className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl flex items-center gap-2 shadow-sm cursor-pointer"
+                            className="px-6 py-3 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-black font-extrabold text-xs uppercase tracking-wider rounded-xl flex items-center gap-2 shadow-sm cursor-pointer font-mono"
                           >
                             {isApproving ? (
                               <>

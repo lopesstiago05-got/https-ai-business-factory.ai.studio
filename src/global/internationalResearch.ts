@@ -1,5 +1,6 @@
 import { GoogleGenAI } from '@google/genai';
 import { logWarn } from '../logs/logger.ts';
+import { ModelManager } from '../kernel/ModelManager.ts';
 
 export interface InternationalMarketProfile {
   nicheDemandScore: number; // 0-100
@@ -27,11 +28,11 @@ export class InternationalResearch {
         httpOptions: { headers: { 'User-Agent': 'aistudio-build' } }
       });
 
-      const response = await ai.models.generateContent({
+      const response = await ModelManager.generateContent('international_research', ai, {
         model: 'gemini-3.5-flash',
         contents: `Você é um Pesquisador de Mercado Internacional de alta performance.
         Analise o potencial do nicho "${niche}" para expansão no país "${countryName}".
-        Identifique concorrentes, nuances culturais locais sobre hábitos de consumo digital, melhores canais de vendas locais e construa a persona ideal adaptada à cultura local.
+        Identifique concorrentes, nuances culturais locais sobre hábitos de consumo digital, melhores canais de vendas locais e construua a persona ideal adaptada à cultura local.
         
         Retorne EXCLUSIVAMENTE um objeto JSON estrito com o seguinte formato de propriedades:
         {

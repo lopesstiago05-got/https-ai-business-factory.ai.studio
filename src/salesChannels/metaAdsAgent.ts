@@ -1,5 +1,6 @@
 import { GoogleGenAI } from '@google/genai';
 import { AdsCampaign } from './salesChannelTypes.ts';
+import { ModelManager } from '../kernel/ModelManager.ts';
 
 export class MetaAdsAgent {
   public static async generateCampaignStrategy(
@@ -31,7 +32,7 @@ Retorne um JSON estrito correspondente ao formato:
   ]
 }`;
 
-        const response = await ai.models.generateContent({
+        const response = await ModelManager.generateContent('meta_ads_agent', ai, {
           model: 'gemini-3.5-flash',
           contents: prompt,
           config: { responseMimeType: 'application/json' }

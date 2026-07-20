@@ -3,9 +3,9 @@ import express from 'express';
 import path from 'path';
 import fs from 'fs';
 import { createServer as createViteServer } from 'vite';
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenAI, GenerateVideosOperation } from '@google/genai';
 import { SystemState, AgentInfo, Task, DigitalProduct, AgentId, FinancialTransaction, Revenue, Expense } from './src/types.ts';
-import { getDB } from './src/db/index.ts';
+import { getDB, markDatabaseAsBroken, getDatabaseDiagnostics } from './src/db/index.ts';
 import { Repository } from './src/db/repository.ts';
 import { hashPassword, comparePasswords, generateToken, authMiddleware, requireRole, AuthenticatedRequest } from './src/auth/utils.ts';
 import { logInfo, logWarn, logError } from './src/logs/logger.ts';
@@ -83,6 +83,7 @@ const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 let isFactoryRunning = true;
 let currentActiveProductId: string | null = null;
 let schedulerInterval: NodeJS.Timeout | null = null;
+let runningTasksTicks: Record<string, number> = {};
 
 // Executa testes automatizados na inicialização para auditar a integridade
 async function bootSystem() {
@@ -92,9 +93,12 @@ async function bootSystem() {
   if (process.env.SQL_HOST) {
     try {
       getDB();
+      // Força um teste real de conexão buscando o estado inicial do sistema
+      await Repository.getSystemState();
       logInfo('Conectado ao banco de dados PostgreSQL com sucesso.');
     } catch (err: any) {
-      logError('Falha ao estabelecer conexão com o PostgreSQL, utilizando banco local JSON.', null, err);
+      logError('Falha ao estabelecer conexão física inicial com o PostgreSQL, utilizando banco local JSON.', null, err);
+      markDatabaseAsBroken(err);
     }
   } else {
     logWarn('SQL_HOST não declarada. Operando no modo de armazenamento em arquivo JSON local.');
@@ -149,7 +153,6 @@ async function bootSystem() {
   }
 }
 
-bootSystem();
 
 // Lazy Gemini client init
 let aiClient: GoogleGenAI | null = null;
@@ -295,8 +298,40 @@ async function autoLaunchNewFactoryProduct() {
 }
 
 // Background scheduler
+async function cleanupStuckTasksAndAgents() {
+  try {
+    const state = await Repository.getSystemState();
+    let changed = false;
+    state.tasks.forEach(t => {
+      if (t.status === 'running') {
+        t.status = 'pending';
+        t.logs.push(`[${new Date().toLocaleTimeString()}] Tarefa resetada para pendente devido a reinicialização do servidor.`);
+        changed = true;
+      }
+    });
+    state.agents.forEach(a => {
+      if (a.status === 'running') {
+        a.status = 'idle';
+        a.currentTask = undefined;
+        changed = true;
+      }
+    });
+    if (changed) {
+      await Repository.saveState({
+        tasks: state.tasks,
+        agents: state.agents
+      });
+      logInfo('[Scheduler Cleanup] Tarefas e agentes presos em estado de execução foram resetados com sucesso.');
+    }
+  } catch (err) {
+    logError('[Scheduler Cleanup] Erro ao limpar tarefas e agentes presos:', null, err);
+  }
+}
+
+// Background scheduler
 function startScheduler() {
   if (schedulerInterval) return;
+  cleanupStuckTasksAndAgents().catch(err => console.error(err));
   schedulerInterval = setInterval(async () => {
     // 1. Monitoramento contínuo do Supervisor Agent (Heartbeats e Health Checks)
     try {
@@ -313,6 +348,35 @@ function startScheduler() {
     try {
       const state = await Repository.getSystemState();
 
+      // Monitora tarefas que estão travadas no estado 'running' para garantir entrega contínua
+      let stateChanged = false;
+      state.tasks.forEach(t => {
+        if (t.status === 'running') {
+          runningTasksTicks[t.id] = (runningTasksTicks[t.id] || 0) + 1;
+          // Se a tarefa estiver rodando há mais de 15 ticks (60 segundos), destrava automaticamente
+          if (runningTasksTicks[t.id] > 15) {
+            t.status = 'pending';
+            t.logs.push(`[${new Date().toLocaleTimeString()}] Tarefa detectada como ociosa por tempo limite. Reiniciando automaticamente.`);
+            const ag = state.agents.find(a => a.id === t.agentId);
+            if (ag) {
+              ag.status = 'idle';
+              ag.currentTask = undefined;
+            }
+            runningTasksTicks[t.id] = 0;
+            stateChanged = true;
+          }
+        } else {
+          delete runningTasksTicks[t.id];
+        }
+      });
+
+      if (stateChanged) {
+        await Repository.saveState({
+          tasks: state.tasks,
+          agents: state.agents
+        });
+      }
+
       // Se não há nenhuma tarefa pendente ou rodando, lança automaticamente o próximo produto 24/7
       const hasActiveTasks = state.tasks.some(t => t.status === 'pending' || t.status === 'running');
       if (!hasActiveTasks) {
@@ -320,13 +384,36 @@ function startScheduler() {
         return;
       }
 
-      const nextTask = state.tasks.find(t => t.status === 'pending');
-      
-      if (!nextTask) {
+      const pendingTasks = state.tasks.filter(t => t.status === 'pending');
+      if (pendingTasks.length === 0) {
         return;
       }
 
-      await executeAgentTask(nextTask);
+      logInfo(`[Scheduler] Iniciando ${pendingTasks.length} agentes simultaneamente em paralelo para produção contínua.`);
+      
+      // Marcar todas as tarefas pendentes como running de uma vez para evitar dupla execução
+      pendingTasks.forEach(t => {
+        t.status = 'running';
+        const ag = state.agents.find(a => a.id === t.agentId);
+        if (ag) {
+          ag.status = 'running';
+          ag.currentTask = t.title;
+          t.logs.push(`[${new Date().toLocaleTimeString()}] Iniciado processamento paralelo e concorrente da fábrica.`);
+        }
+      });
+
+      await Repository.saveState({
+        tasks: state.tasks,
+        agents: state.agents
+      });
+
+      // Disparar todas concorrentemente
+      pendingTasks.forEach(t => {
+        executeAgentTask(t.id).catch(err => {
+          console.error(`Erro ao rodar tarefa em paralelo para o agente ${t.agentId}:`, err);
+        });
+      });
+
     } catch (err: any) {
       logError('Erro no ciclo de orquestração do scheduler.', null, err);
     }
@@ -509,19 +596,24 @@ Relatório de entrega padrão executado com sucesso offline.`;
 }
 
 // Agent execution core
-async function executeAgentTask(task: Task) {
-  const state = await Repository.getSystemState();
+async function executeAgentTask(taskId: string) {
+  let state = await Repository.getSystemState();
+  const task = state.tasks.find(t => t.id === taskId);
+  if (!task) return;
+
   const agent = state.agents.find(a => a.id === task.agentId);
   if (!agent) return;
 
-  logInfo(`Disparando execução para agente: ${agent.name} (${task.title})`);
+  logInfo(`Disparando execução concorrente para agente: ${agent.name} (${task.title})`);
 
-  // Atualiza status
+  // Garante que o status esteja atualizado no início
   task.status = 'running';
   agent.status = 'running';
   agent.currentTask = task.title;
   
-  task.logs.push(`[${new Date().toLocaleTimeString()}] Agente ${agent.name} iniciou processamento da tarefa.`);
+  if (!task.logs.some(log => log.includes('iniciou processamento'))) {
+    task.logs.push(`[${new Date().toLocaleTimeString()}] Agente ${agent.name} iniciou processamento da tarefa concorrente.`);
+  }
   
   await Repository.saveState({
     agents: state.agents,
@@ -531,7 +623,6 @@ async function executeAgentTask(task: Task) {
   const startTime = Date.now();
 
   try {
-    const ai = getGeminiAI();
     let prompt = `Você é o ${agent.name} desempenhando o papel de ${agent.role}.
 Sua descrição de trabalho: ${agent.description}
 
@@ -539,6 +630,9 @@ A tarefa atual é: ${task.title}
 Instruções: ${task.description}
 
 Por favor, gere uma entrega profissional completa para esta tarefa. Use português do Brasil. Escreva de forma rica, estruturada e detalhada.
+
+DIRETRIZ MANDATÓRIA (AGENTES EXTREMAMENTE GANANCIOSOS):
+Nossa prioridade máxima e absoluta é a geração de lucro, vendas em massa e faturamento exorbitante. Suas copies, ganchos mentais, precificações, canais de distribuição, design de imagem, conteúdo pedagógico e estratégias operacionais devem ser extremamente agressivos, altamente lucrativos e focados 100% em maximizar a conversão de leads e clientes pagantes. Crie apelos comerciais irresistíveis, dores acentuadas da persona e promessas de transformação inabaláveis. O intuito é maximizar a receita de vendas de infoprodutos a todo custo.
 `;
 
     let product = state.products.find(p => p.id === currentActiveProductId);
@@ -556,12 +650,12 @@ Por favor, gere uma entrega profissional completa para esta tarefa. Use portugu�
 `;
     }
 
-    task.logs.push(`[${new Date().toLocaleTimeString()}] Chamando a inteligência artificial Gemini 3.5 para gerar entrega de alta precisão...`);
-    
+    task.logs.push(`[${new Date().toLocaleTimeString()}] Chamando a inteligência artificial Gemini para gerar entrega de alta precisão...`);
     await Repository.saveState({ tasks: state.tasks });
 
     let outputText = '';
     try {
+      const ai = getGeminiAI();
       const response = await ModelManager.generateContent('integration', ai, {
         model: ModelManager.getModelName(),
         contents: prompt,
@@ -574,76 +668,104 @@ Por favor, gere uma entrega profissional completa para esta tarefa. Use portugu�
       const prodName = product?.name || 'Guia do Milionário Moderno';
       const prodNiche = product?.niche || 'Educação Financeira';
       logWarn(`[Offline Engine] Falha ao comunicar com Gemini para o agente ${agent.id} (Erro: ${apiErr.message}). Utilizando gerador heurístico offline para manter a fábrica trabalhando 24/7.`);
-      task.logs.push(`[${new Date().toLocaleTimeString()}] [Offline] Conexão com a nuvem indisponível. Ativando heurística local offline.`);
+      task.logs.push(`[${new Date().toLocaleTimeString()}] [Offline] Ativando processamento heurístico local da fábrica.`);
       outputText = generateOfflineAgentOutput(agent.id, task.title, prodName, prodNiche);
     }
 
-    task.result = outputText;
-    task.status = 'completed';
-    task.logs.push(`[${new Date().toLocaleTimeString()}] Resposta gerada com sucesso (${outputText.length} caracteres).`);
+    // --- SALVAR E SINCRONIZAR COM ESTADO MAIS RECENTE PARA EVITAR CONFLITOS DE CONCORRÊNCIA ---
+    const freshState = await Repository.getSystemState();
+    const freshTask = freshState.tasks.find(t => t.id === taskId);
+    const freshAgent = freshState.agents.find(a => a.id === agent.id);
+    const freshProduct = freshState.products.find(p => p.id === currentActiveProductId);
 
-    if (product) {
+    if (freshTask) {
+      freshTask.result = outputText;
+      freshTask.status = 'completed';
+      freshTask.logs = [
+        ...task.logs,
+        `[${new Date().toLocaleTimeString()}] Resposta gerada com sucesso (${outputText.length} caracteres).`,
+        `[${new Date().toLocaleTimeString()}] Tarefa do agente ${agent.name} finalizada com sucesso!`
+      ];
+    }
+
+    if (freshProduct) {
       if (agent.id === 'ceo') {
         const nameMatch = outputText.match(/Nome do Produto:\s*([^\n]+)/i) || outputText.match(/Nome:\s*([^\n]+)/i);
-        if (nameMatch) product.name = nameMatch[1].trim();
+        if (nameMatch) freshProduct.name = nameMatch[1].trim();
         const nicheMatch = outputText.match(/Nicho:\s*([^\n]+)/i);
-        if (nicheMatch) product.niche = nicheMatch[1].trim();
-        product.description = outputText;
+        if (nicheMatch) freshProduct.niche = nicheMatch[1].trim();
+        freshProduct.description = outputText;
       } else if (agent.id === 'research') {
-        product.description += `\n\n### Relatório de Pesquisa de Mercado (Research Agent):\n${outputText}`;
+        freshProduct.description += `\n\n### Relatório de Pesquisa de Mercado (Research Agent):\n${outputText}`;
       } else if (agent.id === 'market') {
-        product.description += `\n\n### Análise SEO & Canais (Market Agent):\n${outputText}`;
+        freshProduct.description += `\n\n### Análise SEO & Canais (Market Agent):\n${outputText}`;
       } else if (agent.id === 'product') {
-        product.content = outputText;
+        freshProduct.content = outputText;
       } else if (agent.id === 'writer') {
-        product.content += `\n\n### Conteúdo Principal - Guia Escrito (Writer Agent):\n${outputText}`;
+        freshProduct.content += `\n\n### Conteúdo Principal - Guia Escrito (Writer Agent):\n${outputText}`;
       } else if (agent.id === 'designer') {
-        product.designerAssets = [outputText];
+        freshProduct.designerAssets = [outputText];
       } else if (agent.id === 'marketing') {
-        product.salesPage = outputText;
+        freshProduct.salesPage = outputText;
       } else if (agent.id === 'publisher') {
-        product.publicationLogs.push(`Empacotamento realizado com sucesso pelo Publisher Agent em ${new Date().toLocaleString()}`);
+        freshProduct.publicationLogs.push(`Empacotamento realizado com sucesso pelo Publisher Agent em ${new Date().toLocaleString()}`);
         try {
-          await PublisherAgent.preparePublication(product.id);
+          await PublisherAgent.preparePublication(freshProduct.id);
         } catch (pubErr: any) {
           logWarn(`Falha ao instanciar estrutura de publicação automática: ${pubErr.message}`);
         }
       } else if (agent.id === 'finance') {
-        product.financialProjection = outputText;
+        freshProduct.financialProjection = outputText;
         const priceMatch = outputText.match(/Preço Recomendado:\s*R\$\s*([0-9,.]+)/i) || outputText.match(/Preço:\s*([0-9.]+)/i);
         if (priceMatch) {
           const parsedPrice = parseFloat(priceMatch[1].replace('.', '').replace(',', '.'));
           if (!isNaN(parsedPrice)) {
-            product.price = parsedPrice;
+            freshProduct.price = parsedPrice;
           }
         }
-        product.revenue = (product.price || 97) * 120;
+        freshProduct.revenue = (freshProduct.price || 97) * 120;
       } else if (agent.id === 'supervisor') {
-        product.publicationLogs.push(`Produto revisado e selo de qualidade aprovado por Supervisor Agent.`);
+        freshProduct.publicationLogs.push(`Produto revisado e selo de qualidade aprovado por Supervisor Agent.`);
       }
     }
 
-    task.logs.push(`[${new Date().toLocaleTimeString()}] Tarefa do agente ${agent.name} finalizada com sucesso!`);
-    logInfo(`Tarefa concluída com sucesso para o agente: ${agent.name}`);
+    const duration = Math.round((Date.now() - startTime) / 1000);
+    if (freshAgent) {
+      freshAgent.executionTime += duration;
+      freshAgent.status = 'idle';
+      freshAgent.currentTask = undefined;
+    }
+    if (freshTask) {
+      freshTask.executionTime = duration;
+    }
+
+    await Repository.saveState({
+      agents: freshState.agents,
+      tasks: freshState.tasks,
+      products: freshState.products
+    });
+
+    logInfo(`Tarefa concluída com sucesso para o agente concorrente: ${agent.name}`);
 
   } catch (error: any) {
-    logError(`Erro executando tarefa do agente ${agent.id}`, null, error);
-    task.status = 'failed';
-    task.logs.push(`[${new Date().toLocaleTimeString()}] ERRO: ${error?.message || error}`);
-    agent.status = 'error';
-  } finally {
-    const duration = Math.round((Date.now() - startTime) / 1000);
-    agent.executionTime += duration;
-    task.executionTime = duration;
-    if (agent.status !== 'error') {
-      agent.status = 'idle';
-    }
-    agent.currentTask = undefined;
+    logError(`Erro executando tarefa concorrente do agente ${agent.id}`, null, error);
     
+    const freshState = await Repository.getSystemState();
+    const freshTask = freshState.tasks.find(t => t.id === taskId);
+    const freshAgent = freshState.agents.find(a => a.id === agent.id);
+    
+    if (freshTask) {
+      freshTask.status = 'failed';
+      freshTask.logs.push(`[${new Date().toLocaleTimeString()}] ERRO: ${error?.message || error}`);
+    }
+    if (freshAgent) {
+      freshAgent.status = 'error';
+      freshAgent.currentTask = undefined;
+    }
+
     await Repository.saveState({
-      agents: state.agents,
-      tasks: state.tasks,
-      products: state.products
+      agents: freshState.agents,
+      tasks: freshState.tasks
     });
   }
 }
@@ -3878,6 +4000,32 @@ app.post('/api/products/:id/approve', authMiddleware, async (req: AuthenticatedR
   }
 });
 
+// 5.5 Publicar produto digital pronto da fábrica
+app.post('/api/products/:id/publish', authMiddleware, async (req: AuthenticatedRequest, res) => {
+  const { id } = req.params;
+  try {
+    const state = await Repository.getSystemState();
+    const product = state.products.find(p => p.id === id);
+    if (!product) {
+      return res.status(404).json({ error: 'Produto não encontrado.' });
+    }
+    
+    product.status = 'published';
+    const logMsg = `Produto publicado oficialmente e pronto para vendas em ${new Date().toLocaleString()}`;
+    if (!product.publicationLogs.some(log => log.includes('publicado oficialmente'))) {
+      product.publicationLogs.push(logMsg);
+    }
+    
+    await Repository.saveState({
+      products: state.products
+    });
+    
+    res.json({ success: true, product });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message || 'Erro ao publicar produto digital.' });
+  }
+});
+
 // ===============================================================================
 // ----------------- ENDPOINTS DO WRITER AGENT (ETAPA 8) -------------------------
 // ===============================================================================
@@ -4070,6 +4218,101 @@ app.post('/api/designer/projects/:id/approve', authMiddleware, async (req: Authe
     res.json({ success: true, project: updated });
   } catch (err: any) {
     res.status(500).json({ error: err.message || 'Erro ao aprovar projeto visual.' });
+  }
+});
+
+// ===============================================================================
+// ----------------- ENDPOINTS DE VEO VIDEO GENERATION ---------------------------
+// ===============================================================================
+
+app.post('/api/generate-video', authMiddleware, async (req: AuthenticatedRequest, res) => {
+  const { image, prompt, aspectRatio } = req.body;
+  if (!image) {
+    return res.status(400).json({ error: 'A imagem em formato base64 é obrigatória.' });
+  }
+
+  try {
+    let mimeType = 'image/png';
+    let base64EncodeString = image;
+    if (image.startsWith('data:')) {
+      const parts = image.split(';base64,');
+      mimeType = parts[0].replace('data:', '').split(';')[0];
+      base64EncodeString = parts[1];
+    }
+
+    const ai = getGeminiAI();
+    const operation = await ai.models.generateVideos({
+      model: 'veo-3.1-fast-generate-preview',
+      prompt: prompt || 'Animate this photo beautifully with realistic and high quality motion',
+      image: {
+        imageBytes: base64EncodeString,
+        mimeType: mimeType,
+      },
+      config: {
+        numberOfVideos: 1,
+        resolution: '720p',
+        aspectRatio: aspectRatio || '16:9'
+      }
+    });
+
+    res.json({ success: true, operationName: operation.name });
+  } catch (err: any) {
+    logError(`[Veo Video] Erro ao iniciar geração de vídeo: ${err.message || err}`);
+    res.status(500).json({ error: err.message || 'Erro ao iniciar geração de vídeo com Veo.' });
+  }
+});
+
+app.post('/api/video-status', authMiddleware, async (req: AuthenticatedRequest, res) => {
+  const { operationName } = req.body;
+  if (!operationName) {
+    return res.status(400).json({ error: 'O nome da operação é obrigatório.' });
+  }
+
+  try {
+    const ai = getGeminiAI();
+    const op = new GenerateVideosOperation();
+    op.name = operationName;
+    const updated = await ai.operations.getVideosOperation({ operation: op });
+    res.json({ success: true, done: updated.done, error: updated.error });
+  } catch (err: any) {
+    logError(`[Veo Video] Erro ao buscar status do vídeo: ${err.message || err}`);
+    res.status(500).json({ error: err.message || 'Erro ao buscar status do vídeo.' });
+  }
+});
+
+app.post('/api/video-download', authMiddleware, async (req: AuthenticatedRequest, res) => {
+  const { operationName } = req.body;
+  if (!operationName) {
+    return res.status(400).json({ error: 'O nome da operação é obrigatório.' });
+  }
+
+  try {
+    const ai = getGeminiAI();
+    const op = new GenerateVideosOperation();
+    op.name = operationName;
+    const updated = await ai.operations.getVideosOperation({ operation: op });
+    const uri = updated.response?.generatedVideos?.[0]?.video?.uri;
+    if (!uri) {
+      return res.status(404).json({ error: 'URI do vídeo não foi encontrada na resposta da API.' });
+    }
+
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error('GEMINI_API_KEY não está configurada nos segredos do sistema.');
+    }
+
+    const videoRes = await fetch(uri, {
+      headers: { 'x-goog-api-key': apiKey },
+    });
+
+    const arrayBuffer = await videoRes.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    res.setHeader('Content-Type', 'video/mp4');
+    res.send(buffer);
+  } catch (err: any) {
+    logError(`[Veo Video] Erro ao baixar arquivo de vídeo: ${err.message || err}`);
+    res.status(500).json({ error: err.message || 'Erro ao baixar arquivo de vídeo.' });
   }
 });
 
@@ -5078,6 +5321,50 @@ app.post('/api/connectors/webhook', async (req, res) => {
   }
 });
 
+// Endpoint de Auditoria e Teste de Latência Real
+app.get('/api/infra/latency', async (req, res) => {
+  const startTime = Date.now();
+  let dbDuration = 0;
+  let dbSuccess = false;
+  
+  try {
+    const dbStart = Date.now();
+    await Repository.getSystemState();
+    dbDuration = Date.now() - dbStart;
+    dbSuccess = true;
+  } catch (err) {
+    dbSuccess = false;
+  }
+
+  const diagnostics = getDatabaseDiagnostics();
+  const totalDuration = Date.now() - startTime;
+  const memoryUsage = process.memoryUsage();
+
+  let status: 'excellent' | 'good' | 'warning' | 'critical' = 'excellent';
+  if (totalDuration > 1000) {
+    status = 'critical';
+  } else if (totalDuration > 200) {
+    status = 'warning';
+  } else if (totalDuration > 50) {
+    status = 'good';
+  }
+
+  res.json({
+    success: true,
+    timestamp: new Date().toISOString(),
+    latencyMs: totalDuration,
+    dbLatencyMs: dbDuration,
+    dbSuccess,
+    database: diagnostics,
+    system: {
+      uptimeSeconds: Math.floor(process.uptime()),
+      memoryHeapUsedMb: Math.round(memoryUsage.heapUsed / 1024 / 1024 * 100) / 100,
+      memoryHeapTotalMb: Math.round(memoryUsage.heapTotal / 1024 / 1024 * 100) / 100,
+    },
+    status
+  });
+});
+
 // ------------------- DOCUMENTAÇÃO COMPLETA DA API REST -------------------
 app.get('/api/docs', (req, res) => {
   res.json({
@@ -5431,6 +5718,9 @@ if (process.env.NODE_ENV !== 'production') {
     app.use(vite.middlewares);
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`Development Server running on http://localhost:${PORT}`);
+      setImmediate(() => {
+        bootSystem().catch(err => logError('Erro ao inicializar o bootSystem em desenvolvimento:', null, err));
+      });
     });
   });
 } else {
@@ -5441,5 +5731,8 @@ if (process.env.NODE_ENV !== 'production') {
   });
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`Production Server running on port ${PORT}`);
+    setImmediate(() => {
+      bootSystem().catch(err => logError('Erro ao inicializar o bootSystem em produção:', null, err));
+    });
   });
 }

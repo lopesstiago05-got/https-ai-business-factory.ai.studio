@@ -8,12 +8,14 @@ let poolWrapper: pg.Pool | null = null;
 
 let isPGBroken = false;
 let lastPgCheck = 0;
+let disablePGPermanently = false;
 
 export function isDatabaseHealthy(): boolean {
   if (!process.env.SQL_HOST) return false;
+  if (disablePGPermanently) return false;
   if (isPGBroken) {
     const now = Date.now();
-    if (now - lastPgCheck > 30000) {
+    if (now - lastPgCheck > 300000) { // 5 minutos de cooldown para resiliência de produção
       isPGBroken = false;
       return true;
     }
@@ -22,7 +24,29 @@ export function isDatabaseHealthy(): boolean {
   return true;
 }
 
-export function markDatabaseAsBroken() {
+export function getDatabaseDiagnostics() {
+  return {
+    configured: !!process.env.SQL_HOST,
+    host: process.env.SQL_HOST || 'Nenhum',
+    isPGBroken,
+    disablePGPermanently,
+    activeDriver: isDatabaseHealthy() ? 'PostgreSQL (Cloud SQL)' : 'JSON Local (Fallback Resiliente)',
+    cooldownRemainingMs: isPGBroken ? Math.max(0, 300000 - (Date.now() - lastPgCheck)) : 0
+  };
+}
+
+export function markDatabaseAsBroken(err?: any) {
+  if (err) {
+    const errMsg = String(err.message || '').toLowerCase();
+    const errCode = String(err.code || '').toLowerCase();
+    const errStack = String(err.stack || '').toLowerCase();
+    const isConnErr = isConnectionError(err);
+    if (errCode === 'enoent' || errMsg.includes('enoent') || errStack.includes('enoent') || isConnErr) {
+      disablePGPermanently = true;
+      console.warn('❌ Erro crítico ou de conexão de rede detectado no PostgreSQL. O banco de dados foi desativado PERMANENTEMENTE para esta sessão para evitar travamentos, latências e lentidão no servidor.', err);
+      return;
+    }
+  }
   if (!isPGBroken) {
     isPGBroken = true;
     lastPgCheck = Date.now();
@@ -61,18 +85,50 @@ function createRealPool(): pg.Pool {
 
 function isConnectionError(err: any): boolean {
   if (!err) return false;
-  const msg = (err.message || '').toLowerCase();
-  const code = (err.code || '').toLowerCase();
-  return (
-    msg.includes('connection terminated unexpectedly') ||
-    msg.includes('terminated unexpectedly') ||
-    msg.includes('broken pipe') ||
-    msg.includes('econnreset') ||
-    msg.includes('connection lost') ||
-    code === '57p01' || // admin_shutdown
-    code === '57p02' || // crash_shutdown
-    code === '57p03'    // cannot_connect_now
-  );
+  
+  let current = err;
+  const visited = new Set<any>();
+  
+  while (current && !visited.has(current)) {
+    visited.add(current);
+    const msg = (current.message || '').toLowerCase();
+    const code = String(current.code || '').toLowerCase();
+    const stack = (current.stack || '').toLowerCase();
+    
+    const isConn = (
+      msg.includes('connection terminated unexpectedly') ||
+      msg.includes('terminated unexpectedly') ||
+      msg.includes('broken pipe') ||
+      msg.includes('econnreset') ||
+      msg.includes('connection lost') ||
+      msg.includes('enoent') ||
+      msg.includes('econnrefused') ||
+      msg.includes('connect enoent') ||
+      msg.includes('etimedout') ||
+      msg.includes('connection terminated') ||
+      msg.includes('could not connect') ||
+      stack.includes('connection terminated unexpectedly') ||
+      stack.includes('terminated unexpectedly') ||
+      stack.includes('econnrefused') ||
+      stack.includes('econnreset') ||
+      code === '57p01' || // admin_shutdown
+      code === '57p02' || // crash_shutdown
+      code === '57p03' || // cannot_connect_now
+      code === 'enoent' ||
+      code === 'econnrefused' ||
+      code === 'econnreset' ||
+      code === 'etimedout'
+    );
+    
+    if (isConn) return true;
+    
+    if (current.cause) {
+      current = current.cause;
+    } else {
+      break;
+    }
+  }
+  return false;
 }
 
 function handleReconnection() {
@@ -99,10 +155,8 @@ function wrapClient(client: pg.PoolClient): pg.PoolClient {
           try {
             return await client.query.apply(client, args as any);
           } catch (err: any) {
-            if (isConnectionError(err)) {
-              console.warn('⚠️ Erro de conexão detectado em query executada no cliente.');
-              markDatabaseAsBroken();
-            }
+            console.warn('⚠️ Erro detectado em query executada no cliente. Marcando DB como inativo.', err);
+            markDatabaseAsBroken(err);
             throw err;
           }
         };
@@ -138,14 +192,13 @@ export function getDB() {
                 return await activePool.query.apply(activePool, args as any);
               } catch (err: any) {
                 attempts++;
-                if (isConnectionError(err) && attempts < 2) {
-                  console.warn(`⚠️ Erro de conexão detectado na query (tentativa ${attempts}). Reconectando...`);
+                if (attempts < 2) {
+                  console.warn(`⚠️ Erro de conexão ou execução na query (tentativa ${attempts}). Reconectando...`);
                   handleReconnection();
                   continue;
                 }
-                if (isConnectionError(err)) {
-                  markDatabaseAsBroken();
-                }
+                console.warn(`❌ Erro persistente na query. Marcando banco de dados como inativo.`, err);
+                markDatabaseAsBroken(err);
                 throw err;
               }
             }
@@ -165,14 +218,13 @@ export function getDB() {
                 return wrapClient(client);
               } catch (err: any) {
                 attempts++;
-                if (isConnectionError(err) && attempts < 2) {
-                  console.warn(`⚠️ Erro de conexão detectado no connect (tentativa ${attempts}). Reconectando...`);
+                if (attempts < 2) {
+                  console.warn(`⚠️ Erro de conexão ou execução no connect (tentativa ${attempts}). Reconectando...`);
                   handleReconnection();
                   continue;
                 }
-                if (isConnectionError(err)) {
-                  markDatabaseAsBroken();
-                }
+                console.warn(`❌ Erro persistente no connect. Marcando banco de dados como inativo.`, err);
+                markDatabaseAsBroken(err);
                 throw err;
               }
             }

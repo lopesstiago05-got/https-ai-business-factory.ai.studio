@@ -515,16 +515,16 @@ export const EvolutionPanel: React.FC = () => {
               <div className="border-b border-slate-150 dark:border-slate-800 pb-3">
                 <h3 className="font-extrabold text-slate-900 dark:text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5">
                   <Play size={14} className="text-indigo-500 fill-indigo-500 animate-pulse" />
-                  Simulador de Aprendizado
+                  Motor de Aprendizado Autônomo
                 </h3>
                 <p className="text-[10px] text-slate-400 mt-1">
-                  Invoque o <b>Learning Engine</b> simulando uma tarefa operacional executada pelo agente ativo <b>{selectedAgentId.toUpperCase()}</b>.
+                  Invoque o <b>Learning Engine</b> registrando uma tarefa operacional executada pelo agente ativo <b>{selectedAgentId.toUpperCase()}</b>.
                 </p>
               </div>
 
               <form onSubmit={handleSimulateTask} className="space-y-4 text-[10px]">
                 <div>
-                  <label className="block text-slate-500 font-bold mb-1 uppercase text-[8px]">Título da Tarefa Simulação</label>
+                  <label className="block text-slate-500 font-bold mb-1 uppercase text-[8px]">Título da Tarefa Operacional</label>
                   <input
                     type="text"
                     required

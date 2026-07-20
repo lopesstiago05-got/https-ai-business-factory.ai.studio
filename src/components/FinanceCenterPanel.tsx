@@ -699,7 +699,7 @@ export const FinanceCenterPanel: React.FC<FinanceCenterPanelProps> = ({ jwtToken
                 </div>
               ) : (
                 <div className="py-12 text-center text-xs text-slate-400">
-                  Nenhuma transação financeira auditada. Registre uma transação simulada ao lado.
+                  Nenhuma transação financeira auditada. Lance uma transação de fluxo de caixa ao lado.
                 </div>
               )}
             </div>

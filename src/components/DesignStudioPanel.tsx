@@ -23,7 +23,12 @@ import {
   SlidersHorizontal,
   ThumbsUp,
   PenTool,
-  BookOpen
+  BookOpen,
+  Video,
+  Play,
+  Upload,
+  Download,
+  Film
 } from 'lucide-react';
 
 interface DesignStudioPanelProps {
@@ -39,9 +44,144 @@ export const DesignStudioPanel: React.FC<DesignStudioPanelProps> = ({ jwtToken, 
   const [generatingForProductId, setGeneratingForProductId] = useState<string | null>(null);
   const [selectedProject, setSelectedProject] = useState<DesignProject | null>(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [activeSubTab, setActiveSubTab] = useState<'products' | 'projects'>('products');
+  const [activeSubTab, setActiveSubTab] = useState<'products' | 'projects' | 'video-veo'>('products');
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+
+  // Veo Video states
+  const [videoImage, setVideoImage] = useState<string | null>(null);
+  const [videoPrompt, setVideoPrompt] = useState<string>('');
+  const [videoAspectRatio, setVideoAspectRatio] = useState<'16:9' | '9:16'>('16:9');
+  const [isGeneratingVideo, setIsGeneratingVideo] = useState<boolean>(false);
+  const [videoOperationName, setVideoOperationName] = useState<string | null>(null);
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [videoDone, setVideoDone] = useState<boolean>(false);
+  const [videoError, setVideoError] = useState<string | null>(null);
+  const [videoLoadingMessage, setVideoLoadingMessage] = useState<string>('');
+
+  const REASSURING_MESSAGES = [
+    "Iniciando o motor de inteligência de vídeo Veo 3.1...",
+    "Analisando a composição visual da sua imagem...",
+    "Calculando campos de fluxo óptico e vetores de movimento...",
+    "Renderizando quadros de transição temporal...",
+    "Aplicando suavização física de pixels...",
+    "Sincronizando taxas de quadros e estabilização de câmera...",
+    "Finalizando codificação em alta definição e download..."
+  ];
+
+  useEffect(() => {
+    let interval: any = null;
+    if (isGeneratingVideo) {
+      setVideoLoadingMessage(REASSURING_MESSAGES[0]);
+      let idx = 0;
+      interval = setInterval(() => {
+        idx = (idx + 1) % REASSURING_MESSAGES.length;
+        setVideoLoadingMessage(REASSURING_MESSAGES[idx]);
+      }, 7000);
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isGeneratingVideo]);
+
+  const pollVideoStatus = async (operationName: string) => {
+    try {
+      const res = await fetch('/api/video-status', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': jwtToken ? `Bearer ${jwtToken}` : ''
+        },
+        body: JSON.stringify({ operationName })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success) {
+          if (data.done) {
+            if (data.error) {
+              setVideoError(`Erro na geração de vídeo: ${data.error.message || 'Erro desconhecido'}`);
+              setIsGeneratingVideo(false);
+            } else {
+              await downloadVideo(operationName);
+            }
+          } else {
+            setTimeout(() => pollVideoStatus(operationName), 5000);
+          }
+        }
+      } else {
+        const errData = await res.json();
+        setVideoError(errData.error || 'Erro ao consultar status do vídeo.');
+        setIsGeneratingVideo(false);
+      }
+    } catch (err: any) {
+      console.error(err);
+      setVideoError('Erro ao consultar status da geração de vídeo.');
+      setIsGeneratingVideo(false);
+    }
+  };
+
+  const downloadVideo = async (operationName: string) => {
+    try {
+      const res = await fetch('/api/video-download', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': jwtToken ? `Bearer ${jwtToken}` : ''
+        },
+        body: JSON.stringify({ operationName })
+      });
+      if (res.ok) {
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        setVideoUrl(url);
+        setVideoDone(true);
+      } else {
+        const errData = await res.json();
+        setVideoError(errData.error || 'Erro ao baixar arquivo de vídeo.');
+      }
+    } catch (err: any) {
+      console.error(err);
+      setVideoError('Falha ao baixar o vídeo finalizado.');
+    } finally {
+      setIsGeneratingVideo(false);
+    }
+  };
+
+  const handleStartVideoGeneration = async () => {
+    if (!videoImage) return;
+    setIsGeneratingVideo(true);
+    setVideoError(null);
+    setVideoUrl(null);
+    setVideoDone(false);
+
+    try {
+      const res = await fetch('/api/generate-video', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': jwtToken ? `Bearer ${jwtToken}` : ''
+        },
+        body: JSON.stringify({
+          image: videoImage,
+          prompt: videoPrompt,
+          aspectRatio: videoAspectRatio
+        })
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.error || 'Falha ao iniciar geração de vídeo.');
+      }
+
+      const data = await res.json();
+      setVideoOperationName(data.operationName);
+      setTimeout(() => pollVideoStatus(data.operationName), 5000);
+    } catch (err: any) {
+      console.error(err);
+      setVideoError(err.message || 'Erro ao iniciar geração de vídeo.');
+      setIsGeneratingVideo(false);
+    }
+  };
 
   // Edit fields
   const [editTitle, setEditTitle] = useState('');
@@ -300,6 +440,19 @@ export const DesignStudioPanel: React.FC<DesignStudioPanelProps> = ({ jwtToken, 
             )}
           </button>
           <button
+            onClick={() => { setActiveSubTab('video-veo'); setSelectedProject(null); }}
+            className={`px-4 py-2 text-xs font-bold rounded-lg transition-all relative ${
+              activeSubTab === 'video-veo'
+                ? 'bg-indigo-600 text-white shadow-lg'
+                : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+            }`}
+          >
+            <Video size={13} className="inline mr-1" /> Animação Veo
+            <span className="absolute -top-1.5 -right-1.5 bg-indigo-500 text-white text-[8px] px-1 rounded-full font-bold">
+              NEW
+            </span>
+          </button>
+          <button
             onClick={fetchData}
             disabled={isLoading}
             className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg transition-colors"
@@ -331,7 +484,78 @@ export const DesignStudioPanel: React.FC<DesignStudioPanelProps> = ({ jwtToken, 
         {/* Esquerda: Lista de Seleção (Dependendo da Sub-aba ativa) */}
         <div className="lg:col-span-4 space-y-4">
           
-          {activeSubTab === 'products' ? (
+          {activeSubTab === 'video-veo' ? (
+            <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+                <h3 className="text-xs font-extrabold text-indigo-400 uppercase tracking-widest">Banco de Imagens</h3>
+                <span className="text-[10px] bg-indigo-500/10 text-indigo-300 px-2 py-0.5 rounded-full font-bold">VEO SOURCE</span>
+              </div>
+              
+              <p className="text-[11px] text-slate-400">
+                Selecione uma imagem previamente criada pelo **Designer Agent** ou faça o upload de uma nova foto para gerar a animação em vídeo.
+              </p>
+
+              {/* Upload de Imagem Personalizada */}
+              <div className="border border-dashed border-slate-800 rounded-lg p-4 bg-slate-900/40 hover:bg-slate-900/70 transition-colors cursor-pointer relative group flex flex-col items-center justify-center text-center space-y-2">
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setVideoImage(reader.result as string);
+                      };
+                      reader.readAsDataURL(file);
+                    }
+                  }}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+                <div className="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg group-hover:scale-110 transition-transform">
+                  <Upload size={16} />
+                </div>
+                <div className="text-[11px] font-bold text-slate-200">Carregar nova foto</div>
+                <div className="text-[9px] text-slate-500 font-medium">Arraste ou clique para selecionar (PNG, JPG)</div>
+              </div>
+
+              {/* Imagens do Designer */}
+              <div className="space-y-2">
+                <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-1">Imagens Criadas pela IA</div>
+                {projects.flatMap(p => (p.generatedAssets || []).filter(a => !!a.imageUrl).map(a => ({ ...a, projectTitle: p.title }))).length === 0 ? (
+                  <div className="text-center py-4 text-slate-600 text-[11px]">Nenhuma imagem gerada ainda. Carregue uma foto acima!</div>
+                ) : (
+                  <div className="grid grid-cols-2 gap-2 max-h-[300px] overflow-y-auto pr-1">
+                    {projects.flatMap(p => 
+                      (p.generatedAssets || [])
+                        .filter(a => !!a.imageUrl)
+                        .map((asset, index) => (
+                          <button
+                            key={index}
+                            onClick={() => setVideoImage(asset.imageUrl || null)}
+                            className={`relative rounded-lg overflow-hidden border text-left h-24 group transition-all ${
+                              videoImage === asset.imageUrl
+                                ? 'border-indigo-500 ring-2 ring-indigo-500/20'
+                                : 'border-slate-800 hover:border-slate-700'
+                            }`}
+                          >
+                            <img 
+                              src={asset.imageUrl} 
+                              alt={asset.title} 
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              referrerPolicy="no-referrer"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-1.5">
+                              <span className="text-[8px] font-extrabold text-slate-200 line-clamp-1">{asset.title}</span>
+                            </div>
+                          </button>
+                        ))
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : activeSubTab === 'products' ? (
             <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-4">
               <div className="flex items-center justify-between border-b border-slate-800 pb-2">
                 <h3 className="text-xs font-extrabold text-indigo-400 uppercase tracking-widest">Pipeline do Writer Agent</h3>
@@ -453,7 +677,186 @@ export const DesignStudioPanel: React.FC<DesignStudioPanelProps> = ({ jwtToken, 
         {/* Direita: Detalhamento do Projeto Visual selecionado */}
         <div className="lg:col-span-8">
           <AnimatePresence mode="wait">
-            {selectedProject ? (
+            {activeSubTab === 'video-veo' ? (
+              <motion.div
+                key="video-veo-workbench"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                className="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden shadow-2xl space-y-6 p-6"
+              >
+                {/* Header do Estúdio Veo */}
+                <div className="border-b border-slate-800 pb-4">
+                  <span className="text-[10px] uppercase font-extrabold tracking-wider bg-indigo-500/10 text-indigo-400 px-2 py-0.5 rounded-full mb-2 inline-block">
+                    IA Generativa Temporal
+                  </span>
+                  <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                    <Video size={18} className="text-indigo-400" /> Estúdio de Animação de Imagem para Vídeo (Veo 3.1)
+                  </h3>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Insira vida e movimento realista em qualquer foto ou asset de design visual. Produza pequenos comerciais, banners animados e vídeos promocionais.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Lado Esquerdo: Imagem selecionada/carregada */}
+                  <div className="space-y-4">
+                    <div className="text-xs font-bold text-slate-300">Imagem de Origem</div>
+                    {videoImage ? (
+                      <div className="relative aspect-video rounded-lg overflow-hidden border border-slate-800 bg-slate-900 group">
+                        <img 
+                          src={videoImage} 
+                          alt="Video source" 
+                          className="w-full h-full object-contain"
+                          referrerPolicy="no-referrer"
+                        />
+                        <button
+                          onClick={() => setVideoImage(null)}
+                          className="absolute top-2 right-2 bg-slate-950/80 hover:bg-red-600/80 hover:text-white text-slate-400 p-1.5 rounded-lg text-xs font-bold transition-all"
+                        >
+                          Remover
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="aspect-video rounded-lg border border-dashed border-slate-800 flex flex-col items-center justify-center p-6 text-center text-slate-500 bg-slate-900/10">
+                        <ImageIcon size={32} className="text-slate-700 mb-2" />
+                        <span className="text-xs font-bold text-slate-300">Nenhuma Imagem Selecionada</span>
+                        <p className="text-[10px] text-slate-500 mt-1">Clique em uma imagem da galeria à esquerda ou carregue um arquivo para começar.</p>
+                      </div>
+                    )}
+
+                    {/* Proporção Aspect Ratio */}
+                    <div className="space-y-2">
+                      <label className="block text-xs font-bold text-slate-300">Proporção do Vídeo (Aspect Ratio)</label>
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setVideoAspectRatio('16:9')}
+                          className={`p-3 rounded-lg border text-xs font-bold flex flex-col items-center justify-center gap-1 transition-all ${
+                            videoAspectRatio === '16:9'
+                              ? 'bg-indigo-600/10 border-indigo-500 text-indigo-400 shadow-md shadow-indigo-500/5'
+                              : 'border-slate-800 text-slate-400 hover:bg-slate-900/50 hover:text-slate-300'
+                          }`}
+                        >
+                          <Film size={16} />
+                          <span>16:9 (Paisagem)</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setVideoAspectRatio('9:16')}
+                          className={`p-3 rounded-lg border text-xs font-bold flex flex-col items-center justify-center gap-1 transition-all ${
+                            videoAspectRatio === '9:16'
+                              ? 'bg-indigo-600/10 border-indigo-500 text-indigo-400 shadow-md shadow-indigo-500/5'
+                              : 'border-slate-800 text-slate-400 hover:bg-slate-900/50 hover:text-slate-300'
+                          }`}
+                        >
+                          <Film className="rotate-90" size={16} />
+                          <span>9:16 (Retrato)</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Lado Direito: Controles e prompts */}
+                  <div className="space-y-4 flex flex-col justify-between">
+                    <div className="space-y-4">
+                      <div className="space-y-1.5">
+                        <label className="block text-xs font-bold text-slate-300">Instruções de Movimento (Prompt)</label>
+                        <textarea
+                          rows={4}
+                          value={videoPrompt}
+                          onChange={(e) => setVideoPrompt(e.target.value)}
+                          placeholder="Ex: Animate the water flowing gently, with clouds passing softly in the background. Camera slowly pans right with realistic light leaks."
+                          className="w-full bg-slate-900 border border-slate-800 text-xs text-white rounded-lg p-3 focus:border-indigo-500 focus:outline-none placeholder:text-slate-600 resize-none leading-relaxed"
+                        />
+                        <span className="text-[10px] text-slate-500 block leading-tight">
+                          Dica: Forneça instruções em inglês para obter melhores resultados de simulação física do Veo 3.1.
+                        </span>
+                      </div>
+
+                      {videoError && (
+                        <div className="p-3 bg-rose-950/40 border border-rose-800/80 rounded-lg text-rose-200 text-xs flex items-center gap-2">
+                          <AlertCircle size={14} className="text-rose-400 shrink-0" />
+                          <span>{videoError}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    <button
+                      onClick={handleStartVideoGeneration}
+                      disabled={isGeneratingVideo || !videoImage}
+                      className={`w-full py-3 rounded-lg font-bold text-xs flex items-center justify-center gap-2 transition-all ${
+                        isGeneratingVideo
+                          ? 'bg-indigo-600/40 text-indigo-300 cursor-not-allowed'
+                          : !videoImage
+                          ? 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                          : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg hover:shadow-indigo-500/20 active:scale-[0.98]'
+                      }`}
+                    >
+                      {isGeneratingVideo ? (
+                        <>
+                          <RefreshCw size={14} className="animate-spin" />
+                          <span>Gerando Animação...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Play size={14} />
+                          <span>Gerar Animação com Veo Fast</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Área de Visualização do Resultado / Carregamento */}
+                {(isGeneratingVideo || videoUrl) && (
+                  <div className="border-t border-slate-800 pt-6 mt-6">
+                    {isGeneratingVideo ? (
+                      <div className="bg-slate-900/40 border border-slate-800 rounded-lg p-8 flex flex-col items-center justify-center text-center space-y-4">
+                        <div className="relative">
+                          <div className="h-16 w-16 rounded-full border-4 border-indigo-500/20 border-t-indigo-500 animate-spin"></div>
+                          <div className="absolute inset-0 flex items-center justify-center text-indigo-400">
+                            <Video size={20} className="animate-pulse" />
+                          </div>
+                        </div>
+                        <div>
+                          <h4 className="text-sm font-bold text-white">Criando sua obra-prima cinematográfica</h4>
+                          <p className="text-xs text-slate-400 mt-2 max-w-md animate-pulse">
+                            {videoLoadingMessage || "Processando frames..."}
+                          </p>
+                          <span className="text-[10px] text-slate-600 block mt-1">
+                            Isso costuma levar entre 30 a 90 segundos. Por favor, mantenha esta aba aberta.
+                          </span>
+                        </div>
+                      </div>
+                    ) : videoUrl ? (
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <h4 className="text-xs font-bold text-indigo-400 uppercase tracking-widest">Vídeo Gerado com Sucesso!</h4>
+                          <a
+                            href={videoUrl}
+                            download="veo-animation.mp4"
+                            className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors"
+                          >
+                            <Download size={12} />
+                            <span>Baixar MP4</span>
+                          </a>
+                        </div>
+                        <div className="bg-slate-900 border border-slate-800 rounded-lg overflow-hidden flex justify-center max-h-[480px]">
+                          <video
+                            src={videoUrl}
+                            controls
+                            autoPlay
+                            loop
+                            className="max-h-full max-w-full"
+                          />
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
+                )}
+              </motion.div>
+            ) : selectedProject ? (
               <motion.div
                 key={selectedProject.id}
                 initial={{ opacity: 0, y: 15 }}

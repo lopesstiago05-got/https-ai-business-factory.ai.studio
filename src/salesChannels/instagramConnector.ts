@@ -1,5 +1,6 @@
 import { GoogleGenAI } from '@google/genai';
 import { SocialPost } from './salesChannelTypes.ts';
+import { ModelManager } from '../kernel/ModelManager.ts';
 
 export class InstagramBusinessConnector {
   public static async generateDraftPost(
@@ -27,7 +28,7 @@ Retorne um JSON estrito correspondente ao formato:
   "suggestedTime": "ex: 18:30"
 }`;
 
-        const response = await ai.models.generateContent({
+        const response = await ModelManager.generateContent('instagram_connector', ai, {
           model: 'gemini-3.5-flash',
           contents: prompt,
           config: { responseMimeType: 'application/json' }

@@ -2,6 +2,7 @@ import { GoogleGenAI } from '@google/genai';
 import { ConnectorRegistry } from './connectorRegistry.ts';
 import { IntegrationEventBus } from './integrationEvents.ts';
 import { logInfo, logWarn, logError } from '../logs/logger.ts';
+import { ModelManager } from '../kernel/ModelManager.ts';
 
 export interface ProposedConnector {
   id: string;
@@ -104,7 +105,7 @@ export class IntegrationBrain {
 
     try {
       const ai = this.getAI();
-      const response = await ai.models.generateContent({
+      const response = await ModelManager.generateContent('integration', ai, {
         model: 'gemini-3.5-flash',
         contents: `Analise o título e a descrição da tarefa de um agente de IA e determine se ela necessita de integração com plataformas ou APIs externas.
         Disponibilize a resposta no seguinte formato JSON estrito:

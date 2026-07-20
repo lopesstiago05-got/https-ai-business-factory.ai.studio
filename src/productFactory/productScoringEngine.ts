@@ -1,5 +1,6 @@
 import { GoogleGenAI } from '@google/genai';
 import { ProductProject, ProductScore } from './productTypes.ts';
+import { ModelManager } from '../kernel/ModelManager.ts';
 
 export class ProductScoringEngine {
   public static async calculate(project: ProductProject): Promise<ProductScore> {
@@ -45,7 +46,7 @@ Retorne um JSON estrito correspondente ao formato:
   "recommendation": "CRIAR" | "REVISAR" | "DESCARTAR"
 }`;
 
-        const response = await ai.models.generateContent({
+        const response = await ModelManager.generateContent('product_scoring_engine', ai, {
           model: 'gemini-3.5-flash',
           contents: prompt,
           config: { responseMimeType: 'application/json' }

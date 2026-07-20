@@ -82,7 +82,7 @@ export class ConnectorManager {
       const delay = Math.floor(Math.random() * 850) + 150;
       await new Promise(resolve => setTimeout(resolve, delay));
 
-      if (params?.forceFailure || Math.random() < 0.05) {
+      if (params?.forceFailure) {
         throw new Error(`Timeout de comunicação com o servidor remoto da API ${connectorId}`);
       }
 

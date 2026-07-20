@@ -7,7 +7,7 @@ WORKDIR /app
 
 # Instala dependências principais
 COPY package*.json ./
-RUN npm install --production
+RUN npm ci
 
 # Copia código fonte
 COPY . .
@@ -20,16 +20,16 @@ FROM node:20-slim AS runner
 
 WORKDIR /app
 ENV NODE_ENV=production
-ENV PORT=8080
+ENV PORT=3000
 
 COPY package*.json ./
-RUN npm install --production
+RUN npm ci --only=production
 
 # Copia arquivos compilados do builder
 COPY --from=builder /app/dist ./dist
 
 # Expõe a porta 3000 exigida pela infraestrutura de contêineres
-EXPOSE 8080
+EXPOSE 3000
 
 # Comando de inicialização nativo da esteira
 CMD ["node", "dist/server.cjs"]

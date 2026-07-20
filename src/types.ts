@@ -37,6 +37,7 @@ export interface DigitalProduct {
   price: number;
   revenue: number;
   status: 'draft' | 'published';
+  marketStatus?: 'draft' | 'optimized' | 'ready';
   description: string;
   content: string;
   marketingPlan?: string;

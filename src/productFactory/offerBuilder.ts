@@ -1,5 +1,6 @@
 import { GoogleGenAI } from '@google/genai';
 import { GeneratedIdea, ProductOffer } from './productTypes.ts';
+import { ModelManager } from '../kernel/ModelManager.ts';
 
 export class OfferBuilder {
   public static async build(idea: GeneratedIdea): Promise<ProductOffer> {
@@ -15,7 +16,7 @@ export class OfferBuilder {
           }
         });
 
-        const prompt = `Aja como o OfferBuilderAgent integrado aos conhecimentos do Finance Agent (para cálculo de margem e precificação dinâmica) e do Marketing Agent (para bônus e headline magnética).
+        const prompt = `Aja como o OfferBuilderAgent integrated aos conhecimentos do Finance Agent (para cálculo de margem e precificação dinâmica) e do Marketing Agent (para bônus e headline magnética).
 Crie a estrutura de oferta comercial definitiva para este produto digital:
 Nome do Produto: ${idea.name}
 Formato: ${idea.format}
@@ -41,7 +42,7 @@ Retorne um JSON estrito correspondente ao formato:
   "salesStrategy": "Descrição de posicionamento estratégico de funil e venda"
 }`;
 
-        const response = await ai.models.generateContent({
+        const response = await ModelManager.generateContent('offer_builder', ai, {
           model: 'gemini-3.5-flash',
           contents: prompt,
           config: { responseMimeType: 'application/json' }

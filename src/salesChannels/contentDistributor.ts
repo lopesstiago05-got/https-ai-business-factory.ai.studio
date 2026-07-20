@@ -1,5 +1,6 @@
 import { GoogleGenAI } from '@google/genai';
 import { SocialPost } from './salesChannelTypes.ts';
+import { ModelManager } from '../kernel/ModelManager.ts';
 
 export class ContentDistributionAgent {
   /**
@@ -35,7 +36,7 @@ Retorne um JSON estrito correspondente ao formato:
   "scheduledTime": "ex: 12:00"
 }`;
 
-        const response = await ai.models.generateContent({
+        const response = await ModelManager.generateContent('content_distribution_agent', ai, {
           model: 'gemini-3.5-flash',
           contents: prompt,
           config: { responseMimeType: 'application/json' }

@@ -1,5 +1,6 @@
 import { GoogleGenAI } from '@google/genai';
 import { GeneratedIdea, MarketValidation } from './productTypes.ts';
+import { ModelManager } from '../kernel/ModelManager.ts';
 
 export class MarketValidationEngine {
   public static async validate(idea: GeneratedIdea): Promise<MarketValidation> {
@@ -40,7 +41,7 @@ Retorne um JSON estrito correspondente ao formato:
   "keywords": ["Palavra-chave 1", "Palavra-chave 2", "Palavra-chave 3"]
 }`;
 
-        const response = await ai.models.generateContent({
+        const response = await ModelManager.generateContent('market_validation_engine', ai, {
           model: 'gemini-3.5-flash',
           contents: prompt,
           config: { responseMimeType: 'application/json' }

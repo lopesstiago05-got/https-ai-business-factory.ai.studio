@@ -23,25 +23,30 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       id={id}
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -4 }}
       transition={{ duration: 0.3 }}
-      className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow flex items-start justify-between"
+      className="relative overflow-hidden bg-[#06060c] border border-[#161c33] rounded-2xl p-4.5 shadow-sm hover:shadow-emerald-950/20 hover:border-emerald-500/25 transition-all flex items-center justify-between group"
     >
-      <div className="space-y-2">
-        <span className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-          {title}
+      {/* Subtle ambient glow effect inside the card */}
+      <div className="absolute -right-12 -top-12 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl group-hover:bg-emerald-500/10 transition-all duration-500" />
+      
+      <div className="space-y-1 relative z-10">
+        <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest block font-mono">
+          // {title}
         </span>
-        <h3 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+        <h3 className="text-lg font-extrabold text-slate-100 tracking-tight leading-none font-sans mt-0.5">
           {value}
         </h3>
         {subtitle && (
-          <p className="text-xs text-slate-400 dark:text-slate-500">
+          <p className="text-[10px] text-slate-400 font-mono mt-0.5">
             {subtitle}
           </p>
         )}
       </div>
-      <div className={`p-3 rounded-lg ${color} text-white shadow-sm`}>
+      <div className={`p-2 rounded-xl shrink-0 ${color} relative z-10 group-hover:scale-105 transition-transform duration-300`}>
         {icon}
       </div>
     </motion.div>
   );
 };
+

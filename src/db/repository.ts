@@ -1,4 +1,4 @@
-import { getDB, isDatabaseHealthy } from './index.ts';
+import { getDB, isDatabaseHealthy, markDatabaseAsBroken } from './index.ts';
 import { users, agents, products, tasks, systemLogs, ceoConfigs, ceoDecisions, ceoPlans, ceoReports, researchSearches, researchTrends, researchNiches, researchOpportunities, researchReports, marketAnalyses, generatedContents, designProjects, marketingCampaigns, publications, financialTransactions, revenues, expenses, cashflow, financialReports, financialForecasts, profitAnalysis, roiHistory, campaignResults, customerMetrics, agentHealth, agentMetrics, agentHeartbeats, workflowHistory, systemAlerts, operationLogs, systemMetrics, performanceHistory, repairIssues, repairHistory, repairReports, repairTests, repairActions, repairSnapshots, repairRollbacks, repairKnowledge, repairStatistics, repairDiagnostics, kernelRegistry, kernelEvents, kernelPlugins, kernelServices, kernelVersions, kernelConfigs, kernelSharedMemory, kernelAudit, kernelMetrics, kernelHealth, integrationConnectors, integrationJobs, integrationLogs, integrationTokens, integrationWebhooks, integrationFiles, integrationSync, integrationMetrics, integrationErrors, integrationHistory, paymentConnections, paymentTransactions, digitalSales, platformConnections, customers, launches, campaigns, emailSequences, marketingEvents } from './schema.ts';
 import { eq } from 'drizzle-orm';
 import fs from 'fs';
@@ -555,6 +555,7 @@ export class Repository {
         };
       } catch (err) {
         console.error('Falha de consulta no PostgreSQL. Recorrendo ao fallback local JSON:', err);
+        markDatabaseAsBroken(err);
       }
     }
 
@@ -883,6 +884,7 @@ export class Repository {
         }
       } catch (err) {
         console.error('Erro salvando estado no PostgreSQL:', err);
+        markDatabaseAsBroken(err);
       }
     }
 
@@ -2876,6 +2878,7 @@ export class Repository {
         return ah;
       } catch (err) {
         console.error('Erro ao salvar saúde de agente no Postgres:', err);
+        markDatabaseAsBroken(err);
       }
     }
     if (!fallbackState.agentHealths) fallbackState.agentHealths = [];
@@ -2901,6 +2904,7 @@ export class Repository {
         }));
       } catch (err) {
         console.error('Erro ao buscar saúde dos agentes no Postgres:', err);
+        markDatabaseAsBroken(err);
       }
     }
     return fallbackState.agentHealths || [];
@@ -2938,6 +2942,7 @@ export class Repository {
         return am;
       } catch (err) {
         console.error('Erro ao salvar métricas de agente no Postgres:', err);
+        markDatabaseAsBroken(err);
       }
     }
     if (!fallbackState.agentMetricsList) fallbackState.agentMetricsList = [];
@@ -2965,6 +2970,7 @@ export class Repository {
         }));
       } catch (err) {
         console.error('Erro ao buscar métricas de agentes no Postgres:', err);
+        markDatabaseAsBroken(err);
       }
     }
     return fallbackState.agentMetricsList || [];
@@ -4654,7 +4660,7 @@ export class Repository {
       paymentTransactions: fallbackState.paymentTransactions || []
     });
 
-    if (process.env.SQL_HOST) {
+    if (this.isPGAvailable()) {
       try {
         const db = getDB();
         await db.delete(paymentConnections).where(eq(paymentConnections.provider, 'mercado_pago'));
@@ -4791,7 +4797,7 @@ export class Repository {
       digitalSales: fallbackState.digitalSales || []
     });
 
-    if (process.env.SQL_HOST) {
+    if (this.isPGAvailable()) {
       try {
         const db = getDB();
         await db.delete(platformConnections).where(eq(platformConnections.provider, 'hotmart'));

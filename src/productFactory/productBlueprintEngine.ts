@@ -1,5 +1,6 @@
 import { GoogleGenAI } from '@google/genai';
 import { GeneratedIdea, ProductBlueprint } from './productTypes.ts';
+import { ModelManager } from '../kernel/ModelManager.ts';
 
 export class ProductBlueprintEngine {
   public static async generate(idea: GeneratedIdea): Promise<ProductBlueprint> {
@@ -39,7 +40,7 @@ Retorne um JSON estrito correspondente ao formato:
   ]
 }`;
 
-        const response = await ai.models.generateContent({
+        const response = await ModelManager.generateContent('product_blueprint_engine', ai, {
           model: 'gemini-3.5-flash',
           contents: prompt,
           config: { responseMimeType: 'application/json' }

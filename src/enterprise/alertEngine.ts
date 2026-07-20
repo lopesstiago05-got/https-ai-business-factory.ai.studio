@@ -4,6 +4,7 @@ import { AIIncident, IncidentStatusType } from './enterpriseTypes.ts';
 import { GoogleGenAI } from '@google/genai';
 import { AuditService } from './auditService.ts';
 import { MonitoringService } from './monitoringService.ts';
+import { ModelManager } from '../kernel/ModelManager.ts';
 
 const INCIDENTS_FILE = path.join(process.cwd(), 'incidents_db.json');
 
@@ -168,7 +169,7 @@ Retorne um objeto JSON estrito contendo:
   "recommendation": "string com recomendação exata passo-a-passo para mitigação"
 }`;
 
-      const response = await ai.models.generateContent({
+      const response = await ModelManager.generateContent('alert_engine', ai, {
         model: 'gemini-3.5-flash',
         contents: prompt,
         config: {

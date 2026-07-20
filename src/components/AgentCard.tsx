@@ -14,30 +14,30 @@ export const AgentCard: React.FC<AgentCardProps> = ({ id, agent, onConfigure }) 
     switch (agent.status) {
       case 'running':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-900 animate-pulse">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 animate-pulse font-mono">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-            Processando
+            PROCESSANDO
           </span>
         );
       case 'paused':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-950/40 dark:text-amber-400 dark:border-amber-900">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-            Pausado
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-amber-500/10 text-amber-400 border border-amber-500/30 font-mono">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+            PAUSADO
           </span>
         );
       case 'error':
         return (
-          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-950/40 dark:text-rose-400 dark:border-rose-900">
-            <AlertCircle size={12} />
-            Erro
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-rose-500/10 text-rose-400 border border-rose-500/30 font-mono">
+            <AlertCircle size={10} />
+            ERRO
           </span>
         );
       default:
         return (
-          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-semibold bg-slate-50 text-slate-600 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700">
-            <CheckCircle2 size={12} />
-            Ativo
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-mono">
+            <CheckCircle2 size={10} />
+            CONECTADO
           </span>
         );
     }
@@ -50,31 +50,34 @@ export const AgentCard: React.FC<AgentCardProps> = ({ id, agent, onConfigure }) 
     return `${mins}m ${remainSecs}s`;
   };
 
+  const isRunning = agent.status === 'running';
+
   return (
     <motion.div
       id={id}
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      className={`p-5 rounded-xl border bg-white dark:bg-slate-900 transition-all ${
-        agent.status === 'running'
-          ? 'border-emerald-500 shadow-sm shadow-emerald-100/50 dark:shadow-emerald-950/10'
-          : 'border-slate-100 dark:border-slate-800'
+      whileHover={{ y: -3, scale: 1.01 }}
+      className={`relative p-5 rounded-2xl border bg-[#06060c] transition-all group overflow-hidden ${
+        isRunning
+          ? 'border-emerald-500/60 shadow-md shadow-emerald-500/5'
+          : 'border-[#161c33] hover:border-emerald-500/60 shadow-sm'
       }`}
     >
-      <div className="flex items-start justify-between mb-3">
+      <div className="flex items-start justify-between mb-3 relative z-10">
         <div className="flex items-center gap-3">
-          <div className={`p-2.5 rounded-lg ${
-            agent.status === 'running' 
-              ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-400' 
-              : 'bg-slate-50 text-slate-500 dark:bg-slate-800 dark:text-slate-400'
+          <div className={`p-2.5 rounded-xl border transition-all ${
+            isRunning 
+              ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-sm' 
+              : 'bg-[#0b0b14] text-emerald-400 border-[#1c223a]'
           }`}>
-            <Cpu size={18} className={agent.status === 'running' ? 'animate-spin' : ''} />
+            <Cpu size={18} className={isRunning ? 'animate-spin' : ''} />
           </div>
           <div>
-            <h4 className="font-semibold text-slate-900 dark:text-white text-sm">
+            <h4 className="font-extrabold text-white text-sm tracking-tight transition-colors">
               {agent.name}
             </h4>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
+            <p className="text-[10px] text-slate-500 font-mono uppercase tracking-widest">
               {agent.role}
             </p>
           </div>
@@ -82,61 +85,63 @@ export const AgentCard: React.FC<AgentCardProps> = ({ id, agent, onConfigure }) 
         {getStatusBadge()}
       </div>
 
-      <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 line-clamp-2 h-8">
+      <p className="text-xs text-slate-400 mb-4 line-clamp-2 h-8 leading-relaxed font-sans relative z-10">
         {agent.description}
       </p>
 
       {agent.currentTask && (
-        <div className="mb-4 p-2.5 rounded-lg bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-100/50 dark:border-emerald-900/30">
-          <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-400 mb-0.5">
-            Trabalho Atual
+        <div className="mb-4 p-2.5 rounded-xl bg-[#030307]/80 border border-[#1c223a] relative z-10 overflow-hidden">
+          <div className="absolute top-0 left-0 w-1 h-full bg-emerald-500" />
+          <span className="block text-[9px] font-bold uppercase tracking-wider text-emerald-400 mb-0.5 font-mono">
+            // PROCESSO CORRENTE
           </span>
-          <span className="text-xs text-emerald-950 dark:text-emerald-200 line-clamp-1">
+          <span className="text-xs text-slate-300 line-clamp-1 font-mono">
             {agent.currentTask}
           </span>
         </div>
       )}
 
-      <div className="space-y-3 pt-3 border-t border-slate-50 dark:border-slate-800 text-xs">
+      <div className="space-y-3 pt-3 border-t border-[#121625] text-xs relative z-10 font-mono">
         {/* Efficiency */}
         <div>
-          <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 mb-1">
-            <span className="flex items-center gap-1">
-              <Zap size={12} /> Eficiência do Agente
+          <div className="flex items-center justify-between text-slate-400 mb-1">
+            <span className="flex items-center gap-1 text-[11px] font-bold">
+              <Zap size={12} className="text-emerald-400" /> EFICIÊNCIA DO PROCESSO
             </span>
-            <span className="font-semibold text-slate-800 dark:text-slate-200">{agent.efficiency}%</span>
+            <span className="font-bold text-emerald-400">{agent.efficiency}%</span>
           </div>
-          <div className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+          <div className="w-full h-1 bg-[#121625] rounded-full overflow-hidden">
             <div
-              className="h-full bg-indigo-500 rounded-full transition-all duration-500"
+              className={`h-full rounded-full transition-all duration-500 ${isRunning ? 'bg-emerald-500' : 'bg-emerald-500'}`}
               style={{ width: `${agent.efficiency}%` }}
             />
           </div>
         </div>
 
         {/* Total stats */}
-        <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 pt-1">
+        <div className="flex items-center justify-between text-slate-400 pt-1 text-[11px]">
           <span className="flex items-center gap-1">
-            <Clock size={12} /> Tempo de Execução
+            <Clock size={12} className="text-emerald-400" /> TEMPO OPERACIONAL
           </span>
-          <span className="font-medium text-slate-800 dark:text-slate-200">
+          <span className="font-semibold text-slate-200">
             {formatTime(agent.executionTime)}
           </span>
         </div>
 
         {/* Change efficiency speed slider */}
-        <div className="pt-2 flex items-center justify-between gap-2">
-          <span className="text-[10px] text-slate-400 dark:text-slate-500">Ajustar Eficiência:</span>
+        <div className="pt-2 flex items-center justify-between gap-2 border-t border-[#121625]">
+          <span className="text-[9px] text-slate-500 uppercase tracking-wider">Modulação de Clock:</span>
           <input
             type="range"
             min="50"
             max="100"
             value={agent.efficiency}
             onChange={(e) => onConfigure(agent.id, parseInt(e.target.value))}
-            className="w-24 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-500 dark:bg-slate-700"
+            className="w-24 h-1 bg-[#121625] rounded-lg appearance-none cursor-pointer accent-emerald-500"
           />
         </div>
       </div>
     </motion.div>
   );
 };
+

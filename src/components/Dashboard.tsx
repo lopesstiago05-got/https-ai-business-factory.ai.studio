@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { SystemState, AgentInfo, Task, DigitalProduct, SystemMetrics } from '../types';
 import { MetricCard } from './MetricCard';
 import { AgentCard } from './AgentCard';
@@ -30,6 +30,7 @@ import { SalesChannelPanel } from './SalesChannelPanel';
 import { EvolutionPanel } from './EvolutionPanel';
 import { GrowthPanel } from './GrowthPanel';
 import { GlobalExpansionPanel } from './GlobalExpansionPanel';
+import { ReadyForMarketPipeline } from './ReadyForMarketPipeline';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Play, 
@@ -73,14 +74,82 @@ import {
   Lock,
   Unlock,
   Key,
-  RefreshCw
+  RefreshCw,
+  ArrowRight,
+  Clock
 } from 'lucide-react';
 
 export const Dashboard: React.FC = () => {
   const [state, setState] = useState<SystemState | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'overview' | 'queue' | 'inventory' | 'lab' | 'infra' | 'ceo' | 'research' | 'market-analyst' | 'product-lab' | 'writer-studio' | 'design-studio' | 'marketing-center' | 'publisher-center' | 'finance-center' | 'supervisor' | 'repair' | 'kernel' | 'integration' | 'integration-center' | 'connector-center' | 'commercial' | 'launch-center' | 'customer-success' | 'marketplace' | 'workspace' | 'enterprise' | 'product-factory' | 'sales-channels' | 'evolution' | 'growth' | 'global_expansion'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'queue' | 'inventory' | 'lab' | 'infra' | 'ceo' | 'research' | 'market-analyst' | 'product-lab' | 'writer-studio' | 'design-studio' | 'marketing-center' | 'publisher-center' | 'finance-center' | 'supervisor' | 'repair' | 'kernel' | 'integration' | 'integration-center' | 'connector-center' | 'commercial' | 'launch-center' | 'customer-success' | 'marketplace' | 'workspace' | 'enterprise' | 'product-factory' | 'sales-channels' | 'evolution' | 'growth' | 'global_expansion' | 'ready-for-market'>('overview');
   const [isDark, setIsDark] = useState<boolean>(true);
+  const [sidebarSearch, setSidebarSearch] = useState<string>('');
+
+  const navigationCategories = [
+    {
+      title: 'Diretoria & Planejamento',
+      items: [
+        { id: 'overview', label: 'Painel Geral', icon: LayoutDashboard },
+        { id: 'ceo', label: 'Sala do CEO', icon: Sparkles, iconColor: 'text-amber-500' },
+        { id: 'queue', label: 'Fila de Tarefas & Logs', icon: ClipboardList },
+        { id: 'supervisor', label: 'Supervisor COO', icon: Shield, iconColor: 'text-indigo-500' },
+      ]
+    },
+    {
+      title: 'Pipeline IA Criativo',
+      items: [
+        { id: 'research', label: 'Centro de Pesquisa', icon: Search, iconColor: 'text-indigo-400' },
+        { id: 'market-analyst', label: 'Inteligência de Mercado', icon: TrendingUp, iconColor: 'text-violet-400' },
+        { id: 'product-lab', label: 'Laboratório de Produtos', icon: BookOpen, iconColor: 'text-emerald-500' },
+        { id: 'writer-studio', label: 'Estúdio de Conteúdo', icon: PenTool, iconColor: 'text-indigo-500' },
+        { id: 'design-studio', label: 'Estúdio de Design', icon: Palette, iconColor: 'text-indigo-500' },
+        { id: 'product-factory', label: 'AI Product Factory', icon: Cpu, iconColor: 'text-indigo-400' },
+        { id: 'inventory', label: 'Entrega de Trabalho', icon: CheckSquare, iconColor: 'text-emerald-500' },
+        { id: 'ready-for-market', label: "Pipeline 'Ready for Market'", icon: Rocket, iconColor: 'text-indigo-400' },
+      ]
+    },
+    {
+      title: 'Marketing & Canais',
+      items: [
+        { id: 'marketing-center', label: 'Centro de Marketing', icon: Megaphone, iconColor: 'text-emerald-500' },
+        { id: 'publisher-center', label: 'Centro de Publicação', icon: Globe, iconColor: 'text-emerald-500' },
+        { id: 'commercial', label: 'Centro Comercial', icon: ShoppingBag, iconColor: 'text-rose-500' },
+        { id: 'sales-channels', label: 'Canais de Vendas', icon: Zap, iconColor: 'text-indigo-500' },
+        { id: 'launch-center', label: 'Diretor de Lançamentos', icon: Rocket, iconColor: 'text-indigo-400' },
+        { id: 'customer-success', label: 'Sucesso do Cliente', icon: HeartHandshake, iconColor: 'text-pink-500' },
+      ]
+    },
+    {
+      title: 'Financeiro & SaaS',
+      items: [
+        { id: 'finance-center', label: 'Centro Financeiro', icon: DollarSign, iconColor: 'text-emerald-500' },
+        { id: 'workspace', label: 'Meu Workspace & SaaS', icon: Shield, iconColor: 'text-indigo-400' },
+        { id: 'marketplace', label: 'Marketplace IA', icon: ShoppingBag, iconColor: 'text-indigo-500' },
+        { id: 'enterprise', label: 'Enterprise Ops Center', icon: Activity, iconColor: 'text-indigo-400' },
+      ]
+    },
+    {
+      title: 'Evolução & Crescimento',
+      items: [
+        { id: 'evolution', label: 'Evolução de Agentes IA', icon: Cpu, iconColor: 'text-indigo-500' },
+        { id: 'growth', label: 'Crescimento Autônomo', icon: TrendingUp, iconColor: 'text-indigo-500' },
+        { id: 'global_expansion', label: 'Expansão Global & L10n', icon: Globe, iconColor: 'text-pink-500' },
+      ]
+    },
+    {
+      title: 'Infraestrutura & DevOps',
+      items: [
+        { id: 'infra', label: 'Auditoria de Infraestrutura', icon: Server },
+        { id: 'integration-center', label: 'Central Real (Vault)', icon: Shield, iconColor: 'text-emerald-400' },
+        { id: 'connector-center', label: 'Central de Marketplaces', icon: Database, iconColor: 'text-indigo-400' },
+        { id: 'kernel', label: 'Kernel Central', icon: Cpu, iconColor: 'text-indigo-400' },
+        { id: 'lab', label: 'Laboratório de Agentes', icon: Wrench },
+        { id: 'repair', label: 'Centro de Reparos (SRE)', icon: Wrench, iconColor: 'text-rose-500' },
+        { id: 'integration', label: 'Central de Webhooks & APIs', icon: Globe, iconColor: 'text-sky-500' },
+      ]
+    }
+  ];
   
   // Modals state
   const [showProductModal, setShowProductModal] = useState(false);
@@ -104,6 +173,8 @@ export const Dashboard: React.FC = () => {
   const [testResults, setTestResults] = useState<any>(null);
   const [isTesting, setIsTesting] = useState<boolean>(false);
   const [apiDocs, setApiDocs] = useState<any>(null);
+  const [latencyData, setLatencyData] = useState<any>(null);
+  const [isMeasuringLatency, setIsMeasuringLatency] = useState<boolean>(false);
 
   // Estados para Conexões Rápidas de Marketplaces
   const [connectors, setConnectors] = useState<any[]>([]);
@@ -112,15 +183,26 @@ export const Dashboard: React.FC = () => {
   const [customTokenProvider, setCustomTokenProvider] = useState<string | null>(null);
   const [customToken, setCustomToken] = useState<string>('');
 
+  // Rastreamento de falhas consecutivas para resiliência durante restarts
+  const consecutiveConnectorFailures = useRef(0);
+  const consecutiveStateFailures = useRef(0);
+
   const fetchConnectors = async () => {
     try {
       const res = await fetch('/api/connectors');
       if (res.ok) {
         const data = await res.json();
         setConnectors(data);
+        consecutiveConnectorFailures.current = 0;
+      } else {
+        throw new Error('Servidor retornou erro.');
       }
     } catch (err) {
-      console.error('Erro ao carregar status dos conectores:', err);
+      consecutiveConnectorFailures.current += 1;
+      // Só exibe no log após várias falhas consecutivas para evitar poluição no restart
+      if (consecutiveConnectorFailures.current >= 4) {
+        console.error('Erro persistente ao carregar status dos conectores:', err);
+      }
     }
   };
 
@@ -173,6 +255,7 @@ export const Dashboard: React.FC = () => {
     fetchConnectors();
     ensureAuthenticated();
     fetchApiDocs();
+    measureSystemLatency();
     const interval = setInterval(() => {
       fetchState();
       fetchConnectors();
@@ -257,6 +340,21 @@ export const Dashboard: React.FC = () => {
     }
   };
 
+  const measureSystemLatency = async () => {
+    setIsMeasuringLatency(true);
+    try {
+      const res = await fetch('/api/infra/latency');
+      if (res.ok) {
+        const data = await res.json();
+        setLatencyData(data);
+      }
+    } catch (err) {
+      console.error('Erro ao medir latência:', err);
+    } finally {
+      setIsMeasuringLatency(false);
+    }
+  };
+
   // Executa os testes automatizados da infraestrutura sob demanda
   const runInfrastructureSuite = async () => {
     setIsTesting(true);
@@ -286,9 +384,14 @@ export const Dashboard: React.FC = () => {
       if (!res.ok) throw new Error('Erro ao conectar ao servidor do backend.');
       const data = await res.json();
       setState(data);
+      consecutiveStateFailures.current = 0;
       setError(null);
     } catch (err: any) {
-      setError(err?.message || 'Erro de rede.');
+      consecutiveStateFailures.current += 1;
+      // Só define erro na UI se falhar consecutivamente por mais de 3 vezes (cerca de 5 segundos)
+      if (consecutiveStateFailures.current >= 4) {
+        setError(err?.message || 'Erro de rede.');
+      }
     }
   };
 
@@ -410,70 +513,152 @@ export const Dashboard: React.FC = () => {
   const { metrics, agents, tasks, products, isFactoryRunning } = state;
 
   return (
-    <div className={`min-h-screen font-sans ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'} transition-colors duration-300`}>
-      {/* Top Professional Navigation */}
-      <nav className={`border-b sticky top-0 z-40 ${isDark ? 'bg-slate-900/85 border-slate-800' : 'bg-white/85 border-slate-200'} backdrop-blur-md transition-colors`}>
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="p-2 bg-gradient-to-tr from-indigo-600 to-violet-500 rounded-lg text-white shadow-md shadow-indigo-500/20">
-              <Cpu size={20} className="animate-pulse" />
+    <div className="min-h-screen font-sans bg-[#020204] text-slate-200 flex relative overflow-hidden cyber-grid">
+      
+      {/* SIDEBAR LATERAL CATEGORIZADA */}
+      <aside className="w-80 shrink-0 border-r border-[#121625] flex flex-col h-screen sticky top-0 z-30 bg-[#040408]">
+        {/* Logo / Título */}
+        <div className="p-6 border-b border-[#121625] flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-gradient-to-tr from-indigo-600 to-cyan-500 rounded-xl text-white shadow-md shadow-indigo-500/15">
+              <Cpu size={18} className="animate-spin" style={{ animationDuration: '10s' }} />
             </div>
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-indigo-500 block leading-none">
-                AI Factory
+              <span className="text-[9px] font-black uppercase tracking-widest text-indigo-400 block leading-none font-mono">
+                SaaS Corporativo
               </span>
-              <h1 className="text-base font-black tracking-tight leading-none mt-1">
+              <h1 className="text-sm font-black tracking-tight leading-none mt-1.5 text-white font-sans">
                 AI Business Factory
               </h1>
             </div>
           </div>
+        </div>
+
+        {/* Campo de Filtro de Abas */}
+        <div className="p-4 border-b border-[#121625]/80">
+          <div className="relative">
+            <Search className="absolute left-3 top-2.5 text-slate-500" size={14} />
+            <input
+              type="text"
+              placeholder="Buscar área / agente..."
+              value={sidebarSearch}
+              onChange={(e) => setSidebarSearch(e.target.value)}
+              className="w-full text-xs pl-8 pr-3 py-2 rounded-xl border border-[#161c32] bg-[#07070e] focus:border-indigo-500 focus:outline-none text-white placeholder:text-slate-600"
+            />
+          </div>
+        </div>
+
+        {/* Lista Categorizada de Abas com Rolagem Suave */}
+        <div className="flex-1 overflow-y-auto px-4 py-4 space-y-5 scrollbar-thin">
+          {navigationCategories.map((category, catIdx) => {
+            // Filtrar itens da categoria de acordo com a pesquisa do usuário
+            const filteredItems = category.items.filter(item => 
+              item.label.toLowerCase().includes(sidebarSearch.toLowerCase())
+            );
+
+            if (filteredItems.length === 0) return null;
+
+            return (
+              <div key={catIdx} className="space-y-1.5">
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-3 block font-mono">
+                  // {category.title}
+                </span>
+                <div className="space-y-0.5">
+                  {filteredItems.map((item) => {
+                    const Icon = item.icon;
+                    const isActive = activeTab === item.id;
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() => setActiveTab(item.id as any)}
+                        className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center justify-between transition-all font-sans ${
+                          isActive
+                            ? 'bg-indigo-950/40 text-indigo-400 border-l-2 border-indigo-500 shadow-[inset_0_0_8px_rgba(99,102,241,0.08)]'
+                            : 'text-slate-400 hover:bg-[#0a0a14] hover:text-slate-200'
+                        }`}
+                      >
+                        <span className="flex items-center gap-2.5">
+                          <Icon size={14} className={isActive ? 'text-indigo-400' : item.iconColor || 'text-slate-500'} />
+                          <span>{item.label}</span>
+                        </span>
+                        {item.id === 'ceo' && (
+                          <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                        )}
+                        {item.id === 'queue' && tasks.some(t => t.status === 'running') && (
+                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Rodapé da Sidebar: Controle da Fábrica & Resiliência */}
+        <div className="p-4 border-t border-[#121625] space-y-3 bg-[#030306]">
+          <div className="flex gap-1.5">
+            {isFactoryRunning ? (
+              <button
+                onClick={() => handleControlFactory(false)}
+                className="flex-1 py-2.5 rounded-xl text-xs font-bold bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 text-amber-400 flex items-center justify-center gap-1.5 transition-all cursor-pointer font-mono"
+              >
+                <Pause size={12} fill="currentColor" /> PAUSAR
+              </button>
+            ) : (
+              <button
+                onClick={() => handleControlFactory(true)}
+                className="flex-1 py-2.5 rounded-xl text-xs font-bold bg-emerald-500/10 border border-emerald-500/30 hover:bg-emerald-500/20 text-emerald-400 flex items-center justify-center gap-1.5 transition-all cursor-pointer font-mono"
+              >
+                <Play size={12} fill="currentColor" /> INICIAR
+              </button>
+            )}
+            <button
+              onClick={handleResetFactory}
+              title="Limpar Histórico"
+              className="p-2.5 rounded-xl border border-[#161c32] bg-[#07070e] text-slate-400 hover:text-white hover:border-slate-500 transition-all cursor-pointer"
+            >
+              <RotateCcw size={12} />
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      {/* ÁREA DE CONTEÚDO PRINCIPAL (À DIREITA DA SIDEBAR) */}
+      <div className="flex-1 flex flex-col h-screen overflow-y-auto transition-colors bg-[#020204]">
+        
+        {/* CABEÇALHO DA SEÇÃO */}
+        <header className="border-b border-[#121625] sticky top-0 z-20 backdrop-blur-md bg-[#020204]/80 px-8 py-4.5 flex items-center justify-between text-white">
+          <div>
+            <span className="text-[9px] uppercase font-bold tracking-widest text-indigo-400 font-mono">
+              // Fábrica de Negócios Digitais
+            </span>
+            <h2 className="text-lg font-black tracking-tight mt-0.5 font-sans">
+              {navigationCategories.flatMap(c => c.items).find(i => i.id === activeTab)?.label || 'Painel de Controle'}
+            </h2>
+          </div>
 
           <div className="flex items-center gap-4">
-            {/* Control Panel buttons */}
-            <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-850 p-1 rounded-xl">
-              {isFactoryRunning ? (
-                <button
-                  onClick={() => handleControlFactory(false)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-white shadow"
-                >
-                  <Pause size={12} fill="currentColor" /> Pausar
-                </button>
-              ) : (
-                <button
-                  onClick={() => handleControlFactory(true)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white shadow transition-all"
-                >
-                  <Play size={12} fill="currentColor" /> Iniciar
-                </button>
-              )}
-              <button
-                onClick={handleResetFactory}
-                title="Limpar Histórico"
-                className="p-1.5 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-white transition-colors"
-              >
-                <RotateCcw size={14} />
-              </button>
+            {/* Indicador de Status Geral */}
+            <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#161c32] bg-[#07070f] transition-all">
+              <span className={`h-2 w-2 rounded-full ${isFactoryRunning ? 'bg-emerald-500 animate-pulse' : 'bg-slate-500'}`} />
+              <span className="text-[10px] font-bold text-slate-400 uppercase font-mono">
+                {isFactoryRunning ? 'Fábrica Ativa' : 'Fábrica Pausada'}
+              </span>
             </div>
 
             <button
               onClick={() => setShowProductModal(true)}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/15 transition-all"
+              className="flex items-center gap-1.5 px-4.5 py-2 rounded-xl text-xs font-bold bg-indigo-600/10 border border-indigo-500/30 hover:bg-indigo-500/20 text-indigo-400 shadow-md shadow-indigo-600/5 hover:text-white active:scale-98 transition-all cursor-pointer font-mono"
             >
-              <Plus size={14} /> Novo Lote
-            </button>
-
-            <button
-              onClick={() => setIsDark(!isDark)}
-              className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition-all"
-            >
-              {isDark ? <Sun size={15} /> : <Moon size={15} />}
+              <Plus size={14} /> NOVO LOTE
             </button>
           </div>
-        </div>
-      </nav>
+        </header>
 
-      {/* Main Content Stage */}
-      <main className="max-w-7xl mx-auto px-6 py-8 space-y-8">
+        {/* CONTAINER DO ESTÁGIO DE CONTEÚDO */}
+        <div className="flex-1 px-8 py-8 space-y-6 max-w-7xl w-full mx-auto pb-24">
         
         {/* Error warning banner */}
         {error && (
@@ -490,42 +675,42 @@ export const Dashboard: React.FC = () => {
             title="Agentes Ativos"
             value={metrics.activeAgentsCount}
             icon={<Users size={16} />}
-            color="bg-slate-800"
+            color={isDark ? 'bg-indigo-500/10 text-indigo-400' : 'bg-indigo-50 text-indigo-600'}
           />
           <MetricCard
             id="metric-running"
             title="Agentes Rodando"
             value={metrics.runningAgentsCount}
             icon={<Cpu size={16} />}
-            color={metrics.runningAgentsCount > 0 ? "bg-emerald-500 animate-pulse" : "bg-slate-700"}
+            color={metrics.runningAgentsCount > 0 ? 'bg-emerald-500/20 text-emerald-500 animate-pulse' : (isDark ? 'bg-slate-800/80 text-slate-400' : 'bg-slate-100 text-slate-500')}
           />
           <MetricCard
             id="metric-created"
             title="Produtos Criados"
             value={metrics.productsCreatedCount}
             icon={<Package size={16} />}
-            color="bg-blue-600"
+            color={isDark ? 'bg-sky-500/10 text-sky-400' : 'bg-sky-50 text-sky-600'}
           />
           <MetricCard
             id="metric-published"
             title="Produtos Publicados"
             value={metrics.productsPublishedCount}
             icon={<CheckSquare size={16} />}
-            color="bg-emerald-600"
+            color={isDark ? 'bg-teal-500/10 text-teal-400' : 'bg-teal-50 text-teal-600'}
           />
           <MetricCard
             id="metric-revenue"
             title="Receita Projetada"
             value={metrics.totalRevenue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
             icon={<TrendingUp size={16} />}
-            color="bg-indigo-600"
+            color={isDark ? 'bg-emerald-500/10 text-emerald-400' : 'bg-emerald-50 text-emerald-600'}
           />
           <MetricCard
             id="metric-profit"
             title="Lucro Estimado"
             value={metrics.totalProfit.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
             icon={<DollarSign size={16} />}
-            color="bg-violet-600"
+            color={isDark ? 'bg-violet-500/10 text-violet-400' : 'bg-violet-50 text-violet-600'}
           />
         </div>
 
@@ -552,8 +737,8 @@ export const Dashboard: React.FC = () => {
           </div>
         )}
 
-        {/* Primary Workspace Navigation Tabs */}
-        <div className="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-px">
+        {/* Primary Workspace Navigation Tabs (Hidden - Replaced by Elegant Sidebar) */}
+        <div className="hidden">
           <button
             onClick={() => setActiveTab('overview')}
             className={`px-5 py-3 border-b-2 font-bold text-xs flex items-center gap-2 transition-all ${
@@ -612,7 +797,7 @@ export const Dashboard: React.FC = () => {
                 : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-300'
             }`}
           >
-            <FolderLock size={14} /> Inventário de Produtos
+            <CheckSquare size={14} className="text-emerald-500 animate-pulse" /> Entrega de Trabalho (Prontos)
           </button>
           <button
             onClick={() => setActiveTab('product-lab')}
@@ -1093,6 +1278,64 @@ export const Dashboard: React.FC = () => {
                   </div>
                 </div>
 
+                {/* Ready for Market Pipeline Summary Widget */}
+                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 space-y-4 shadow-sm">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="font-extrabold text-sm tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+                        <Rocket className="text-indigo-500" size={16} /> Estágio Ready for Market
+                      </h3>
+                      <p className="text-[11px] text-slate-400">Atração comercial e progresso dos ativos digitais concebidos.</p>
+                    </div>
+                    <button
+                      onClick={() => setActiveTab('ready-for-market')}
+                      className="px-3 py-1 bg-indigo-600/10 border border-indigo-500/20 hover:bg-indigo-600 hover:text-white text-indigo-500 dark:text-indigo-400 font-bold rounded-lg text-[10px] transition-all flex items-center gap-1 font-mono"
+                    >
+                      Ver Pipeline Completo <ArrowRight size={10} />
+                    </button>
+                  </div>
+
+                  {products.length === 0 ? (
+                    <div className="text-center py-4 bg-slate-50 dark:bg-slate-950/40 rounded-xl border border-slate-100 dark:border-slate-900/60">
+                      <p className="text-[11px] text-slate-500">Nenhum produto em esteira ativa. Use a Sala do CEO para criar o primeiro lote.</p>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      {[
+                        { 
+                          name: 'Rascunhos (Draft)', 
+                          count: products.filter(p => !p.marketStatus || p.marketStatus === 'draft').length,
+                          color: 'border-amber-500/10 text-amber-500 bg-amber-500/[0.02]',
+                          icon: Clock
+                        },
+                        { 
+                          name: 'Ativos Otimizados', 
+                          count: products.filter(p => p.marketStatus === 'optimized').length,
+                          color: 'border-indigo-500/10 text-indigo-400 bg-indigo-500/[0.02]',
+                          icon: Sparkles
+                        },
+                        { 
+                          name: 'Prontos para Venda', 
+                          count: products.filter(p => p.marketStatus === 'ready').length,
+                          color: 'border-emerald-500/10 text-emerald-400 bg-emerald-500/[0.02]',
+                          icon: CheckCircle
+                        }
+                      ].map((card, idx) => {
+                        const CardIcon = card.icon;
+                        return (
+                          <div key={idx} className={`border rounded-xl p-3 flex items-center justify-between ${card.color}`}>
+                            <div className="space-y-1">
+                              <span className="block text-[9px] text-slate-400 font-bold uppercase font-mono">{card.name}</span>
+                              <span className="block font-mono font-black text-sm text-slate-900 dark:text-white">{card.count}</span>
+                            </div>
+                            <CardIcon size={16} className="opacity-70 shrink-0" />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+
                 {/* Agents Grid inside Overview */}
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
@@ -1177,7 +1420,7 @@ export const Dashboard: React.FC = () => {
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2 }}
               >
-                <ProductViewer id="factory-product-viewer" products={products} />
+                <ProductViewer id="factory-product-viewer" products={products} onRefreshState={fetchState} />
               </motion.div>
             )}
 
@@ -1320,41 +1563,81 @@ export const Dashboard: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                  {/* Bloco do Banco de Dados */}
-                  <div className="p-5 rounded-2xl border border-slate-150 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-4 shadow-sm">
-                    <div className="flex items-center gap-2.5">
-                      <div className="p-2 bg-indigo-50 dark:bg-indigo-950/40 rounded-xl text-indigo-500">
-                        <Database size={18} />
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-sm text-slate-900 dark:text-white">Persistência Híbrida</h4>
-                        <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold">SQL & NoSQL Fallback</span>
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-3 text-xs">
-                      <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-850 space-y-1">
-                        <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Status PostgreSQL:</span>
-                        <div className="flex items-center gap-1.5 font-bold">
-                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                          <span className="text-emerald-500">Ativo / Habilitado</span>
+                  {/* Bloco de Latência e Persistência Híbrida */}
+                  <div className="p-5 rounded-2xl border border-slate-150 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-4 shadow-sm flex flex-col justify-between">
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2.5">
+                          <div className="p-2 bg-indigo-50 dark:bg-indigo-950/40 rounded-xl text-indigo-500">
+                            <Activity size={18} />
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-sm text-slate-900 dark:text-white">Latência & Saúde</h4>
+                            <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Persistência Híbrida</span>
+                          </div>
                         </div>
-                        <span className="text-[10px] text-slate-500 font-mono block mt-2 break-all">
-                          url: cloudsql-connector:// factory-db
-                        </span>
+                        {latencyData && (
+                          <span className={`px-2 py-0.5 rounded text-[9px] font-extrabold uppercase ${
+                            latencyData.status === 'excellent' ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400' :
+                            latencyData.status === 'good' ? 'bg-blue-100 text-blue-600 dark:bg-blue-950 dark:text-blue-400' :
+                            'bg-amber-100 text-amber-600 dark:bg-amber-950 dark:text-amber-400'
+                          }`}>
+                            {latencyData.status === 'excellent' ? 'Excelente' : latencyData.status === 'good' ? 'Bom' : 'Atenção'}
+                          </span>
+                        )}
                       </div>
 
-                      <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-850 space-y-1">
-                        <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Mecanismo Fallback local:</span>
-                        <div className="flex items-center gap-1.5 font-bold">
-                          <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                          <span className="text-blue-500">Habilitado & Sincronizado</span>
+                      <div className="space-y-3 text-xs">
+                        {/* Latência de Rede/Express */}
+                        <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-850 space-y-1">
+                          <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Latência do Servidor (HTTP):</span>
+                          <div className="flex items-center justify-between">
+                            <span className="font-mono text-base font-extrabold text-slate-850 dark:text-slate-100">
+                              {isMeasuringLatency ? 'Medindo...' : latencyData ? `${latencyData.latencyMs} ms` : 'Clique em testar'}
+                            </span>
+                            <span className="text-[10px] text-slate-400 font-medium">tempo de resposta</span>
+                          </div>
                         </div>
-                        <p className="text-[10px] text-slate-500 leading-normal mt-1.5">
-                          Sempre que o banco Cloud SQL PostgreSQL não estiver acessível, a fábrica autônoma utiliza automaticamente persistência local JSON para assegurar 100% de estabilidade operacional.
-                        </p>
+
+                        {/* Latência de Banco de Dados */}
+                        <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-850 space-y-1">
+                          <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Latência da Camada de Dados:</span>
+                          <div className="flex items-center justify-between">
+                            <span className="font-mono text-base font-extrabold text-slate-850 dark:text-slate-100">
+                              {isMeasuringLatency ? 'Medindo...' : latencyData ? `${latencyData.dbLatencyMs} ms` : 'Clique em testar'}
+                            </span>
+                            <span className="text-[10px] text-slate-400 font-medium">tempo de consulta</span>
+                          </div>
+                        </div>
+
+                        {/* Driver Ativo */}
+                        <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-850 space-y-2">
+                          <div>
+                            <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Motor de Banco Ativo:</span>
+                            <div className="flex items-center gap-1.5 font-bold mt-1">
+                              <span className={`w-2 h-2 rounded-full ${latencyData?.database?.disablePGPermanently ? 'bg-amber-500' : 'bg-emerald-500 animate-pulse'}`}></span>
+                              <span className={latencyData?.database?.disablePGPermanently ? 'text-amber-500' : 'text-emerald-500'}>
+                                {latencyData?.database?.activeDriver || 'Sincronizando...'}
+                              </span>
+                            </div>
+                          </div>
+                          {latencyData?.database?.disablePGPermanently && (
+                            <p className="text-[9px] text-amber-600 dark:text-amber-400/90 leading-tight">
+                              PostgreSQL desativado preventivamente (Unix socket ENOENT). Fallback local ativo para latência zero.
+                            </p>
+                          )}
+                        </div>
                       </div>
                     </div>
+
+                    <button
+                      onClick={measureSystemLatency}
+                      disabled={isMeasuringLatency}
+                      className="w-full mt-2 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-700 text-white text-xs font-bold shadow-lg transition-all flex items-center justify-center gap-2"
+                    >
+                      <RefreshCw size={14} className={isMeasuringLatency ? "animate-spin" : ""} />
+                      {isMeasuringLatency ? 'Medindo Latência...' : 'Testar Latência Real'}
+                    </button>
                   </div>
 
                   {/* Bloco da Autenticação e Segurança */}
@@ -1704,9 +1987,26 @@ export const Dashboard: React.FC = () => {
                 <GlobalExpansionPanel />
               </motion.div>
             )}
+
+            {activeTab === 'ready-for-market' && (
+              <motion.div
+                key="ready-for-market"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ReadyForMarketPipeline 
+                  products={products} 
+                  onRefreshState={fetchState} 
+                  setActiveTab={setActiveTab} 
+                />
+              </motion.div>
+            )}
           </AnimatePresence>
         </div>
-      </main>
+      </div>
+    </div>
 
       {/* POPUP MODAL: NEW DIGITAL PRODUCT DEVELOPMENT */}
       {showProductModal && (

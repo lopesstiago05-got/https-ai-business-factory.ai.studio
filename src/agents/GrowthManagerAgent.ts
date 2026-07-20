@@ -3,6 +3,7 @@ import { Repository } from '../db/repository.ts';
 import { AgentInfo } from '../types.ts';
 import { logInfo, logWarn, logError } from '../logs/logger.ts';
 import { GrowthEngine } from '../growth/growthEngine.ts';
+import { ModelManager } from '../kernel/ModelManager.ts';
 
 export class GrowthManagerAgent {
   public static readonly ID = 'growth_manager_agent';
@@ -92,7 +93,7 @@ export class GrowthManagerAgent {
 
     try {
       const ai = this.getAI();
-      const response = await ai.models.generateContent({
+      const response = await ModelManager.generateContent('growth_manager_agent', ai, {
         model: 'gemini-3.5-flash',
         contents: `Você é o Growth Manager Agent, o estrategista de escala global do negócio.
         Analise os indicadores de desempenho e as oportunidades detectadas a seguir:

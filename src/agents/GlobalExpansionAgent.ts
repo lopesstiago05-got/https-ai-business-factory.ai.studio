@@ -5,6 +5,7 @@ import { logInfo, logWarn, logError } from '../logs/logger.ts';
 import { GlobalizationEngine } from '../global/globalizationEngine.ts';
 import { InternationalResearch } from '../global/internationalResearch.ts';
 import { InternationalMarketing } from '../global/internationalMarketing.ts';
+import { ModelManager } from '../kernel/ModelManager.ts';
 
 export class GlobalExpansionAgent {
   public static readonly ID = 'global_expansion_agent';
@@ -130,7 +131,7 @@ export class GlobalExpansionAgent {
 
       // 6. Constrói o relatório integrado final da expansão
       const ai = this.getAI();
-      const reportResponse = await ai.models.generateContent({
+      const reportResponse = await ModelManager.generateContent('global_expansion_agent', ai, {
         model: 'gemini-3.5-flash',
         contents: `Você é o Global Expansion Agent.
         Escreva um parecer executivo profissional em português avaliando o plano de internacionalização do infoproduto "${product.name}" para o mercado do país "${countryName}".

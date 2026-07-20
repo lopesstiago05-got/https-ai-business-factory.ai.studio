@@ -1,6 +1,7 @@
 import { GoogleGenAI } from '@google/genai';
 import { LanguageManager } from './languageManager.ts';
 import { logWarn } from '../logs/logger.ts';
+import { ModelManager } from '../kernel/ModelManager.ts';
 
 const DICTIONARY: Record<string, Record<string, string>> = {
   'pt-BR': {
@@ -183,7 +184,7 @@ export class TranslationEngine {
         httpOptions: { headers: { 'User-Agent': 'aistudio-build' } }
       });
 
-      const response = await ai.models.generateContent({
+      const response = await ModelManager.generateContent('translation_engine', ai, {
         model: 'gemini-3.5-flash',
         contents: `Você é um tradutor nativo de alta performance para produtos digitais e copys de marketing.
         Traduza o seguinte texto para o idioma "${targetLanguageName}". Preserve a formatação Markdown, marcas de pontuação e o tom persuasivo original.

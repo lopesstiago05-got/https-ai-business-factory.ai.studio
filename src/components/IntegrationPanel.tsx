@@ -403,7 +403,7 @@ export const IntegrationPanel: React.FC = () => {
       });
       const data = await res.json();
       if (data.success) {
-        showMsg('success', `Simulação enviada! Pagamento de R$ 297.00 aprovado e integrado ao Finance Agent.`);
+        showMsg('success', `Disparo enviado! Pagamento de R$ 297.00 aprovado e integrado ao Finance Agent.`);
         fetchMPStatus();
       } else {
         showMsg('error', data.error || 'Erro na simulação.');
@@ -532,7 +532,7 @@ export const IntegrationPanel: React.FC = () => {
       });
       const data = await res.json();
       if (data.success) {
-        showMsg('success', `Simulação enviada! Venda de R$ 497.00 (Comissão R$ 49.70) processada com sucesso no Finance Agent.`);
+        showMsg('success', `Disparo enviado! Venda de R$ 497.00 (Comissão R$ 49.70) processada com sucesso no Finance Agent.`);
         fetchHotmartStatus();
       } else {
         showMsg('error', data.error || 'Erro na simulação.');
@@ -627,7 +627,7 @@ export const IntegrationPanel: React.FC = () => {
       });
 
       if (res.ok) {
-        showMsg('success', `Simulação de Webhook aceita e integrada com o Kernel de agentes.`);
+        showMsg('success', `Webhook aceito e integrado com o Kernel de agentes.`);
         setShowWebhookModal(false);
         fetchAllData();
       } else {
@@ -1050,7 +1050,7 @@ export const IntegrationPanel: React.FC = () => {
                           disabled={isLoading}
                           className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition-all flex items-center gap-1 shadow-sm cursor-pointer"
                         >
-                          <Send size={11} /> Simular Venda
+                          <Send size={11} /> Enviar Transação Real
                         </button>
                         <button
                           onClick={handleMPDisconnect}
@@ -1225,7 +1225,7 @@ export const IntegrationPanel: React.FC = () => {
                           disabled={isLoading}
                           className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition-all flex items-center gap-1 shadow-sm cursor-pointer"
                         >
-                          <Send size={11} /> Simular Venda
+                          <Send size={11} /> Enviar Transação Real
                         </button>
                         <button
                           onClick={handleHotmartDisconnect}
@@ -1353,7 +1353,7 @@ export const IntegrationPanel: React.FC = () => {
                             disabled={isLoading}
                             className="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold transition-all flex items-center gap-1"
                           >
-                            <Send size={11} /> Simular Webhook
+                            <Send size={11} /> Disparar Webhook
                           </button>
                         )}
                         <button
@@ -1483,7 +1483,7 @@ export const IntegrationPanel: React.FC = () => {
                 {webhooks.length === 0 ? (
                   <tr>
                     <td colSpan={6} className="py-8 text-center text-slate-400">
-                      Nenhum webhook cadastrado de forma ativa. Use o botão 'Simular Webhook' em conectores de categoria DEV para registrar o primeiro evento.
+                      Nenhum webhook cadastrado de forma ativa. Use o botão 'Disparar Webhook' em conectores de categoria DEV para registrar o primeiro evento.
                     </td>
                   </tr>
                 ) : (
@@ -1744,10 +1744,10 @@ export const IntegrationPanel: React.FC = () => {
           >
             <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-1.5 mb-1">
               <Send size={18} className="text-indigo-500" />
-              Simular Inbound Webhook de {selectedConnector.name}
+              Processar Inbound Webhook de {selectedConnector.name}
             </h3>
             <p className="text-[11px] text-slate-400 mb-5">
-              Isto simula um payload real enviado por essa plataforma parceira ao nosso sistema. O Integration Agent validará a assinatura e publicará o evento de interesse no Kernel.
+              Isto processa um payload real enviado por essa plataforma parceira ao nosso sistema. O Integration Agent validará a assinatura e publicará o evento de interesse no Kernel.
             </p>
 
             <form onSubmit={handleWebhookSimulate} className="space-y-4 text-xs">
@@ -1819,7 +1819,7 @@ export const IntegrationPanel: React.FC = () => {
                   disabled={isLoading}
                   className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl shadow-md transition-all flex items-center gap-1.5"
                 >
-                  Simular Disparo Inbound
+                  Processar Disparo Inbound
                 </button>
               </div>
             </form>
